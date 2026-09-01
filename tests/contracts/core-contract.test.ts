@@ -42,7 +42,8 @@ describe("M0 CourseSpec contract", () => {
   it("has a contiguous, deterministic and idempotent migration ladder", async () => {
     const fixture = await loadFixture();
     const legacy = { ...fixture, courseSpecVersion: "0.1.0" };
-    expect(COURSE_SPEC_MIGRATIONS.get("0.1.0")?.to).toBe(COURSE_SPEC_VERSION);
+    expect(COURSE_SPEC_MIGRATIONS.get("0.1.0")?.to).toBe("0.2.0");
+    expect(COURSE_SPEC_MIGRATIONS.get("0.2.0")?.to).toBe(COURSE_SPEC_VERSION);
     const migrated = migrateCourseSpec(legacy);
     expect(migrated.courseSpecVersion).toBe(COURSE_SPEC_VERSION);
     expect(migrateCourseSpec(migrated)).toEqual(migrated);

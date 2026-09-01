@@ -9,16 +9,27 @@ type Migration = (input: Readonly<JsonObject>) => JsonObject;
 
 const fromV010toV020: Migration = (input) => {
   const result = structuredClone(input) as JsonObject;
-  if (result.courseSpecVersion === COURSE_SPEC_VERSION) return result;
+  if (result.courseSpecVersion === "0.2.0") return result;
   if (result.courseSpecVersion !== "0.1.0") {
     throw new MigrationError(`Expected CourseSpec 0.1.0, received '${String(result.courseSpecVersion)}'.`);
+  }
+  result.courseSpecVersion = "0.2.0";
+  return result;
+};
+
+const fromV020toV021: Migration = (input) => {
+  const result = structuredClone(input) as JsonObject;
+  if (result.courseSpecVersion === COURSE_SPEC_VERSION) return result;
+  if (result.courseSpecVersion !== "0.2.0") {
+    throw new MigrationError(`Expected CourseSpec 0.2.0, received '${String(result.courseSpecVersion)}'.`);
   }
   result.courseSpecVersion = COURSE_SPEC_VERSION;
   return result;
 };
 
 export const COURSE_SPEC_MIGRATIONS: ReadonlyMap<string, { to: string; migrate: Migration }> = new Map([
-  ["0.1.0", { to: COURSE_SPEC_VERSION, migrate: fromV010toV020 }]
+  ["0.1.0", { to: "0.2.0", migrate: fromV010toV020 }],
+  ["0.2.0", { to: COURSE_SPEC_VERSION, migrate: fromV020toV021 }]
 ]);
 
 export const migrateCourseSpec = (input: unknown): JsonObject => {

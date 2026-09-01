@@ -28,10 +28,46 @@ export interface AssetProbe {
 
 export interface TimingProbe {
   durationMs(audioAssetRef: string): number | null;
+  narrationTiming?(audioAssetRef: string): NarrationTimingProbeResult | null;
+}
+
+export interface NarrationTimingSegment {
+  text: string;
+  startMs: number;
+  endMs: number;
+}
+
+export interface NarrationTimingProbeResult {
+  audioDurationMs: number;
+  sentenceSegments: NarrationTimingSegment[];
+  characterSegments?: NarrationTimingSegment[];
+  method: "provider_aligned" | "independent_synthesis";
+}
+
+export type NarrationTimingQuality = "aligned" | "normalized" | "estimated";
+
+export interface NormalizedNarrationTiming {
+  audioDurationMs: number;
+  timingSourceDurationMs: number;
+  scaleFactor: number;
+  sentenceSegments: NarrationTimingSegment[];
+  characterSegments?: NarrationTimingSegment[];
+  rawTiming: NarrationTimingProbeResult | null;
+  method: "provider_aligned" | "duration_normalized_provider_timing" | "estimated_linear";
+  quality: NarrationTimingQuality;
+  requiresHumanAvSyncReview: boolean;
 }
 
 export interface ReviewDecisionSource {
   decisions(): readonly ReviewDecision[];
+}
+
+export interface BuildFingerprints {
+  presentationRendererFingerprint: string;
+  videoRendererFingerprint: string;
+  vocabularyFingerprint: string;
+  profileFingerprint: string;
+  compilerFingerprint: string;
 }
 
 export interface CompilerContext {
@@ -42,6 +78,7 @@ export interface CompilerContext {
   narrationStartOffsetMs: number;
   narrationTailPaddingMs: number;
   transitionMs: number;
+  buildFingerprints: BuildFingerprints;
 }
 
 export interface ResolvedAsset extends VisualRequirement {
@@ -57,6 +94,7 @@ export interface ResolvedNarration {
   voiceProfile: string;
   audioAssetRef: string | null;
   audioDurationMs: number | null;
+  timing: NormalizedNarrationTiming;
 }
 
 export interface ResolvedTiming {
@@ -74,6 +112,7 @@ export interface ResolvedCue {
   id: string;
   atMs: number;
   targetIds: string[];
+  timingQuality: NarrationTimingQuality;
 }
 
 export interface CaptionCue {
@@ -82,6 +121,7 @@ export interface CaptionCue {
   endMs: number;
   text: string;
   maxLines: 2;
+  timingQuality: NarrationTimingQuality;
 }
 
 export interface PresentationElement {
@@ -137,6 +177,9 @@ export interface VideoSlidePlan {
     startMs: number;
     durationMs: number | null;
   };
+  narrationTiming: NormalizedNarrationTiming;
+  timingQuality: NarrationTimingQuality;
+  requiresHumanAvSyncReview: boolean;
   captions: CaptionCue[];
   cues: ResolvedCue[];
   motions: VideoMotion[];

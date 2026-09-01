@@ -1,4 +1,4 @@
-import type { BuildPlan, PresentationPlan, VideoPlan } from "@livingcourse/compiler";
+import type { BuildFingerprints, BuildPlan, PresentationPlan, VideoPlan } from "@livingcourse/compiler";
 
 export type WorkflowStatus = "planned" | "running" | "failed" | "complete" | "blocked";
 
@@ -61,6 +61,7 @@ export interface WorkflowPlanResult {
   courseRoot: string;
   outputRoot: string;
   cacheHit: boolean;
+  buildFingerprints: BuildFingerprints;
   reviewPackage: ReviewPackage;
 }
 

@@ -95,9 +95,9 @@ export interface VisualRequirement {
 
 export interface LayoutIntent {
   kind: SlideType;
-  regions: Record<string, NormalizedRegion>;
-  readingOrder: string[];
-  safeAreas: NormalizedRegion[];
+  regions?: Record<string, NormalizedRegion>;
+  readingOrder?: string[];
+  safeAreas?: NormalizedRegion[];
 }
 
 export interface MotionIntent {
@@ -125,6 +125,7 @@ export interface NarrationCue {
   id: string;
   phrase: string;
   targetIds: string[];
+  occurrence?: number;
 }
 
 export interface NarrationSpec {

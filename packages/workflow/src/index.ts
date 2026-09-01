@@ -1,6 +1,7 @@
 export * from "./diff.js";
 export * from "./doctor.js";
 export * from "./engine.js";
+export * from "./fingerprints.js";
 export * from "./registry.js";
 export * from "./release.js";
 export * from "./review.js";

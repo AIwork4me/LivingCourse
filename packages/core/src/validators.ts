@@ -1,6 +1,7 @@
 import { Ajv2020, type ErrorObject, type ValidateFunction } from "ajv/dist/2020.js";
 import { COURSE_SPEC_JSON_SCHEMA } from "./schema.js";
 import { COURSE_SPEC_SCHEMA_ID } from "./version.js";
+import { migrateCourseSpec, MigrationError } from "./migrations.js";
 import { evaluateReleaseEligibility } from "./policies/release-policy.js";
 import type {
   CourseSpec,
@@ -44,9 +45,18 @@ export const validateSlideSpec = (slide: unknown): ValidationResult => run(slide
 export const validateReviewDecision = (decision: unknown): ValidationResult => run(reviewValidator, decision);
 
 export const validateCourseSpec = (input: unknown): ValidationResult => {
-  const result = run(courseValidator, input);
+  let migrated: unknown;
+  try {
+    migrated = migrateCourseSpec(input);
+  } catch (error) {
+    return {
+      valid: false,
+      errors: [{ code: "LC-SCHEMA-001", path: "/courseSpecVersion", message: error instanceof MigrationError ? error.message : "CourseSpec migration failed.", severity: "error" }]
+    };
+  }
+  const result = run(courseValidator, migrated);
   if (!result.valid) return result;
-  const course = input as CourseSpec;
+  const course = migrated as CourseSpec;
   const errors: ValidationError[] = [];
   for (const id of duplicates(course.materials.map((material: MaterialSpec) => material.id))) {
     errors.push({ code: "LC-MATERIAL-001", path: "/materials", message: `Duplicate material id '${id}'.`, severity: "error" });

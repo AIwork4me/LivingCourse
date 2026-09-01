@@ -26,7 +26,9 @@ Impact
 Only affected assets regenerate
 ```
 
-LivingCourse Core v0.2 turns an approved, provider-neutral `CourseSpec` into an editable PowerPoint deck and a narrated Author Review video. AI may help create a candidate specification or a missing asset, but code owns validation, grounding, layout, timing, captions, motion, caching, incremental impact, and release policy.
+LivingCourse Core v0.2.1 hardens the v0.2 pipeline so repeated slide types, slide reorder, nonlinear narration timing and renderer implementation changes remain deterministic. An approved, provider-neutral `CourseSpec` is resolved through layout profiles and provider-neutral timing into an editable PowerPoint deck and a narrated Author Review video. AI may help create a candidate specification or a missing asset, but code owns validation, grounding, layout, timing, captions, motion, caching, incremental impact, and release policy.
+
+The v0.2.1 evidence suite proves collision-free order-independent element IDs, backward-compatible CourseSpec migration, explicit aligned/normalized/estimated timing quality, cue and caption synchronization from supplied timing, semantic patches after reorder, targeted renderer invalidation, and an immediate zero-AI/zero-rebuild Golden rerun. Production release blockers remain fail-closed.
 
 > Product status: **NOT READY for arbitrary non-technical manufacturing HR on a clean machine.** The frozen Golden course completes one pass; arbitrary source ingestion, approved-source mapping, real-device grounding, and clean-machine media setup still require technical or human support.
 
@@ -79,7 +81,7 @@ Failures are emitted as structured records with a stable code, what happened, wh
                            CLI
 ```
 
-`core` knows what a course is and has no provider or renderer vocabulary. The compiler has no filesystem, network, browser, AI, or media process access. PPT and Remotion adapters execute their plans without inferring course meaning. Architecture tests enforce these boundaries.
+`core` knows what a course is and has no provider or renderer vocabulary. The compiler has no filesystem, network, browser, AI, or media process access. PPT and Remotion adapters execute their plans without inferring course meaning. Static and behavioral architecture tests enforce these boundaries, including a ban on Golden page IDs in generic compiler/renderer source.
 
 ## Repository map
 
@@ -103,4 +105,4 @@ pnpm validate:arch
 pnpm validate:security
 ```
 
-Start with [Architecture](docs/ARCHITECTURE.md), [CourseSpec](docs/COURSE-SPEC.md), and the [one-pass readiness ledger](docs/ONE-PASS-READINESS.md). The complete v0.2 acceptance evidence is in [LIVINGCOURSE-CORE-V0.2-REPORT.md](LIVINGCOURSE-CORE-V0.2-REPORT.md).
+Start with [Architecture](docs/ARCHITECTURE.md), [CourseSpec](docs/COURSE-SPEC.md), and the [one-pass readiness ledger](docs/ONE-PASS-READINESS.md). The complete hardening evidence is in [LIVINGCOURSE-CORE-V0.2.1-REPORT.md](LIVINGCOURSE-CORE-V0.2.1-REPORT.md); the original v0.2 evidence remains in [LIVINGCOURSE-CORE-V0.2-REPORT.md](LIVINGCOURSE-CORE-V0.2-REPORT.md).

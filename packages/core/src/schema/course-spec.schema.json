@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://livingcourse.dev/schema/course-spec-v0.2.json",
-  "title": "LivingCourse CourseSpec v0.2",
+  "$id": "https://livingcourse.dev/schema/course-spec-v0.2.1.json",
+  "title": "LivingCourse CourseSpec v0.2.1",
   "type": "object",
   "additionalProperties": false,
   "required": ["courseSpecVersion", "course", "materials", "slides", "governance"],
   "properties": {
-    "courseSpecVersion": { "const": "0.2.0" },
+    "courseSpecVersion": { "const": "0.2.1" },
     "course": { "$ref": "#/$defs/courseIdentity" },
     "materials": { "type": "array", "items": { "$ref": "#/$defs/materialSpec" } },
     "slides": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/slideSpec" } },
@@ -94,7 +94,7 @@
     },
     "layoutIntent": {
       "type": "object", "additionalProperties": false,
-      "required": ["kind", "regions", "readingOrder", "safeAreas"],
+      "required": ["kind"],
       "properties": {
         "kind": { "enum": ["hero", "step_process", "safety_focus"] },
         "regions": { "type": "object", "additionalProperties": { "$ref": "#/$defs/region" } },
@@ -150,7 +150,8 @@
             "properties": {
               "id": { "type": "string", "minLength": 1 },
               "phrase": { "type": "string", "minLength": 1 },
-              "targetIds": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+              "targetIds": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+              "occurrence": { "type": "integer", "minimum": 1 }
             }
           }
         }

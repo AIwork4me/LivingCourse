@@ -44,6 +44,14 @@ await scan("packages/compiler", "compiler-purity", [
   /(?:playwright|puppeteer)/iu
 ]);
 
+await scan("packages/compiler/src", "golden-page-id-isolation", [
+  /slide-0[123]-/u
+]);
+
+await scan("packages/renderers/src", "golden-page-id-isolation", [
+  /slide-0[123]-/u
+]);
+
 await scan("packages/renderers/src", "renderer-course-neutrality", [
   /(?:护目镜|防护面罩|麦麦|制造车间入口安全)/u,
   /@livingcourse\/(?:providers|workflow)/u
@@ -63,5 +71,5 @@ if (/(?:minimax|voice_id|audio_setting|subtitle_enable)/iu.test(videoPlanSection
   findings.push({ rule: "video-plan-provider-neutral", file: "packages/compiler/src/types.ts", detail: "VideoPlan contains provider-specific schema." });
 }
 
-console.log(JSON.stringify({ passed: findings.length === 0, rules: 5, findings }, null, 2));
+console.log(JSON.stringify({ passed: findings.length === 0, rules: 6, findings }, null, 2));
 if (findings.length > 0) process.exitCode = 1;

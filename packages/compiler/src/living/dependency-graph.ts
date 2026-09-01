@@ -1,4 +1,6 @@
 import { sha256, type CourseSpec } from "@livingcourse/core";
+import { DEFAULT_BUILD_FINGERPRINTS } from "../context.js";
+import type { BuildFingerprints } from "../types.js";
 
 export type DependencyNodeKind =
   | "knowledge"
@@ -15,7 +17,9 @@ export type DependencyNodeKind =
   | "course_pptx"
   | "course_video"
   | "shared_renderer"
-  | "shared_vocabulary";
+  | "shared_vocabulary"
+  | "shared_profile"
+  | "shared_compiler";
 
 export interface DependencyNode {
   id: string;
@@ -44,17 +48,23 @@ const node = (id: string, kind: DependencyNodeKind, slideId: string | null, path
 
 const edge = (from: string, to: string, reason: string, executionOnly = false): DependencyEdge => ({ from, to, reason, executionOnly });
 
-export const buildDependencyGraph = (course: CourseSpec): DependencyGraph => {
+export const buildDependencyGraph = (course: CourseSpec, fingerprints: BuildFingerprints = DEFAULT_BUILD_FINGERPRINTS): DependencyGraph => {
   const nodes: DependencyNode[] = [
-    node("renderer:ppt", "shared_renderer", null, null, "ppt-renderer-v0.2"),
-    node("renderer:video", "shared_renderer", null, null, "video-renderer-v0.2"),
-    node("vocabulary:core", "shared_vocabulary", null, null, "course-vocabulary-v0.2"),
+    node("renderer:ppt", "shared_renderer", null, null, fingerprints.presentationRendererFingerprint),
+    node("renderer:video", "shared_renderer", null, null, fingerprints.videoRendererFingerprint),
+    node("vocabulary:core", "shared_vocabulary", null, null, fingerprints.vocabularyFingerprint),
+    node("profile:production", "shared_profile", null, null, fingerprints.profileFingerprint),
+    node("compiler:core", "shared_compiler", null, null, fingerprints.compilerFingerprint),
     node("course:pptx", "course_pptx", null, null, course.course.id),
     node("course:video", "course_video", null, null, course.course.id)
   ];
   const edges: DependencyEdge[] = [
     edge("renderer:ppt", "course:pptx", "Renderer execution builds the course PPTX.", true),
-    edge("renderer:video", "course:video", "Renderer execution encodes the course video.", true)
+    edge("renderer:video", "course:video", "Renderer execution encodes the course video.", true),
+    edge("profile:production", "course:pptx", "Production profile affects presentation output.", true),
+    edge("profile:production", "course:video", "Production profile affects video output.", true),
+    edge("compiler:core", "course:pptx", "Compiler implementation affects presentation plans.", true),
+    edge("compiler:core", "course:video", "Compiler implementation affects video plans.", true)
   ];
   for (const [slideIndex, slide] of course.slides.entries()) {
     const narrationId = `narration:${slide.id}`;

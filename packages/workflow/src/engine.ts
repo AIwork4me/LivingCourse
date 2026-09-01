@@ -1,9 +1,10 @@
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
-import { mkdir, readFile, stat } from "node:fs/promises";
+import { copyFile, mkdir, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import {
   compileCourse,
+  type BuildFingerprints,
   type BuildPlan,
   type CompilerContext,
   type PresentationPlan,
@@ -13,6 +14,7 @@ import { canonicalJson, sha256, validateCourseSpec, type CourseSpec, type Review
 import { inspectPptxStructure, inspectRenderedVideo, renderPresentationPlan, renderVideoPlan } from "@livingcourse/renderers";
 import { ArtifactRegistry, fileSha256 } from "./registry.js";
 import { createReviewPackage } from "./review.js";
+import { resolveWorkflowBuildFingerprints } from "./fingerprints.js";
 import type {
   WorkflowExecutionResult,
   WorkflowPlanResult,
@@ -24,6 +26,7 @@ import { WorkflowError } from "./types.js";
 export interface PlanBuildOptions {
   workspaceRoot?: string;
   outputRoot?: string;
+  buildFingerprints?: Partial<BuildFingerprints>;
 }
 
 export interface ExecuteBuildOptions extends PlanBuildOptions {
@@ -46,7 +49,7 @@ const approvedRefs = (course: CourseSpec): Map<string, ReviewStatus> => {
   return refs;
 };
 
-const filesystemContext = (course: CourseSpec, courseRoot: string): Partial<CompilerContext> => {
+const filesystemContext = (course: CourseSpec, courseRoot: string, buildFingerprints: BuildFingerprints): Partial<CompilerContext> => {
   const approved = approvedRefs(course);
   return {
     assetProbe: {
@@ -57,18 +60,16 @@ const filesystemContext = (course: CourseSpec, courseRoot: string): Partial<Comp
       }
     },
     timingProbe: { durationMs: () => null },
-    reviewDecisionSource: { decisions: () => course.governance.reviewDecisions }
+    reviewDecisionSource: { decisions: () => course.governance.reviewDecisions },
+    buildFingerprints
   };
 };
 
-const runIdentity = (course: CourseSpec): { runId: string; inputHash: string } => {
+const runIdentity = (course: CourseSpec, buildFingerprints: BuildFingerprints): { runId: string; inputHash: string } => {
   const inputHash = sha256(course);
   const runId = sha256({
     inputHash,
-    compiler: "0.2.0",
-    visualProfile: "livingcourse-light-tech-comic-v1",
-    captionProfile: "livingcourse-default-v1",
-    characterProfile: "maimai-v1"
+    buildFingerprints
   }).slice(0, 24);
   return { runId, inputHash };
 };
@@ -89,21 +90,28 @@ export const planBuild = async (coursePath: string, options: PlanBuildOptions = 
     userAction: "Correct the reported CourseSpec fields and run validate again.",
     retryRequiresAi: false
   });
-  const output = compileCourse(course, filesystemContext(course, courseRoot));
-  const identity = runIdentity(course);
+  const resolvedFingerprints = await resolveWorkflowBuildFingerprints();
+  const buildFingerprints = { ...resolvedFingerprints, ...options.buildFingerprints };
+  const output = compileCourse(course, filesystemContext(course, courseRoot, buildFingerprints));
+  const identity = runIdentity(output.courseSpec, buildFingerprints);
   const outputRoot = path.resolve(options.outputRoot ?? path.join(workspaceRoot, "dist", course.course.id));
   const registry = new ArtifactRegistry(path.join(workspaceRoot, ".livingcourse"));
   await registry.load();
   const previous = await registry.readRun(identity.runId);
   const expectedPptx = path.join(outputRoot, "course.pptx");
   const expectedVideo = path.join(outputRoot, "author-review.mp4");
-  const cacheHit = previous?.status === "complete" && await exists(expectedPptx) && await exists(expectedVideo);
   const buildPlan = cloneBuildPlan(output.buildPlan);
-  if (cacheHit) {
-    const cachedOutputs = buildPlan.rebuild.filter((entry) => entry.kind === "pptx" || entry.kind === "video").map((entry) => ({ ...entry, reason: "Identical completed deterministic output is reusable." }));
-    buildPlan.reuse.push(...cachedOutputs);
-    buildPlan.rebuild = buildPlan.rebuild.filter((entry) => entry.kind !== "pptx" && entry.kind !== "video");
+  for (const outputItem of buildPlan.rebuild.filter((entry) => entry.kind === "pptx" || entry.kind === "video")) {
+    const reusable = registry.findReusable(outputItem.fingerprint);
+    if (reusable && await exists(reusable.path)) {
+      buildPlan.reuse.push({ ...outputItem, reason: "Matching deterministic renderer fingerprint is reusable." });
+      buildPlan.rebuild = buildPlan.rebuild.filter((entry) => entry.id !== outputItem.id);
+    }
   }
+  const cacheHit = previous?.status === "complete"
+    && await exists(expectedPptx)
+    && await exists(expectedVideo)
+    && !buildPlan.rebuild.some((entry) => entry.kind === "pptx" || entry.kind === "video");
   return {
     runId: identity.runId,
     inputHash: identity.inputHash,
@@ -114,6 +122,7 @@ export const planBuild = async (coursePath: string, options: PlanBuildOptions = 
     courseRoot,
     outputRoot,
     cacheHit,
+    buildFingerprints,
     reviewPackage: createReviewPackage(course, buildPlan)
   };
 };
@@ -213,6 +222,48 @@ const makeRunState = (plan: WorkflowPlanResult, previous: WorkflowRunState | nul
   updatedAt: new Date().toISOString()
 });
 
+const deterministicOutputItem = (plan: WorkflowPlanResult, id: "course-pptx" | "author-review-mp4") =>
+  [...plan.buildPlan.reuse, ...plan.buildPlan.rebuild].find((entry) => entry.id === id);
+
+const materializeReusableOutput = async (
+  plan: WorkflowPlanResult,
+  registry: ArtifactRegistry,
+  state: WorkflowRunState,
+  id: "course-pptx" | "author-review-mp4",
+  nodeId: "pptx" | "video",
+  targetPath: string
+): Promise<boolean> => {
+  const item = plan.buildPlan.reuse.find((entry) => entry.id === id);
+  if (!item) return false;
+  const artifact = registry.findReusable(item.fingerprint);
+  if (!artifact || !await exists(artifact.path)) return false;
+  if (!await exists(targetPath) || await fileSha256(targetPath) !== artifact.sha256) await copyFile(artifact.path, targetPath);
+  if (!state.completedNodes.includes(nodeId)) state.completedNodes.push(nodeId);
+  state.outputs[nodeId] = targetPath;
+  return true;
+};
+
+const registerDeterministicOutput = async (
+  plan: WorkflowPlanResult,
+  registry: ArtifactRegistry,
+  id: "course-pptx" | "author-review-mp4",
+  sourcePath: string
+): Promise<void> => {
+  const item = deterministicOutputItem(plan, id);
+  if (!item) throw new Error(`Missing deterministic output plan item '${id}'.`);
+  await registry.registerSource({
+    id: `output:${id}:${item.fingerprint}`,
+    kind: id === "course-pptx" ? "pptx" : "video",
+    sourceHash: plan.inputHash,
+    generationFingerprint: item.fingerprint,
+    sourcePath,
+    provider: "deterministic-renderer",
+    model: id === "course-pptx" ? plan.buildFingerprints.presentationRendererFingerprint : plan.buildFingerprints.videoRendererFingerprint,
+    reviewStatus: "approved_for_poc_use",
+    dependencies: [plan.inputHash]
+  });
+};
+
 export const executeBuild = async (coursePath: string, options: ExecuteBuildOptions = {}): Promise<WorkflowExecutionResult> => {
   const plan = await planBuild(coursePath, options);
   const workspaceRoot = path.resolve(options.workspaceRoot ?? plan.courseRoot);
@@ -257,10 +308,14 @@ export const executeBuild = async (coursePath: string, options: ExecuteBuildOpti
   const pptxPath = path.join(plan.outputRoot, "course.pptx");
   const videoPath = path.join(plan.outputRoot, "author-review.mp4");
   await mkdir(plan.outputRoot, { recursive: true });
+  if (await materializeReusableOutput(plan, registry, state, "course-pptx", "pptx", pptxPath)) reused.push("course-pptx");
+  if (await materializeReusableOutput(plan, registry, state, "author-review-mp4", "video", videoPath)) reused.push("author-review-mp4");
+  await registry.writeRun(state);
   const rebuilt: string[] = [];
   try {
     if (!state.completedNodes.includes("pptx") || !await exists(pptxPath)) {
       await renderers.renderPpt(plan.presentationPlan, pptxPath, plan.courseRoot);
+      await registerDeterministicOutput(plan, registry, "course-pptx", pptxPath);
       state.completedNodes.push("pptx");
       state.outputs.pptx = pptxPath;
       state.updatedAt = new Date().toISOString();
@@ -269,6 +324,7 @@ export const executeBuild = async (coursePath: string, options: ExecuteBuildOpti
     }
     if (!state.completedNodes.includes("video") || !await exists(videoPath)) {
       await renderers.renderVideo(plan.videoPlan, videoPath, plan.courseRoot);
+      await registerDeterministicOutput(plan, registry, "author-review-mp4", videoPath);
       state.completedNodes.push("video");
       state.outputs.video = videoPath;
       state.updatedAt = new Date().toISOString();

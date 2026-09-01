@@ -1,4 +1,6 @@
 import { canonicalJson, sha256 } from "@livingcourse/core";
+import { resolvePresentationTargetId } from "../element-ids.js";
+import { resolveLayoutSafeAreas } from "../layout-profile.js";
 import type {
   BuildPlan,
   BuildPlanItem,
@@ -18,16 +20,21 @@ const item = (id: string, kind: BuildPlanItem["kind"], slideId: string | null, r
 export const assemblePass = (state: CompilerState, context: CompilerContext): CompilerOutput => {
   const presentationSlides: PresentationSlidePlan[] = state.course.slides.map((slide) => {
     const elements = state.elements.get(slide.id) ?? [];
+    const elementIds = new Set(elements.map((element) => element.id));
+    const requestedOrder = (slide.presentation.layout.readingOrder ?? [])
+      .map((targetId) => resolvePresentationTargetId(slide, targetId))
+      .filter((targetId) => elementIds.has(targetId));
+    const readingOrder = [...new Set([...requestedOrder, ...elements.map((element) => element.id)])];
     return {
       slideId: slide.id,
       layout: slide.presentation.layout.kind,
       nativeText: elements.filter((element) => element.text !== undefined).map((element) => element.text ?? ""),
       elements,
       assetRefs: elements.flatMap((element) => element.assetRef === undefined ? [] : [element.assetRef]),
-      geometry: structuredClone(slide.presentation.layout.regions),
-      readingOrder: [...slide.presentation.layout.readingOrder],
+      geometry: Object.fromEntries(elements.map((element) => [element.id, structuredClone(element.geometry)])),
+      readingOrder,
       speakerNotes: slide.narration.script,
-      safeAreas: structuredClone(slide.presentation.layout.safeAreas),
+      safeAreas: resolveLayoutSafeAreas(slide),
       releaseScope: slide.grounding.releaseScope
     };
   });
@@ -44,6 +51,11 @@ export const assemblePass = (state: CompilerState, context: CompilerContext): Co
     const timing = state.timing.get(slide.id);
     if (!timing) throw new Error(`Missing resolved timing for '${slide.id}'.`);
     const cueState = state.cues.get(slide.id) ?? { cues: [], captions: [] };
+    const narration = state.narration.get(slide.id);
+    if (!narration) throw new Error(`Missing resolved narration for '${slide.id}'.`);
+    const resolvedTimingQuality = [...cueState.cues, ...cueState.captions].some((entry) => entry.timingQuality === "estimated")
+      ? "estimated"
+      : narration.timing.quality;
     return {
       slideId: slide.id,
       globalStartMs: timing.globalStartMs,
@@ -53,6 +65,9 @@ export const assemblePass = (state: CompilerState, context: CompilerContext): Co
         startMs: timing.audioStartMs,
         durationMs: timing.audioDurationMs
       },
+      narrationTiming: narration.timing,
+      timingQuality: resolvedTimingQuality,
+      requiresHumanAvSyncReview: narration.timing.requiresHumanAvSyncReview || resolvedTimingQuality === "estimated",
       captions: cueState.captions,
       cues: cueState.cues,
       motions: state.motions.get(slide.id) ?? [],
@@ -99,10 +114,28 @@ export const assemblePass = (state: CompilerState, context: CompilerContext): Co
     } else regenerate.push(item(`audio:${slide.id}`, "audio", slide.id, "Narration audio is unresolved.", narration));
   }
   const rebuild = [
-    item("presentation-plan", "plan", null, "Deterministic plan rebuild.", presentationPlan),
-    item("video-plan", "plan", null, "Deterministic plan rebuild.", videoPlan),
-    item("course-pptx", "pptx", null, "Presentation output is derived from PresentationPlan.", presentationPlan.contentHash),
-    item("author-review-mp4", "video", null, "Encoded video is derived from VideoPlan.", videoPlan.contentHash)
+    item("presentation-plan", "plan", null, "Deterministic plan rebuild.", {
+      plan: presentationPlan,
+      compiler: context.buildFingerprints.compilerFingerprint,
+      profile: context.buildFingerprints.profileFingerprint,
+      vocabulary: context.buildFingerprints.vocabularyFingerprint
+    }),
+    item("video-plan", "plan", null, "Deterministic plan rebuild.", {
+      plan: videoPlan,
+      compiler: context.buildFingerprints.compilerFingerprint,
+      profile: context.buildFingerprints.profileFingerprint,
+      vocabulary: context.buildFingerprints.vocabularyFingerprint
+    }),
+    item("course-pptx", "pptx", null, "Presentation output is derived from PresentationPlan and renderer implementation.", {
+      plan: presentationPlan.contentHash,
+      renderer: context.buildFingerprints.presentationRendererFingerprint,
+      profile: context.buildFingerprints.profileFingerprint
+    }),
+    item("author-review-mp4", "video", null, "Encoded video is derived from VideoPlan and renderer implementation.", {
+      plan: videoPlan.contentHash,
+      renderer: context.buildFingerprints.videoRendererFingerprint,
+      profile: context.buildFingerprints.profileFingerprint
+    })
   ];
   const buildPlan: BuildPlan = {
     version: "0.1.0",

@@ -105,7 +105,8 @@ describe("M4 one-pass workflow", () => {
     expect(second.reviewPackage.buildSummary.regenerate).toBe(0);
     const registry = new ArtifactRegistry(path.join(workspaceRoot, ".livingcourse"));
     await registry.load();
-    expect(registry.all()).toHaveLength(10);
+    expect(registry.all().filter((artifact) => artifact.kind === "visual" || artifact.kind === "audio")).toHaveLength(10);
+    expect(registry.all().filter((artifact) => artifact.kind === "pptx" || artifact.kind === "video")).toHaveLength(2);
   });
 
   it("resumes after a failed node without rebuilding completed predecessors", async () => {
