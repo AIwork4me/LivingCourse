@@ -1,0 +1,46 @@
+{
+  "schema_version": "0.1.0",
+  "analysis_id": "impact-analysis-change-001",
+  "change_id": "change-001",
+  "baseline_snapshot": "poc/06-three-slide/baseline-snapshot.json",
+  "dependency_graph": "poc/06-three-slide/dependency-graph.json",
+  "analysis_method": "transitive_dependency_closure_from_changed_concept",
+  "analysis_completed_before_regeneration": true,
+  "post_regeneration_audit_extension": {
+    "discovered_during_qa": "Slide 2 motion sequence retained the old goggles visual ID.",
+    "correction": "Only the affected target identifier was changed to goggles-face-shield; motion intent and timing values remained unchanged.",
+    "scope_effect": "No new page, design, audio, or shared infrastructure invalidation."
+  },
+  "affected": [
+    {"artifact": "slide-02 native item text", "reason": "direct value change"},
+    {"artifact": "slide-02 Speaker Notes / narration script", "reason": "notes must state the new PPE concept while preserving the site-specific qualifier"},
+    {"artifact": "slide-02 goggles-related visual asset", "reason": "goggles alone no longer expresses goggles plus face shield"},
+    {"artifact": "PPT Slide 2", "reason": "native text, Speaker Notes and one paired visual change"},
+    {"artifact": "slide-02 audio", "reason": "approved narration text changed"},
+    {"artifact": "slide-02 timing source and normalized timing", "reason": "script and approved audio hashes changed"},
+    {"artifact": "slide-02 narration cues", "reason": "third cue span changes and all cue timestamps must be resolved from the new timing"},
+    {"artifact": "slide-02 captions", "reason": "caption text and timing are derived from the new narration"},
+    {"artifact": "slide-02 Remotion runtime segment data", "reason": "audio duration, cues and captions change"},
+    {"artifact": "Author Review MP4 render execution", "reason": "current renderer outputs one encoded course file; whole-file re-encode is execution, not whole-course content regeneration"}
+  ],
+  "unchanged": [
+    {"artifact": "Slide 1 content, visual, Notes, PPT source, audio, timing and captions", "reason": "no dependency edge from change-001"},
+    {"artifact": "Slide 3 content, visual, Notes, PPT source, audio, timing and captions", "reason": "no dependency edge from change-001"},
+    {"artifact": "maimai-guide", "reason": "independent asset; no semantic change"},
+    {"artifact": "workwear", "reason": "independent asset; no semantic change"},
+    {"artifact": "safety-shoes", "reason": "independent asset; no semantic change"},
+    {"artifact": "esd-equipment", "reason": "independent asset; no semantic change"},
+    {"artifact": "PPT Renderer", "reason": "existing step_process adapter already data-driven"},
+    {"artifact": "Remotion Renderer", "reason": "existing step_process adapter already data-driven"},
+    {"artifact": "TTS Provider interface and MiniMax Provider", "reason": "same provider contract and voice profile remain valid"},
+    {"artifact": "Timing Normalizer", "reason": "normalization contract is content-agnostic"},
+    {"artifact": "Caption Adapter", "reason": "caption segmentation is content-agnostic"},
+    {"artifact": "Motion Vocabulary, Layout Vocabulary and Renderer Contract", "reason": "no semantic vocabulary change"}
+  ],
+  "release_impact": {
+    "slide_2_target_site_ppe_verification": "still_missing_and_blocking",
+    "slide_3_production_sources_and_real_anchor": "unchanged_and_blocking",
+    "production_release": "blocked"
+  },
+  "decision": "incremental_regeneration_allowed_for_declared_affected_subtree"
+}

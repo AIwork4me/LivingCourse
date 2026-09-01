@@ -1,0 +1,83 @@
+{
+  "manifest_id": "livingcourse-production-entry-safety-001",
+  "schema_version": "0.2.1",
+  "vocabulary_version": "0.2.0",
+  "renderer_id": "livingcourse-ppt-adapter-v0.1.0",
+  "supported_layouts": [
+    "hero",
+    "step_process",
+    "safety_focus:blocker_placeholder"
+  ],
+  "status": "blocked",
+  "unsupported_intents": [],
+  "missing_assets": [
+    {
+      "path": "$.slides[2].visual_assets[1].path",
+      "severity": "blocking",
+      "reason": "Required asset 'slide-03-real-device-photo' is missing.",
+      "recommendation": "Provide a verified asset with provenance before rendering the publishable page."
+    }
+  ],
+  "unresolved_anchors": [
+    {
+      "path": "$.slides[2].source_grounding.grounded_region",
+      "severity": "blocking",
+      "reason": "Grounding region 'confirmed-abnormal-or-emergency-stop-area' is unresolved and coordinates must not be inferred.",
+      "recommendation": "Have the authorized site safety or equipment owner confirm the anchor."
+    }
+  ],
+  "layout_overflow": [],
+  "missing_native_text_references": [],
+  "warnings": [
+    {
+      "path": "$.slides[0].motion",
+      "severity": "warning",
+      "reason": "Motion semantics were validated and interpreted as the static final hero-frame state for PPT output.",
+      "recommendation": "Use a video adapter to realize time-based motion; do not alter the PPT information hierarchy."
+    },
+    {
+      "path": "$.slides[1].motion",
+      "severity": "warning",
+      "reason": "Motion semantics were validated and interpreted as the static final hero-frame state for PPT output.",
+      "recommendation": "Use a video adapter to realize time-based motion; do not alter the PPT information hierarchy."
+    },
+    {
+      "path": "$.slides[2].motion",
+      "severity": "warning",
+      "reason": "Motion semantics were validated and interpreted as the static final hero-frame state for PPT output.",
+      "recommendation": "Use a video adapter to realize time-based motion; do not alter the PPT information hierarchy."
+    },
+    {
+      "path": "$.slides[1].visual_assets",
+      "severity": "warning",
+      "reason": "Slide 2 assets use approved warm-white raster backgrounds rather than transparency; faint rectangular edges may remain against #F7F8F3.",
+      "recommendation": "Human-review at projected size. Do not regenerate or remove backgrounds in Step 6C."
+    }
+  ],
+  "errors": [
+    {
+      "path": "$.slides[1].source_grounding.required_before_release[0]",
+      "severity": "blocking_for_release",
+      "reason": "Required source 'site-ppe-procedure' is missing.",
+      "recommendation": "Provide and approve the source before generating a publishable grounded page."
+    },
+    {
+      "path": "$.slides[2].source_grounding.required_before_release[0]",
+      "severity": "blocking_for_release",
+      "reason": "Required source 'approved-equipment-photo' is missing.",
+      "recommendation": "Provide and approve the source before generating a publishable grounded page."
+    },
+    {
+      "path": "$.slides[2].source_grounding.required_before_release[1]",
+      "severity": "blocking_for_release",
+      "reason": "Required source 'site-abnormal-operation-sop' is missing.",
+      "recommendation": "Provide and approve the source before generating a publishable grounded page."
+    },
+    {
+      "path": "$.slides[2].source_grounding.required_before_release[2]",
+      "severity": "blocking_for_release",
+      "reason": "Required source 'equipment-operating-manual' is missing.",
+      "recommendation": "Provide and approve the source before generating a publishable grounded page."
+    }
+  ]
+}

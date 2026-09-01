@@ -1,0 +1,50 @@
+{
+  "name": "livingcourse",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Turn enterprise knowledge into maintainable training assets.",
+  "license": "MIT",
+  "packageManager": "pnpm@11.19.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json --noEmit",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:m0": "vitest run tests/contracts",
+    "test:m1": "vitest run tests/compiler",
+    "test:m2": "vitest run tests/regression/renderer.test.ts",
+    "test:m3": "vitest run tests/regression/change-001.test.ts",
+    "test:m4": "vitest run tests/regression/workflow.test.ts",
+    "validate:arch": "tsx scripts/validate-architecture.ts",
+    "validate:security": "tsx scripts/security-scan.ts",
+    "livingcourse": "tsx apps/cli/src/index.ts"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.519",
+    "@remotion/renderer": "4.0.519",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "jszip": "3.10.1",
+    "pptxgenjs": "4.0.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "remotion": "4.0.519",
+    "yaml": "2.9.0",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.5",
+    "@types/node": "^26.4.0",
+    "@typescript-eslint/eslint-plugin": "8.69.0",
+    "@typescript-eslint/parser": "8.69.0",
+    "eslint": "10.9.1",
+    "tsx": "4.23.13",
+    "typescript": "6.0.3",
+    "vitest": "4.1.11"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "slide_id": "slide-01-hero",
+  "voice_profile": "manufacturing_training_default",
+  "script_hash": "CFCB2C47DD06ADF2218D10CC068C3CB3CBEE145F0816C67E6699B58DC67C9090",
+  "provider_role": "reference_provider",
+  "model_role": "reference_model",
+  "audio_sha256": "092965171AC2ECDCB08F071459A59FAB0535D68568E4DD6A12DB2B94D27F320F",
+  "ffprobe_duration_ms": 12132,
+  "codec_name": "mp3",
+  "sample_rate": 32000,
+  "channel": 1,
+  "generation_status": "succeeded",
+  "human_review_status": "approved"
+}

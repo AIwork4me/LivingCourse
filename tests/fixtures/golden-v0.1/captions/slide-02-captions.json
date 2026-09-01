@@ -1,0 +1,53 @@
+{
+  "schema_version": "0.1.0",
+  "type": "RemotionCaptionSet",
+  "slide_id": "slide-02-step-process",
+  "script_hash": "3C2315DB53DFEFB13528AEBE96DCA5463045B478A5A4C8398C1801EAC97F0077",
+  "source": "approved_narration_script_with_normalized_character_timing",
+  "sentence_timing_role": "semantic_boundary_reference",
+  "character_timing_role": "caption_start_end_alignment",
+  "max_lines": 2,
+  "captions": [
+    {
+      "text": "进入车间前，请依次确认工作服、",
+      "startMs": 42.667,
+      "endMs": 3029.333,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": "安全鞋、护目镜与防护面罩，",
+      "startMs": 3029.333,
+      "endMs": 6400,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": "以及防静电装备。",
+      "startMs": 6400,
+      "endMs": 8576,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": "具体穿戴标准与适用范围应以本车间已经",
+      "startMs": 8576,
+      "endMs": 13653.333,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": "批准的 PPE 要求为准。",
+      "startMs": 13653.333,
+      "endMs": 15914.667,
+      "timestampMs": null,
+      "confidence": null
+    }
+  ],
+  "qa": {
+    "source_text_exact_match": true,
+    "monotonic": true,
+    "within_audio_bounds": true,
+    "confidence_fabricated": false
+  }
+}

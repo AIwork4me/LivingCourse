@@ -1,0 +1,23 @@
+id: livingcourse-light-tech-comic-v1
+version: 1.0.0
+name: LivingCourse Light Tech Comic
+palette:
+  background: "#F7F8F3"
+  text: "#1F2A37"
+  primary_accent: "#2F6FED"
+  secondary_accent: "#F28C28"
+  support_fill: "#DCEFFD"
+  secondary_line: "#C9D3DF"
+typography:
+  primary: Noto Sans SC
+  fallback: Microsoft YaHei
+visual_rules:
+  generated_visuals_text_free: true
+  all_course_text_renderer_native: true
+  prohibited:
+    - children_picture_book
+    - marketing_poster
+    - dashboard_wall
+    - dark_cyberpunk
+    - flashy_alarm_graphics
+

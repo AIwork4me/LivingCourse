@@ -1,0 +1,421 @@
+{
+  "schema_version": "0.1.0",
+  "type": "LivingCourseIncrementalRegenerationProof",
+  "change_id": "change-001",
+  "baseline_snapshot": "poc/06-three-slide/baseline-snapshot.json",
+  "generated_at": "2026-09-01T01:57:07.864Z",
+  "slides": [
+    {
+      "slide_id": "slide-01-hero",
+      "manifest_content": {
+        "before": "9B2C5798845C8999B8CDBA28B08196E348FEDFF63203F5D9D53F630CDDD4A5A8",
+        "after": "9B2C5798845C8999B8CDBA28B08196E348FEDFF63203F5D9D53F630CDDD4A5A8",
+        "changed": false,
+        "unchanged": true
+      },
+      "manifest_layout": {
+        "before": "9F8C999788AD5123DF105BBB2A79CD0ED37514F5A4AD481D2EA27E6D6DB89934",
+        "after": "9F8C999788AD5123DF105BBB2A79CD0ED37514F5A4AD481D2EA27E6D6DB89934",
+        "changed": false,
+        "unchanged": true
+      },
+      "manifest_motion": {
+        "before": "1674AF98BC2227F69A4F8732E16D14CFF9B40687C8A175AE2245EB818CEC5068",
+        "after": "1674AF98BC2227F69A4F8732E16D14CFF9B40687C8A175AE2245EB818CEC5068",
+        "changed": false,
+        "unchanged": true
+      },
+      "visual": {
+        "before": "3A28E85AA50767B29B3E49477D0A0E51D7A9BCCF880C612A7C6F15947B9F444C",
+        "after": "3A28E85AA50767B29B3E49477D0A0E51D7A9BCCF880C612A7C6F15947B9F444C",
+        "changed": false,
+        "unchanged": true
+      },
+      "ppt_rendered_slide": {
+        "before": "C62F6AA42C5B6766638F506E86A4919FDBD5BD82DC99C8A017542984FF96F7AA",
+        "after": "C62F6AA42C5B6766638F506E86A4919FDBD5BD82DC99C8A017542984FF96F7AA",
+        "changed": false,
+        "unchanged": true
+      },
+      "speaker_notes": {
+        "before": "A591ECBC2C8774EE293C74F43B866D105DA8A280BD5CECF3BF96F3561A726329",
+        "after": "A591ECBC2C8774EE293C74F43B866D105DA8A280BD5CECF3BF96F3561A726329",
+        "changed": false,
+        "unchanged": true
+      },
+      "audio": {
+        "before": "092965171AC2ECDCB08F071459A59FAB0535D68568E4DD6A12DB2B94D27F320F",
+        "after": "092965171AC2ECDCB08F071459A59FAB0535D68568E4DD6A12DB2B94D27F320F",
+        "changed": false,
+        "unchanged": true
+      },
+      "audio_metadata": {
+        "before": "13D3F47A6ECDCB272E8F3DA87D592D8A57D62A62473ED5F01AC175F3E0735E2F",
+        "after": "13D3F47A6ECDCB272E8F3DA87D592D8A57D62A62473ED5F01AC175F3E0735E2F",
+        "changed": false,
+        "unchanged": true
+      },
+      "timing": {
+        "before": "0CBCA9F62D63E9805BF9813E35EF95EA85B77B4BB074941B34BCB9796EA5B1C2",
+        "after": "0CBCA9F62D63E9805BF9813E35EF95EA85B77B4BB074941B34BCB9796EA5B1C2",
+        "changed": false,
+        "unchanged": true
+      },
+      "normalized_timing": {
+        "before": "0334A36EE6BEBDA05BEC278692CFF0BCAE1F5948DD6B60D8A7B6772695B4ACC3",
+        "after": "0334A36EE6BEBDA05BEC278692CFF0BCAE1F5948DD6B60D8A7B6772695B4ACC3",
+        "changed": false,
+        "unchanged": true
+      },
+      "captions": {
+        "before": "8A9F5E055C8D947E973EDE7B3B57DA7BE6701C81CDBDC01EC3669997E1FB59AE",
+        "after": "8A9F5E055C8D947E973EDE7B3B57DA7BE6701C81CDBDC01EC3669997E1FB59AE",
+        "changed": false,
+        "unchanged": true
+      },
+      "timeline_region": {
+        "before": "BA6FFDCF5DEB8AEBD16D3436CEB69FD8FB4D7182E7DEDF4C52A1074605F3DCF5",
+        "after": "BA6FFDCF5DEB8AEBD16D3436CEB69FD8FB4D7182E7DEDF4C52A1074605F3DCF5",
+        "changed": false,
+        "unchanged": true
+      },
+      "after_runtime_segment_hash": "48C02103C214537E52537AD227A0E2F2284AA3B66DC2FFA140E4D24AF0D53D97"
+    },
+    {
+      "slide_id": "slide-02-step-process",
+      "manifest_content": {
+        "before": "C3DC5FB49A5CF1BD19357D56456ACDCB265C96FBA5B737BFC77C9B9D29B77D1F",
+        "after": "2A9D8933B7A3F9F7BE38DF53583735A8F5277661F94D0548B69B50BF884F03D5",
+        "changed": true,
+        "unchanged": false
+      },
+      "manifest_layout": {
+        "before": "5FDFD5B66EB80A8371C47727896958C1A2AFF47F24289D9AD77FB96A05F8D401",
+        "after": "5FDFD5B66EB80A8371C47727896958C1A2AFF47F24289D9AD77FB96A05F8D401",
+        "changed": false,
+        "unchanged": true
+      },
+      "manifest_motion": {
+        "before": "2CF5687C6E84E2EDC8E869AB356FF94F100C26E475BBCAAADABEB742A0E19821",
+        "after": "70BBBA0767F9309808937CED4E7374478A910AF1F207E563EF4C06E928233D5D",
+        "changed": true,
+        "unchanged": false
+      },
+      "visual": {
+        "before": "6C09D39227F17FAE6D7C0F80AEBE440E37F5FA012CD3B1D237CDCEE241E5C24B",
+        "after": "F21174396CA44D4130EAD4E7F002B59C0C6594DA3EDA07DF9A2C879E2C61C1F0",
+        "changed": true,
+        "unchanged": false
+      },
+      "ppt_rendered_slide": {
+        "before": "AFD10EF688E63AAF90E9979EA30FAE09BA2F7714335CE3BFA197A66DD3C606EB",
+        "after": "2A65138CBB82C008450DF9539B196F0B928E46E39D264D12B5DFD9E929CF0F14",
+        "changed": true,
+        "unchanged": false
+      },
+      "speaker_notes": {
+        "before": "06EC13DC2DC81A5C56FD30B5100AFCD4EFD0FCA72AA6D6DA6886E76EDE196A2F",
+        "after": "601068D13622226E6B5978B3C178E2173036BF86833538A12DF9AAEB4096AB95",
+        "changed": true,
+        "unchanged": false
+      },
+      "audio": {
+        "before": "485FE95A04A0FA52EA78EF4AE46F4CAA5AB4106D1BF5FA87C8B8A49FE212634C",
+        "after": "2F6A42F30F2EBE742E0B61503B8C636E12D6DC25B232B250547B164697EB4131",
+        "changed": true,
+        "unchanged": false
+      },
+      "audio_metadata": {
+        "before": "309964E49F9ABA1063D066AFEC381BCD9DDB2D0E5C67704BC4AB23026BDB8421",
+        "after": "655A1DC8EC0178B21BD719F3906BE07745D9A4EDFFFE25065C06479BBDAD811B",
+        "changed": true,
+        "unchanged": false
+      },
+      "timing": {
+        "before": "ED8FD3CC968B42BB2D2274DDCA26895E9C3495A21769488975759E9E12AF6288",
+        "after": "7EA7A9AF700F647A5E2FBDB62FA04B9D6161FB4500A2817B5BFC17CB1942182D",
+        "changed": true,
+        "unchanged": false
+      },
+      "normalized_timing": {
+        "before": "20A9F002F2A5ACFF3318ECD757AF11E75F06EDDAC21681EC53B05B9BE7363F14",
+        "after": "2EE0BC483BC215A497EBF65725EF0215C705B286EDE064DB9DF3BC9D292A3741",
+        "changed": true,
+        "unchanged": false
+      },
+      "captions": {
+        "before": "995A860C9B207C351A4D8F9001B7019B76EB30A976C87982EE7053F603E934B3",
+        "after": "1850BB0F9F1C1278CE4FC8C841E1413E2FEF7A8089A422FA6AF834BF47FC0CCD",
+        "changed": true,
+        "unchanged": false
+      },
+      "timeline_region": {
+        "before": "E53FDC16B08ED7825D8A25B962DA98ECEA290956A790F80D9D44505BADEBB8F9",
+        "after": "2979234E57FD2AFE52B5286FFAA7DDD312A1D2E833D3FCA558362A48EC4AAF0B",
+        "changed": true,
+        "unchanged": false
+      },
+      "after_runtime_segment_hash": "CD592984CE88F9887EC8965B91E26B032FD0ADC4C1D6A5A284E500E9B8374CA3"
+    },
+    {
+      "slide_id": "slide-03-safety-focus",
+      "manifest_content": {
+        "before": "366CCA67B40B9AB30390B4B722F3AE3076D127CFADC2FDB495111C3C3429A144",
+        "after": "366CCA67B40B9AB30390B4B722F3AE3076D127CFADC2FDB495111C3C3429A144",
+        "changed": false,
+        "unchanged": true
+      },
+      "manifest_layout": {
+        "before": "2E9111D25FB671FE1EAAE3CEA9B36D8D7242ED894E0066E78BA0240764CEE488",
+        "after": "2E9111D25FB671FE1EAAE3CEA9B36D8D7242ED894E0066E78BA0240764CEE488",
+        "changed": false,
+        "unchanged": true
+      },
+      "manifest_motion": {
+        "before": "7A4F9CEBF39C80374E7C1F7A914C9ED23E0E91BF2800D1C9F94DF32C7664DC4B",
+        "after": "7A4F9CEBF39C80374E7C1F7A914C9ED23E0E91BF2800D1C9F94DF32C7664DC4B",
+        "changed": false,
+        "unchanged": true
+      },
+      "visual": {
+        "before": "2230AA6F4073085A9672D2C6739255FDB7FD0DDD2A72CC5BFAE2D7DFB14406B0",
+        "after": "2230AA6F4073085A9672D2C6739255FDB7FD0DDD2A72CC5BFAE2D7DFB14406B0",
+        "changed": false,
+        "unchanged": true
+      },
+      "ppt_rendered_slide": {
+        "before": "CC3B019A1A770475D78A586C067AC9CF0A2A4946BB4F3A94B4391FE44FE248AC",
+        "after": "CC3B019A1A770475D78A586C067AC9CF0A2A4946BB4F3A94B4391FE44FE248AC",
+        "changed": false,
+        "unchanged": true
+      },
+      "speaker_notes": {
+        "before": "925262A4B558BCAF0A9DD75FA7EAA035AEFED8E9F11804793E54CDD929A914C6",
+        "after": "925262A4B558BCAF0A9DD75FA7EAA035AEFED8E9F11804793E54CDD929A914C6",
+        "changed": false,
+        "unchanged": true
+      },
+      "audio": {
+        "before": "AE196B2D55CC8330B8F45CC01EE443A394C1FD3B5F17CF71E603499267860DB1",
+        "after": "AE196B2D55CC8330B8F45CC01EE443A394C1FD3B5F17CF71E603499267860DB1",
+        "changed": false,
+        "unchanged": true
+      },
+      "audio_metadata": {
+        "before": "CA60A5A195882D21EE5AA74C0DF76B5A07E584C597B3D7CC93892D45A914E274",
+        "after": "CA60A5A195882D21EE5AA74C0DF76B5A07E584C597B3D7CC93892D45A914E274",
+        "changed": false,
+        "unchanged": true
+      },
+      "timing": {
+        "before": "CD3CD67EDD212C30F9E84F73E6320F5B2A08BD39BA26C9F88B81A45019D47985",
+        "after": "CD3CD67EDD212C30F9E84F73E6320F5B2A08BD39BA26C9F88B81A45019D47985",
+        "changed": false,
+        "unchanged": true
+      },
+      "normalized_timing": {
+        "before": "CAB89F1BB890220E784F31B284D997352B3C34D47013BA66AB67EDD1E2540ED8",
+        "after": "CAB89F1BB890220E784F31B284D997352B3C34D47013BA66AB67EDD1E2540ED8",
+        "changed": false,
+        "unchanged": true
+      },
+      "captions": {
+        "before": "DF57E5E0532572B141930AD8E35FABB75DA260F554E00BBFEFD15D5F53368F9C",
+        "after": "DF57E5E0532572B141930AD8E35FABB75DA260F554E00BBFEFD15D5F53368F9C",
+        "changed": false,
+        "unchanged": true
+      },
+      "timeline_region": {
+        "before": "366E8F06B1DF13D83060B6DAFDCDE6BC14C8CC23686F42F1D6B7AB45A2F85016",
+        "after": "0962960D1EA54E042161943D1E8A038A5CC81FD7CB20F8EE07CD3451EA395152",
+        "changed": true,
+        "unchanged": false
+      },
+      "after_runtime_segment_hash": "1127F0A2BB15216356A5EA09CEC1FB53A50ACC8708F8F36A18E2EBF04DC2FFBB"
+    }
+  ],
+  "shared_infrastructure": {
+    "ppt_renderer": {
+      "before": "C105445BEE53E76D6A8A50CEA0119DC17AB81501B0BA5DF2CCB591B24B7BC549",
+      "after": "C105445BEE53E76D6A8A50CEA0119DC17AB81501B0BA5DF2CCB591B24B7BC549",
+      "changed": false,
+      "unchanged": true
+    },
+    "remotion_renderer": {
+      "before": "FD858EEAB0483A8110EA30CAB2BAB4B6C45B7615B756B56941183D1F471DF1E2",
+      "after": "FD858EEAB0483A8110EA30CAB2BAB4B6C45B7615B756B56941183D1F471DF1E2",
+      "changed": false,
+      "unchanged": true
+    },
+    "tts_provider_adapter": {
+      "before": "6D2104FF06119821C36544594A86EF3F4031FDD18F7079D6945E19FAE19773E2",
+      "after": "6D2104FF06119821C36544594A86EF3F4031FDD18F7079D6945E19FAE19773E2",
+      "changed": false,
+      "unchanged": true
+    },
+    "timing_normalizer": {
+      "before": "C5C37043D3EDE1488CFFAE2AE795748AB8C0E087F8348041D37DBDEB41C275D1",
+      "after": "C5C37043D3EDE1488CFFAE2AE795748AB8C0E087F8348041D37DBDEB41C275D1",
+      "changed": false,
+      "unchanged": true
+    },
+    "caption_adapter": {
+      "before": "88AFD77F7EE67F91960EC0B40A1D1FF84E758B0BF402CB26423E6714B3B276B5",
+      "after": "88AFD77F7EE67F91960EC0B40A1D1FF84E758B0BF402CB26423E6714B3B276B5",
+      "changed": false,
+      "unchanged": true
+    },
+    "motion_vocabulary": {
+      "before": "07ECB861FAABBD52104BB796E50BFB6D2B77A91F4793BC0793EE752585BBD136",
+      "after": "07ECB861FAABBD52104BB796E50BFB6D2B77A91F4793BC0793EE752585BBD136",
+      "changed": false,
+      "unchanged": true
+    },
+    "layout_vocabulary": {
+      "before": "2DC07BB12EEAE719901E2A2988D711A17AFDDA9903AECF4A5D46A1FC52623B93",
+      "after": "2DC07BB12EEAE719901E2A2988D711A17AFDDA9903AECF4A5D46A1FC52623B93",
+      "changed": false,
+      "unchanged": true
+    },
+    "renderer_contract": {
+      "before": "ED839BF4BA265BEE9C7C95F15A00A0BCE2B7804B34D49B49D0FB33467FFC6F7C",
+      "after": "ED839BF4BA265BEE9C7C95F15A00A0BCE2B7804B34D49B49D0FB33467FFC6F7C",
+      "changed": false,
+      "unchanged": true
+    }
+  },
+  "expected_changed_assertions_passed": {
+    "slide_2_text": true,
+    "slide_2_notes": true,
+    "slide_2_visual": true,
+    "slide_2_ppt": true,
+    "slide_2_audio": true,
+    "slide_2_timing": true,
+    "slide_2_cue": true,
+    "slide_2_caption": true,
+    "slide_2_timeline": true
+  },
+  "expected_unchanged_assertions_passed": {
+    "slide_1_visual_notes_audio_timing_ppt": true,
+    "slide_3_visual_notes_audio_timing_ppt": true,
+    "shared_infrastructure": true
+  },
+  "slide_2_cues": [
+    {
+      "cue_id": "workwear",
+      "source_object_id": "slide-02-item-workwear",
+      "visual_asset_id": "workwear",
+      "narration_text_span": "工作服",
+      "start_ms": 2346.667,
+      "end_ms": 2944,
+      "lead_ms": 150,
+      "visual_reveal_at_ms": 2196.667,
+      "paired_target_ids": [
+        "workwear",
+        "slide-02-item-workwear"
+      ]
+    },
+    {
+      "cue_id": "safety-shoes",
+      "source_object_id": "slide-02-item-safety-shoes",
+      "visual_asset_id": "safety-shoes",
+      "narration_text_span": "安全鞋",
+      "start_ms": 3029.333,
+      "end_ms": 4053.333,
+      "lead_ms": 150,
+      "visual_reveal_at_ms": 2879.333,
+      "paired_target_ids": [
+        "safety-shoes",
+        "slide-02-item-safety-shoes"
+      ]
+    },
+    {
+      "cue_id": "goggles-face-shield",
+      "source_object_id": "slide-02-item-goggles",
+      "visual_asset_id": "goggles-face-shield",
+      "narration_text_span": "护目镜与防护面罩",
+      "start_ms": 4181.333,
+      "end_ms": 6357.333,
+      "lead_ms": 150,
+      "visual_reveal_at_ms": 4031.333,
+      "paired_target_ids": [
+        "goggles-face-shield",
+        "slide-02-item-goggles"
+      ]
+    },
+    {
+      "cue_id": "esd-equipment",
+      "source_object_id": "slide-02-item-esd",
+      "visual_asset_id": "esd-equipment",
+      "narration_text_span": "防静电装备",
+      "start_ms": 7338.667,
+      "end_ms": 8490.667,
+      "lead_ms": 150,
+      "visual_reveal_at_ms": 7188.667,
+      "paired_target_ids": [
+        "esd-equipment",
+        "slide-02-item-esd"
+      ]
+    }
+  ],
+  "slide_2_audio_duration_ms": 16164,
+  "updated_course_duration_seconds": 55.5,
+  "output_video": {
+    "path": "poc/06-three-slide/remotion/livingcourse-author-review-av.mp4",
+    "sha256": "8CF22AA0DBDBC9EE46E424D941BC17E2C6F16D9DEE28A2861F59CA6B10261B57",
+    "render_seconds": 51.602,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "30/1"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "55.552000",
+        "size": "10623082",
+        "bit_rate": "1529821"
+      }
+    }
+  },
+  "caption_visual_contract": {
+    "native_text": true,
+    "text_color": "#000000",
+    "background": "transparent",
+    "border": "none",
+    "colored_caption_block_present": false,
+    "visually_checked_frame": "poc/06-three-slide/remotion/qa-stills/step-7/slide-02-black-caption.png"
+  },
+  "regeneration_ratio": {
+    "scope_definition": "semantic course-content artifact classes; final MP4 re-encode is render execution and excluded",
+    "total_relevant_artifact_classes": 28,
+    "regenerated_artifact_classes": 10,
+    "ratio": 0.357143,
+    "percent": 35.7143,
+    "unnecessary_regenerations": 0
+  },
+  "render_execution": {
+    "whole_course_mp4_reencoded": true,
+    "whole_course_content_regenerated": false
+  },
+  "release_gate": {
+    "course_release": "blocked",
+    "slide_2_target_site_ppe_verification": "missing_and_blocking",
+    "slide_3_real_sources_and_anchor": "missing_or_unresolved_and_blocking",
+    "production_release_mp4_generated": false
+  }
+}

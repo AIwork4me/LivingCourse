@@ -1,0 +1,7 @@
+node_modules/
+dist/
+coverage/
+.livingcourse/
+*.log
+.DS_Store
+Thumbs.db

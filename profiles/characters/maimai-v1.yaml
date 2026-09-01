@@ -1,0 +1,17 @@
+id: maimai-v1
+version: 1.0.0
+name: 麦麦
+species: 马尔泰犬
+role: 制造业培训引导员
+appearance:
+  fur: 白色蓬松毛发，轮廓整洁
+  goggles: 半透明蓝护目镜
+  tool_belt: 橙色工具腰带
+  body_structure: 两足直立拟人结构
+  arms: 2
+  legs: 2
+usage:
+  default_instances_per_scene: 1
+  allowed_roles: [guide, point, observe, remind, confirm]
+  prohibited: [four_legged_pose, extra_limbs, ambiguous_limbs, exaggerated_action, unverified_safety_demonstration]
+

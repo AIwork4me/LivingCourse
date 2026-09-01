@@ -1,0 +1,1022 @@
+{
+  "schema_version": "0.2.1",
+  "manifest_type": "livingcourse.course",
+  "semantic_vocabulary": {
+    "version": "0.2.0",
+    "motion": "poc/06-three-slide/motion-vocabulary.md",
+    "layout": "poc/06-three-slide/layout-vocabulary.md",
+    "renderer_contract": "poc/06-three-slide/renderer-contract.md"
+  },
+  "course_id": "livingcourse-production-entry-safety-001",
+  "title": {
+    "id": "course-title",
+    "text": "进入生产车间前"
+  },
+  "language": "zh-CN",
+  "voice_profile": {
+    "id": "manufacturing_training_default",
+    "language": "zh-CN",
+    "style": [
+      "professional",
+      "calm",
+      "clear",
+      "trustworthy"
+    ]
+  },
+  "aspect_ratio": "16:9",
+  "canvas": {
+    "reference_width": 1280,
+    "reference_height": 720,
+    "unit": "px",
+    "scaling_policy": "preserve_aspect_ratio"
+  },
+  "audience": {
+    "primary": "第一次进入生产区域的新员工",
+    "context": "制造业新员工安全培训"
+  },
+  "learning_objectives": [
+    {
+      "id": "objective-safety-preparation",
+      "order": 1,
+      "text": "理解进入生产区域前需要进行安全准备"
+    },
+    {
+      "id": "objective-four-preparations",
+      "order": 2,
+      "text": "说出四项基础 PPE / 安全准备"
+    },
+    {
+      "id": "objective-abnormal-stop",
+      "order": 3,
+      "text": "知道设备发生异常时，应立即停止操作并按照 SOP 处理"
+    }
+  ],
+  "visual_style": {
+    "name": "手绘科技漫画浅色风",
+    "tone": [
+      "professional",
+      "clear",
+      "restrained",
+      "credible",
+      "manufacturing_training"
+    ],
+    "colors": {
+      "background": "#F7F8F3",
+      "text": "#1F2A37",
+      "primary_accent": "#2F6FED",
+      "secondary_accent": "#F28C28",
+      "support_fill": "#DCEFFD",
+      "secondary_line": "#C9D3DF"
+    },
+    "typography": {
+      "primary_font": "Noto Sans SC",
+      "fallback_font": "Microsoft YaHei",
+      "title_weight": "bold",
+      "body_weight": "regular_or_medium"
+    },
+    "image_policy": {
+      "generated_visuals_must_be_text_free": true,
+      "forbidden_in_generated_visuals": [
+        "text",
+        "letters",
+        "numbers",
+        "labels",
+        "logos",
+        "watermarks",
+        "ui"
+      ],
+      "information_text_layer": "renderer_native",
+      "generated_equipment_detail_policy": "do_not_invent_real_device_positions_or_controls",
+      "real_equipment_training_preference": "verified_real_photo_with_native_overlay"
+    },
+    "prohibited_styles": [
+      "children_picture_book",
+      "marketing_poster",
+      "dashboard_wall",
+      "dark_cyberpunk",
+      "flashy_alarm_graphics"
+    ]
+  },
+  "character": {
+    "id": "maimai",
+    "name": "麦麦",
+    "species": "马尔泰犬",
+    "role": "制造业培训引导员",
+    "appearance": {
+      "fur": "白色蓬松毛发，轮廓整洁",
+      "goggles": "半透明蓝护目镜",
+      "tool_belt": "橙色工具腰带",
+      "body_structure": "两足直立拟人结构",
+      "required_limb_count": {
+        "arms": 2,
+        "legs": 2
+      }
+    },
+    "usage_limits": {
+      "default_instances_per_scene": 1,
+      "normal_area_ratio": {
+        "min": 0.08,
+        "max": 0.15
+      },
+      "hero_area_ratio_max": 0.2,
+      "allowed_roles": [
+        "guide",
+        "point",
+        "observe",
+        "remind",
+        "confirm"
+      ],
+      "must_not_obscure": [
+        "native_text",
+        "technical_content",
+        "device_controls",
+        "safety_boundaries"
+      ],
+      "prohibited": [
+        "four_legged_pose",
+        "extra_limbs",
+        "ambiguous_limbs",
+        "exaggerated_action",
+        "childish_proportions",
+        "unverified_safety_demonstration"
+      ]
+    }
+  },
+  "asset_policy": {
+    "path_base": "project_root",
+    "generated_assets_require_text_free_review": true,
+    "real_assets_require_provenance": true,
+    "real_device_anchor_requires_human_confirmation": true,
+    "all_course_text_must_remain_native": true,
+    "missing_asset_behavior": "block_release"
+  },
+  "pipeline_policy": {
+    "principle": "block_release_not_poc",
+    "poc_author_review": {
+      "simulated_content_allowed_when_explicitly_disclosed": true,
+      "synthetic_assets_must_be_scoped_to_poc_only": true,
+      "synthetic_anchors_must_not_resolve_production_grounding": true,
+      "policy_reference": "poc/06-three-slide/poc-simulation-policy.md"
+    },
+    "production_release": {
+      "simulated_content_allowed": false,
+      "all_required_before_release_sources_must_be_fulfilled": true,
+      "real_device_anchors_must_be_human_confirmed": true
+    }
+  },
+  "timing": {
+    "time_unit": "seconds",
+    "slide_duration_policy": "declared_per_slide",
+    "transition_policy": "semantic_intent_with_optional_duration",
+    "audio_duration_policy": "resolved_by_narration_contract",
+    "narration_contract": "poc/06-three-slide/narration-contract.md",
+    "pronunciation_dictionary": "poc/06-three-slide/pronunciation.yaml"
+  },
+  "slides": [
+    {
+      "id": "slide-01-hero",
+      "order": 1,
+      "type": "hero",
+      "title": {
+        "id": "slide-01-title",
+        "text": "进入生产车间前"
+      },
+      "subtitle": {
+        "id": "slide-01-subtitle",
+        "text": "安全，从第一步开始"
+      },
+      "content": {
+        "purpose": "建立课程主题和安全准备意识",
+        "native_text_ids": [
+          "slide-01-title",
+          "slide-01-subtitle"
+        ]
+      },
+      "visual_strategy": "ai_visual_plate",
+      "visual_assets": [
+        {
+          "id": "slide-01-workshop-visual",
+          "role": "hero_visual_plate",
+          "media_type": "image",
+          "source_type": "approved_ai_generated",
+          "path": "poc/01-visual-plate/visual.png",
+          "mime_type": "image/png",
+          "sha256": "0C887C28517B92625A45EF6E07444D3EB8ADE1043C1157532A57D48907550322",
+          "availability": "available",
+          "requirements": {
+            "text_free": true,
+            "subject": "现代电子制造车间与麦麦培训引导员",
+            "character_position": [
+              "right",
+              "lower_right"
+            ],
+            "text_safe_side": "left",
+            "style_ref": "visual_style"
+          },
+          "review_status": "approved_for_reuse"
+        }
+      ],
+      "layout": {
+        "type": "hero",
+        "reading_order": [
+          "slide-01-title",
+          "slide-01-subtitle",
+          "slide-01-workshop-visual"
+        ],
+        "visual_placement": {
+          "mode": "full_bleed",
+          "fit": "cover",
+          "subject_region": "right",
+          "focal_point": {
+            "x": 0.72,
+            "y": 0.5,
+            "unit": "normalized"
+          }
+        },
+        "regions": {
+          "title": {
+            "x": 0.06,
+            "y": 0.18,
+            "width": 0.42,
+            "height": 0.16,
+            "unit": "normalized"
+          },
+          "subtitle": {
+            "x": 0.06,
+            "y": 0.39,
+            "width": 0.4,
+            "height": 0.1,
+            "unit": "normalized"
+          },
+          "text_safe_area": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 0.5,
+            "height": 1.0,
+            "unit": "normalized"
+          },
+          "character_preferred_area": {
+            "x": 0.62,
+            "y": 0.25,
+            "width": 0.3,
+            "height": 0.65,
+            "unit": "normalized"
+          }
+        }
+      },
+      "notes": "第一次进入生产区域前，请先建立安全准备意识。安全不是进入车间后的附加动作，而是从进入前的第一步开始。",
+      "duration": {
+        "target_seconds": 6.0,
+        "minimum_final_hold_seconds": 2.5
+      },
+      "motion": {
+        "overall_intent": [
+          "restrained",
+          "professional",
+          "attention_guiding",
+          "deterministic"
+        ],
+        "sequence": [
+          {
+            "order": 1,
+            "target_id": "slide-01-workshop-visual",
+            "action": "slow_zoom",
+            "start_seconds": 0.0,
+            "end_seconds": 6.0,
+            "intensity": "very_subtle"
+          },
+          {
+            "order": 2,
+            "target_id": "slide-01-title",
+            "action": "reveal",
+            "at_seconds": 0.4,
+            "intent": [
+              "gentle_fade",
+              "slight_rise"
+            ]
+          },
+          {
+            "order": 3,
+            "target_id": "slide-01-subtitle",
+            "action": "reveal",
+            "at_seconds": 1.1,
+            "intent": "delayed_fade"
+          }
+        ],
+        "character_motion_limit": "no_exaggerated_character_motion",
+        "prohibited": [
+          "bounce",
+          "flashy_motion",
+          "rapid_rotation",
+          "random_motion",
+          "decorative_loop"
+        ]
+      },
+      "transition": {
+        "to_next": {
+          "intent": "crossfade",
+          "duration_seconds": 0.45,
+          "purpose": "从课程引入平稳进入具体准备步骤"
+        }
+      },
+      "source_grounding": {
+        "content_basis": [
+          {
+            "source_id": "course-brief-step-6a",
+            "source_type": "approved_course_brief",
+            "status": "provided"
+          }
+        ],
+        "claims_requiring_external_verification": [],
+        "device_specific_detail_present": false
+      },
+      "review_status": {
+        "state": "structure_approved_for_visual_production",
+        "gate": "step_6a_structure_review",
+        "visual_production_allowed": true,
+        "release_status": "not_approved_for_release"
+      }
+    },
+    {
+      "id": "slide-02-step-process",
+      "order": 2,
+      "type": "step_process",
+      "title": {
+        "id": "slide-02-title",
+        "text": "进入车间前，做好四项准备"
+      },
+      "content": {
+        "purpose": "帮助新员工说出并依次确认四项基础安全准备",
+        "items": [
+          {
+            "id": "slide-02-item-workwear",
+            "order": 1,
+            "text": "工作服",
+            "visual_asset_id": "workwear"
+          },
+          {
+            "id": "slide-02-item-safety-shoes",
+            "order": 2,
+            "text": "安全鞋",
+            "visual_asset_id": "safety-shoes"
+          },
+          {
+            "id": "slide-02-item-goggles",
+            "order": 3,
+            "text": "护目镜与防护面罩",
+            "visual_asset_id": "goggles-face-shield"
+          },
+          {
+            "id": "slide-02-item-esd",
+            "order": 4,
+            "text": "防静电装备",
+            "visual_asset_id": "esd-equipment"
+          }
+        ],
+        "native_text_ids": [
+          "slide-02-title",
+          "slide-02-item-workwear",
+          "slide-02-item-safety-shoes",
+          "slide-02-item-goggles",
+          "slide-02-item-esd"
+        ]
+      },
+      "visual_strategy": "independent_assets",
+      "visual_assets": [
+        {
+          "id": "maimai-guide",
+          "role": "guide_character",
+          "media_type": "image",
+          "source_type": "ai_generated_candidate",
+          "path": "poc/06-three-slide/assets/slide-02/final/maimai-guide.png",
+          "mime_type": "image/png",
+          "sha256": "495362D7A1616928594BBD84B02DDC30B16EA368C673680F1D1EABCA160455A3",
+          "availability": "available_for_poc_use",
+          "character_ref": "maimai",
+          "requirements": {
+            "text_free": true,
+            "independently_positionable": true,
+            "background": "transparent_preferred",
+            "style_ref": "visual_style",
+            "pose": "two_legged_upright_guide",
+            "limb_count_must_match_character_spec": true,
+            "must_not_dominate": true
+          },
+          "review_status": "approved_for_poc_use"
+        },
+        {
+          "id": "workwear",
+          "role": "ppe_visual",
+          "media_type": "image",
+          "source_type": "ai_generated_candidate",
+          "path": "poc/06-three-slide/assets/slide-02/final/workwear.png",
+          "mime_type": "image/png",
+          "sha256": "368417B9B12C998703B45570321B1F2349394E6383B01C72B346DCE1557E88DC",
+          "availability": "available_for_poc_use",
+          "requirements": {
+            "text_free": true,
+            "independently_positionable": true,
+            "background": "transparent_preferred",
+            "subject": "无品牌、无文字的制造业工作服",
+            "style_ref": "visual_style"
+          },
+          "review_status": "approved_for_poc_use"
+        },
+        {
+          "id": "safety-shoes",
+          "role": "ppe_visual",
+          "media_type": "image",
+          "source_type": "ai_generated_candidate",
+          "path": "poc/06-three-slide/assets/slide-02/final/safety-shoes.png",
+          "mime_type": "image/png",
+          "sha256": "D219C007F1F8105DF2542660FACB4A6D47B73016B560DAA69122F8E130D3C6FD",
+          "availability": "available_for_poc_use",
+          "requirements": {
+            "text_free": true,
+            "independently_positionable": true,
+            "background": "transparent_preferred",
+            "subject": "无品牌、无文字的制造业安全鞋",
+            "style_ref": "visual_style"
+          },
+          "review_status": "approved_for_poc_use"
+        },
+        {
+          "id": "goggles-face-shield",
+          "role": "ppe_visual",
+          "media_type": "image",
+          "source_type": "ai_generated_candidate",
+          "path": "poc/06-three-slide/assets/slide-02/final/goggles-face-shield-v2.png",
+          "mime_type": "image/png",
+          "sha256": "47BC5E75E985CED3C416135A053048CB8C1A3CEB98E956A71654377BDA6E779C",
+          "availability": "available_for_golden_poc_v0_1_author_review",
+          "requirements": {
+            "text_free": true,
+            "independently_positionable": true,
+            "background": "transparent_preferred",
+            "subject": "无品牌、无文字的制造业护目镜与通用透明防护面罩组合",
+            "style_ref": "visual_style"
+          },
+          "review_status": "approved_for_poc_use"
+        },
+        {
+          "id": "esd-equipment",
+          "role": "ppe_visual",
+          "media_type": "image",
+          "source_type": "ai_generated_candidate",
+          "path": "poc/06-three-slide/assets/slide-02/final/esd-equipment.png",
+          "mime_type": "image/png",
+          "sha256": "642DEC526546AE20AAFA12B45079B0ACCB192DB0DCA8EDAC95453209E0B2C252",
+          "availability": "available_for_poc_use",
+          "requirements": {
+            "text_free": true,
+            "independently_positionable": true,
+            "background": "transparent_preferred",
+            "subject": "不显示设备型号、文字或标签的通用防静电装备组合",
+            "style_ref": "visual_style",
+            "site_specific_configuration_must_be_verified": true
+          },
+          "review_status": "approved_for_poc_use"
+        }
+      ],
+      "layout": {
+        "type": "step_process",
+        "reading_order": [
+          "slide-02-title",
+          "maimai-guide",
+          "slide-02-item-workwear",
+          "slide-02-item-safety-shoes",
+          "slide-02-item-goggles",
+          "slide-02-item-esd"
+        ],
+        "item_flow": "left_to_right_sequence",
+        "asset_text_pairing": "one_to_one",
+        "regions": {
+          "title": {
+            "x": 0.06,
+            "y": 0.08,
+            "width": 0.72,
+            "height": 0.14,
+            "unit": "normalized"
+          },
+          "process_band": {
+            "x": 0.06,
+            "y": 0.28,
+            "width": 0.72,
+            "height": 0.58,
+            "unit": "normalized"
+          },
+          "guide_area": {
+            "x": 0.8,
+            "y": 0.34,
+            "width": 0.15,
+            "height": 0.46,
+            "unit": "normalized"
+          },
+          "text_safe_area": {
+            "x": 0.05,
+            "y": 0.05,
+            "width": 0.74,
+            "height": 0.88,
+            "unit": "normalized"
+          }
+        },
+        "native_connectors": {
+          "role": "show_step_order",
+          "style": "minimal_hand_drawn_line",
+          "must_not_contain_text": true
+        }
+      },
+      "notes": "进入车间前，请依次确认工作服、安全鞋、护目镜与防护面罩，以及防静电装备。具体穿戴标准与适用范围应以本车间已经批准的 PPE 要求为准。",
+      "duration": {
+        "target_seconds": 9.0,
+        "minimum_final_hold_seconds": 3.0
+      },
+      "motion": {
+        "overall_intent": [
+          "sequential",
+          "restrained",
+          "professional",
+          "deterministic"
+        ],
+        "sequence": [
+          {
+            "order": 1,
+            "target_id": "slide-02-title",
+            "action": "reveal",
+            "at_seconds": 0.4,
+            "intent": [
+              "gentle_fade",
+              "slight_rise"
+            ]
+          },
+          {
+            "order": 2,
+            "target_id": "maimai-guide",
+            "action": "reveal",
+            "at_seconds": 1.0,
+            "intent": "gentle_guide_entry"
+          },
+          {
+            "order": 3,
+            "target_ids": [
+              "workwear",
+              "slide-02-item-workwear"
+            ],
+            "action": "synchronized_reveal",
+            "at_seconds": 1.6
+          },
+          {
+            "order": 4,
+            "target_ids": [
+              "safety-shoes",
+              "slide-02-item-safety-shoes"
+            ],
+            "action": "synchronized_reveal",
+            "at_seconds": 2.5
+          },
+          {
+            "order": 5,
+        "target_ids": [
+          "goggles-face-shield",
+          "slide-02-item-goggles"
+        ],
+            "action": "synchronized_reveal",
+            "at_seconds": 3.4
+          },
+          {
+            "order": 6,
+            "target_ids": [
+              "esd-equipment",
+              "slide-02-item-esd"
+            ],
+            "action": "synchronized_reveal",
+            "at_seconds": 4.3
+          }
+        ],
+        "character_motion_limit": "small_purposeful_guide_motion_only",
+        "prohibited": [
+          "bounce",
+          "flashy_motion",
+          "rapid_rotation",
+          "random_motion",
+          "decorative_loop"
+        ]
+      },
+      "transition": {
+        "to_next": {
+          "intent": "crossfade",
+          "duration_seconds": 0.45,
+          "purpose": "从准备清单平稳进入异常处理重点"
+        }
+      },
+      "source_grounding": {
+        "content_basis": [
+          {
+            "source_id": "course-brief-step-6a",
+            "source_type": "approved_course_brief",
+            "status": "provided"
+          }
+        ],
+        "required_before_release": [
+          {
+            "source_id": "site-ppe-procedure",
+            "source_type": "approved_site_ppe_requirement",
+            "purpose": "确认四项准备在目标车间的适用范围、穿戴标准和防静电配置",
+            "status": "missing"
+          }
+        ],
+        "device_specific_detail_present": false
+      },
+    "review_status": {
+      "state": "step_7_incremental_regeneration_approved",
+      "gate": "step_7_incremental_regeneration_review",
+      "visual_production_allowed": true,
+      "release_status": "blocked_pending_site_ppe_verification"
+      }
+    },
+    {
+      "id": "slide-03-safety-focus",
+      "order": 3,
+      "type": "safety_focus",
+      "poc_content_status": "approved_simulated_training_content",
+      "production_content_status": "not_approved_for_release",
+      "title": {
+        "id": "slide-03-title",
+        "text": "发现异常，立即停机"
+      },
+      "content": {
+        "purpose": "建立异常情况下停止操作并按 SOP 处理的底线意识",
+        "key_message": {
+          "id": "slide-03-key-message",
+          "text": "不要继续操作，不要自行排除未知故障",
+          "emphasis": "warning"
+        },
+        "action_principles": [
+          {
+            "id": "slide-03-action-stop",
+            "order": 1,
+            "text": "停止操作"
+          },
+          {
+            "id": "slide-03-action-sop",
+            "order": 2,
+            "text": "按照本岗位 SOP 处理"
+          },
+          {
+            "id": "slide-03-action-report",
+            "order": 3,
+            "text": "按现场规定报告"
+          }
+        ],
+        "simulation_disclosure": {
+          "id": "slide-03-simulation-disclosure",
+          "text": "模拟培训示意｜正式使用请替换为现场真实设备与已批准 SOP",
+          "rendering": "renderer_native_text",
+          "visual_priority": "supporting_disclosure",
+          "required_in_modes": [
+            "poc_ppt",
+            "poc_author_review_video"
+          ],
+          "prohibited_in_visual_asset": true
+        },
+        "native_overlays": [
+          {
+            "id": "slide-03-abnormal-area-spotlight",
+            "type": "spotlight",
+            "purpose": "聚焦当前 render mode 允许使用的单一目标区域",
+            "anchor_profiles": [
+              {
+                "usage_scope": "poc_only",
+                "asset_id": "slide-03-synthetic-training-machine",
+                "region_id": "synthetic-training-focus-region",
+                "normalized_bounds": {
+                  "x": 0.215,
+                  "y": 0.27,
+                  "width": 0.105,
+                  "height": 0.13,
+                  "unit": "normalized"
+                },
+                "source": "synthetic_poc_asset",
+                "status": "approved_for_poc_only"
+              },
+              {
+                "usage_scope": "production_release",
+                "asset_id": "slide-03-real-device-photo",
+                "region_id": "confirmed-abnormal-or-emergency-stop-area",
+                "normalized_bounds": null,
+                "source": "verified_real_device_photo",
+                "status": "unresolved_until_real_asset_review"
+              }
+            ]
+          },
+          {
+            "id": "slide-03-focus-circle",
+            "type": "circle",
+            "purpose": "标示与 spotlight 相同的经确认区域",
+            "anchor_ref": "slide-03-abnormal-area-spotlight"
+          },
+          {
+            "id": "slide-03-focus-arrow",
+            "type": "arrow",
+            "purpose": "从 native warning text 引导至经确认区域",
+            "anchor_ref": "slide-03-abnormal-area-spotlight"
+          }
+        ],
+        "native_text_ids": [
+          "slide-03-title",
+          "slide-03-key-message",
+          "slide-03-action-stop",
+          "slide-03-action-sop",
+          "slide-03-action-report",
+          "slide-03-simulation-disclosure"
+        ]
+      },
+      "visual_strategy": "real_asset_with_overlay",
+      "poc_visual_strategy": "synthetic_training_asset_with_native_overlay",
+      "visual_assets": [
+        {
+          "id": "slide-03-synthetic-training-machine",
+          "role": "synthetic_training_machine",
+          "media_type": "image",
+          "source_type": "ai_generated_synthetic_poc_asset",
+          "path": "poc/06-three-slide/assets/slide-03/synthetic-training-machine.png",
+          "mime_type": "image/png",
+          "sha256": "24DE8D608470B45ABB77917320911F6D81E99722C0694F8FD9A6AFD15264508F",
+          "availability": "available_for_poc_use",
+          "usage_scope": [
+            "poc_ppt_renderer",
+            "poc_video_renderer",
+            "author_review"
+          ],
+          "requirements": {
+            "text_free": true,
+            "must_be_clearly_synthetic": true,
+            "must_not_resemble_a_specific_real_device": true,
+            "must_not_contain_real_controls_or_interfaces": true,
+            "native_simulation_disclosure_required": true,
+            "must_never_resolve_production_grounding": true
+          },
+          "review_status": "approved_for_poc_use",
+          "poc_only": true,
+          "production_release_allowed": false,
+          "production_release_eligibility": "prohibited"
+        },
+        {
+          "id": "slide-03-real-device-photo",
+          "role": "verified_real_device_reference",
+          "media_type": "image",
+          "source_type": "real_photograph",
+          "path": null,
+          "mime_type": null,
+          "sha256": null,
+          "availability": "required_before_visual_production",
+          "requirements": {
+            "must_be_real_photo": true,
+            "must_match_target_device_or_training_context": true,
+            "must_not_be_ai_generated": true,
+            "must_not_receive_generated_control_details": true,
+            "overlay_anchor_must_be_human_confirmed": true,
+            "embedded_instructional_text_not_allowed": true
+          },
+          "required_metadata": {
+            "site_or_owner": null,
+            "device_identifier": null,
+            "equipment_model": null,
+            "photo_date": null,
+            "usage_rights": null,
+            "source_reference": null
+          },
+          "review_status": "blocked_pending_real_asset"
+        }
+      ],
+      "layout": {
+        "type": "safety_focus",
+        "reading_order": [
+          "slide-03-title",
+          "slide-03-synthetic-training-machine",
+          "slide-03-abnormal-area-spotlight",
+          "slide-03-key-message",
+          "slide-03-action-stop",
+          "slide-03-action-sop",
+          "slide-03-action-report",
+          "slide-03-simulation-disclosure"
+        ],
+        "release_reading_order": [
+          "slide-03-title",
+          "slide-03-real-device-photo",
+          "slide-03-abnormal-area-spotlight",
+          "slide-03-key-message",
+          "slide-03-action-stop",
+          "slide-03-action-sop",
+          "slide-03-action-report"
+        ],
+        "regions": {
+          "title": {
+            "x": 0.06,
+            "y": 0.07,
+            "width": 0.86,
+            "height": 0.14,
+            "unit": "normalized"
+          },
+          "real_device_visual": {
+            "x": 0.05,
+            "y": 0.24,
+            "width": 0.58,
+            "height": 0.68,
+            "unit": "normalized"
+          },
+          "poc_synthetic_visual": {
+            "x": 0.05,
+            "y": 0.24,
+            "width": 0.58,
+            "height": 0.68,
+            "unit": "normalized"
+          },
+          "warning_text": {
+            "x": 0.67,
+            "y": 0.29,
+            "width": 0.28,
+            "height": 0.25,
+            "unit": "normalized"
+          },
+          "action_text": {
+            "x": 0.67,
+            "y": 0.6,
+            "width": 0.28,
+            "height": 0.25,
+            "unit": "normalized"
+          },
+          "text_safe_area": {
+            "x": 0.65,
+            "y": 0.24,
+            "width": 0.32,
+            "height": 0.68,
+            "unit": "normalized"
+          },
+          "simulation_disclosure": {
+            "x": 0.67,
+            "y": 0.88,
+            "width": 0.28,
+            "height": 0.07,
+            "unit": "normalized"
+          }
+        },
+        "overlay_constraint": {
+          "poc_only": "all_overlays_must_resolve_only_to_synthetic-training-focus-region",
+          "production_release": "all_overlays_must_remain_inside_verified_real_device_visual_and_use_human_confirmed_real_anchor"
+        },
+        "character_presence": "not_required"
+      },
+      "notes": "发现设备异常时，应立即停止操作，不要继续操作，也不要自行排除未知故障。后续动作应按照本岗位已经批准的 SOP 和现场规定执行。本页使用模拟设备示意，仅用于验证课程生成流程，正式课程必须替换为现场真实设备和经过确认的操作要求。",
+      "duration": {
+        "target_seconds": 8.5,
+        "minimum_final_hold_seconds": 3.5
+      },
+      "motion": {
+        "overall_intent": [
+          "serious",
+          "restrained",
+          "professional",
+          "attention_guiding",
+          "deterministic"
+        ],
+        "sequence": [
+          {
+            "order": 1,
+            "target_id": "slide-03-synthetic-training-machine",
+            "action": "slow_zoom",
+            "start_seconds": 0.0,
+            "end_seconds": 8.5,
+            "intensity": "very_subtle"
+          },
+          {
+            "order": 2,
+            "target_id": "slide-03-title",
+            "action": "reveal",
+            "at_seconds": 0.4,
+            "intent": [
+              "gentle_fade",
+              "slight_rise"
+            ]
+          },
+          {
+            "order": 3,
+            "target_id": "slide-03-abnormal-area-spotlight",
+            "action": "focus",
+            "at_seconds": 1.4,
+            "intent": "controlled_spotlight"
+          },
+          {
+            "order": 4,
+            "target_id": "slide-03-key-message",
+            "action": "reveal",
+            "at_seconds": 2.2,
+            "intent": "warning_text_reveal"
+          },
+          {
+            "order": 5,
+            "target_ids": [
+              "slide-03-action-stop",
+              "slide-03-action-sop",
+              "slide-03-action-report"
+            ],
+            "action": "sequential_reveal",
+            "start_seconds": 3.0,
+            "reading_order": "declared_content_order"
+          }
+        ],
+        "prohibited": [
+          "flashing_alarm",
+          "screen_shake",
+          "rapid_red_pulse",
+          "bounce",
+          "rapid_rotation",
+          "random_motion",
+          "decorative_loop"
+        ]
+      },
+      "transition": {
+        "to_next": {
+          "intent": "none",
+          "purpose": "课程在清晰可读的安全重点画面结束"
+        }
+      },
+      "source_grounding": {
+        "content_basis": [
+          {
+            "source_id": "course-brief-step-6a",
+            "source_type": "approved_course_brief",
+            "status": "provided"
+          }
+        ],
+        "required_before_release": [
+          {
+            "source_id": "approved-equipment-photo",
+            "source_type": "verified_real_device_photo",
+            "purpose": "提供真实设备和经确认的可聚焦区域",
+            "status": "missing"
+          },
+          {
+            "source_id": "site-abnormal-operation-sop",
+            "source_type": "approved_site_sop",
+            "purpose": "确认异常停机、现场保护和报告流程",
+            "status": "missing"
+          },
+          {
+            "source_id": "equipment-operating-manual",
+            "source_type": "approved_equipment_manual_or_work_instruction",
+            "purpose": "确认设备特定控制、急停位置和允许操作边界",
+            "status": "missing"
+          }
+        ],
+        "grounded_region": {
+          "region_id": "confirmed-abnormal-or-emergency-stop-area",
+          "status": "unresolved",
+          "must_be_confirmed_by": "authorized_site_safety_or_equipment_owner",
+          "coordinates_must_not_be_inferred": true
+        },
+        "poc_grounded_region": {
+          "region_id": "synthetic-training-focus-region",
+          "asset_id": "slide-03-synthetic-training-machine",
+          "source": "synthetic_poc_asset",
+          "status": "approved_for_poc_only",
+          "normalized_bounds": {
+            "x": 0.215,
+            "y": 0.27,
+            "width": 0.105,
+            "height": 0.13,
+            "unit": "normalized"
+          },
+          "allowed_consumers": [
+            "poc_ppt_renderer",
+            "poc_video_renderer"
+          ],
+          "must_not_resolve_region_id": "confirmed-abnormal-or-emergency-stop-area",
+          "must_not_be_used_for_production_release": true
+        },
+        "risk_information_requires_human_approval": true,
+        "device_specific_detail_present": false,
+        "production_device_specific_detail_present": "unknown_pending_real_sources"
+      },
+      "review_status": {
+        "state": "approved_for_poc_timeline_use",
+        "gate": "step_6f_e2e_review",
+        "poc_status": "simulated_content_allowed",
+        "visual_production_allowed": true,
+        "visual_production_scope": "poc_only",
+        "release_status": "blocked_pending_real_sources"
+      }
+    }
+  ],
+  "review_status": {
+    "state": "golden_poc_v0_1_reproducibility_validated_pending_human_release_review",
+    "gate": "step_8_golden_reproducibility_review",
+    "approved_by": "human_review",
+    "approved_at": "2026-09-01",
+    "last_approved_stage": "step_7_incremental_regeneration_review",
+    "allowed_next_stage": null,
+    "next_stage_allowed": false,
+    "poc_pipeline_status": "golden_poc_v0_1_one_pass_validated",
+    "release_status": "not_approved_for_release"
+  }
+}

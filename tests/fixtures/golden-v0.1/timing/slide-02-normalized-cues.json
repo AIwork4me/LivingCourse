@@ -1,0 +1,68 @@
+{
+  "schema_version": "0.1.0",
+  "type": "NormalizedNarrationCues",
+  "slide_id": "slide-02-step-process",
+  "script_hash": "3C2315DB53DFEFB13528AEBE96DCA5463045B478A5A4C8398C1801EAC97F0077",
+  "source": "manifest_object_association_plus_normalized_character_timing",
+  "runtime_lead_ms": 150,
+  "frozen_manifest_modified": false,
+  "motion_vocabulary_modified": false,
+  "cues": [
+    {
+      "cue_id": "workwear",
+      "source_object_id": "slide-02-item-workwear",
+      "visual_asset_id": "workwear",
+      "narration_text_span": "工作服",
+      "start_ms": 2346.667,
+      "end_ms": 2944,
+      "lead_ms": 150,
+      "visual_reveal_at_ms": 2196.667,
+      "paired_target_ids": [
+        "workwear",
+        "slide-02-item-workwear"
+      ]
+    },
+    {
+      "cue_id": "safety-shoes",
+      "source_object_id": "slide-02-item-safety-shoes",
+      "visual_asset_id": "safety-shoes",
+      "narration_text_span": "安全鞋",
+      "start_ms": 3029.333,
+      "end_ms": 4053.333,
+      "lead_ms": 150,
+      "visual_reveal_at_ms": 2879.333,
+      "paired_target_ids": [
+        "safety-shoes",
+        "slide-02-item-safety-shoes"
+      ]
+    },
+    {
+      "cue_id": "goggles-face-shield",
+      "source_object_id": "slide-02-item-goggles",
+      "visual_asset_id": "goggles-face-shield",
+      "narration_text_span": "护目镜与防护面罩",
+      "start_ms": 4181.333,
+      "end_ms": 6357.333,
+      "lead_ms": 150,
+      "visual_reveal_at_ms": 4031.333,
+      "paired_target_ids": [
+        "goggles-face-shield",
+        "slide-02-item-goggles"
+      ]
+    },
+    {
+      "cue_id": "esd-equipment",
+      "source_object_id": "slide-02-item-esd",
+      "visual_asset_id": "esd-equipment",
+      "narration_text_span": "防静电装备",
+      "start_ms": 7338.667,
+      "end_ms": 8490.667,
+      "lead_ms": 150,
+      "visual_reveal_at_ms": 7188.667,
+      "paired_target_ids": [
+        "esd-equipment",
+        "slide-02-item-esd"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,701 @@
+{
+  "schema_version": "0.1.0",
+  "type": "NormalizedNarrationTiming",
+  "slide_id": "slide-02-step-process",
+  "script_hash": "3C2315DB53DFEFB13528AEBE96DCA5463045B478A5A4C8398C1801EAC97F0077",
+  "approved_audio_sha256": "2F6A42F30F2EBE742E0B61503B8C636E12D6DC25B232B250547B164697EB4131",
+  "approved_audio_duration_ms": 16164,
+  "timing_source_duration_ms": 16164,
+  "original_duration_delta_ms": 0,
+  "normalization_scale_factor": 1,
+  "timing_alignment_method": "duration_normalized_provider_timing",
+  "raw_timing_coordinate_recovery": "inverse_of_step_6e21_approved_alignment",
+  "raw_sentence_segments": [
+    {
+      "text": "进入车间前，请依次确认工作服、安全鞋、护目镜与防护面罩，以及防静电装备。具体穿戴标准与适用范围应以本车间已经批准的 PPE 要求为准。",
+      "start_ms": 0,
+      "end_ms": 16026.259
+    }
+  ],
+  "normalized_sentence_segments": [
+    {
+      "text": "进入车间前，请依次确认工作服、安全鞋、护目镜与防护面罩，以及防静电装备。具体穿戴标准与适用范围应以本车间已经批准的 PPE 要求为准。",
+      "start_ms": 0,
+      "end_ms": 16026.259
+    }
+  ],
+  "raw_character_segments": [
+    {
+      "text": "进",
+      "start_ms": 42.667,
+      "end_ms": 128
+    },
+    {
+      "text": "入",
+      "start_ms": 128,
+      "end_ms": 298.667
+    },
+    {
+      "text": "车",
+      "start_ms": 298.667,
+      "end_ms": 469.333
+    },
+    {
+      "text": "间",
+      "start_ms": 469.333,
+      "end_ms": 640
+    },
+    {
+      "text": "前",
+      "start_ms": 640,
+      "end_ms": 768
+    },
+    {
+      "text": "，",
+      "start_ms": 768,
+      "end_ms": 810.667
+    },
+    {
+      "text": "请",
+      "start_ms": 810.667,
+      "end_ms": 1578.667
+    },
+    {
+      "text": "依",
+      "start_ms": 1578.667,
+      "end_ms": 1834.667
+    },
+    {
+      "text": "次",
+      "start_ms": 1834.667,
+      "end_ms": 2005.333
+    },
+    {
+      "text": "确",
+      "start_ms": 2005.333,
+      "end_ms": 2176
+    },
+    {
+      "text": "认",
+      "start_ms": 2176,
+      "end_ms": 2346.667
+    },
+    {
+      "text": "工",
+      "start_ms": 2346.667,
+      "end_ms": 2560
+    },
+    {
+      "text": "作",
+      "start_ms": 2560,
+      "end_ms": 2773.333
+    },
+    {
+      "text": "服",
+      "start_ms": 2773.333,
+      "end_ms": 2944
+    },
+    {
+      "text": "、",
+      "start_ms": 2944,
+      "end_ms": 3029.333
+    },
+    {
+      "text": "安",
+      "start_ms": 3029.333,
+      "end_ms": 3626.667
+    },
+    {
+      "text": "全",
+      "start_ms": 3626.667,
+      "end_ms": 3840
+    },
+    {
+      "text": "鞋",
+      "start_ms": 3840,
+      "end_ms": 4053.333
+    },
+    {
+      "text": "、",
+      "start_ms": 4053.333,
+      "end_ms": 4181.333
+    },
+    {
+      "text": "护",
+      "start_ms": 4181.333,
+      "end_ms": 4821.333
+    },
+    {
+      "text": "目",
+      "start_ms": 4821.333,
+      "end_ms": 4992
+    },
+    {
+      "text": "镜",
+      "start_ms": 4992,
+      "end_ms": 5162.667
+    },
+    {
+      "text": "与",
+      "start_ms": 5162.667,
+      "end_ms": 5376
+    },
+    {
+      "text": "防",
+      "start_ms": 5376,
+      "end_ms": 5845.333
+    },
+    {
+      "text": "护",
+      "start_ms": 5845.333,
+      "end_ms": 6016
+    },
+    {
+      "text": "面",
+      "start_ms": 6016,
+      "end_ms": 6186.667
+    },
+    {
+      "text": "罩",
+      "start_ms": 6186.667,
+      "end_ms": 6357.333
+    },
+    {
+      "text": "，",
+      "start_ms": 6357.333,
+      "end_ms": 6400
+    },
+    {
+      "text": "以",
+      "start_ms": 6400,
+      "end_ms": 6656
+    },
+    {
+      "text": "及",
+      "start_ms": 6656,
+      "end_ms": 7338.667
+    },
+    {
+      "text": "防",
+      "start_ms": 7338.667,
+      "end_ms": 7637.333
+    },
+    {
+      "text": "静",
+      "start_ms": 7637.333,
+      "end_ms": 7936
+    },
+    {
+      "text": "电",
+      "start_ms": 7936,
+      "end_ms": 8149.333
+    },
+    {
+      "text": "装",
+      "start_ms": 8149.333,
+      "end_ms": 8277.333
+    },
+    {
+      "text": "备",
+      "start_ms": 8277.333,
+      "end_ms": 8490.667
+    },
+    {
+      "text": "。",
+      "start_ms": 8490.667,
+      "end_ms": 8576
+    },
+    {
+      "text": "具",
+      "start_ms": 8576,
+      "end_ms": 9173.333
+    },
+    {
+      "text": "体",
+      "start_ms": 9173.333,
+      "end_ms": 9813.333
+    },
+    {
+      "text": "穿",
+      "start_ms": 9813.333,
+      "end_ms": 10026.667
+    },
+    {
+      "text": "戴",
+      "start_ms": 10026.667,
+      "end_ms": 10154.667
+    },
+    {
+      "text": "标",
+      "start_ms": 10154.667,
+      "end_ms": 10282.667
+    },
+    {
+      "text": "准",
+      "start_ms": 10282.667,
+      "end_ms": 10496
+    },
+    {
+      "text": "与",
+      "start_ms": 10496,
+      "end_ms": 10709.333
+    },
+    {
+      "text": "适",
+      "start_ms": 10709.333,
+      "end_ms": 11178.667
+    },
+    {
+      "text": "用",
+      "start_ms": 11178.667,
+      "end_ms": 11349.333
+    },
+    {
+      "text": "范",
+      "start_ms": 11349.333,
+      "end_ms": 11477.333
+    },
+    {
+      "text": "围",
+      "start_ms": 11477.333,
+      "end_ms": 11690.667
+    },
+    {
+      "text": "应",
+      "start_ms": 11690.667,
+      "end_ms": 11904
+    },
+    {
+      "text": "以",
+      "start_ms": 11904,
+      "end_ms": 12629.333
+    },
+    {
+      "text": "本",
+      "start_ms": 12629.333,
+      "end_ms": 12800
+    },
+    {
+      "text": "车",
+      "start_ms": 12800,
+      "end_ms": 12970.667
+    },
+    {
+      "text": "间",
+      "start_ms": 12970.667,
+      "end_ms": 13141.333
+    },
+    {
+      "text": "已",
+      "start_ms": 13141.333,
+      "end_ms": 13397.333
+    },
+    {
+      "text": "经",
+      "start_ms": 13397.333,
+      "end_ms": 13653.333
+    },
+    {
+      "text": "批",
+      "start_ms": 13653.333,
+      "end_ms": 13824
+    },
+    {
+      "text": "准",
+      "start_ms": 13824,
+      "end_ms": 13994.667
+    },
+    {
+      "text": "的",
+      "start_ms": 13994.667,
+      "end_ms": 14037.333
+    },
+    {
+      "text": " P",
+      "start_ms": 14037.333,
+      "end_ms": 14392.889
+    },
+    {
+      "text": "P",
+      "start_ms": 14392.889,
+      "end_ms": 14748.444
+    },
+    {
+      "text": "E",
+      "start_ms": 14748.444,
+      "end_ms": 15104
+    },
+    {
+      "text": " 要",
+      "start_ms": 15104,
+      "end_ms": 15232
+    },
+    {
+      "text": "求",
+      "start_ms": 15232,
+      "end_ms": 15402.667
+    },
+    {
+      "text": "为",
+      "start_ms": 15402.667,
+      "end_ms": 15573.333
+    },
+    {
+      "text": "准",
+      "start_ms": 15573.333,
+      "end_ms": 15744
+    },
+    {
+      "text": "。",
+      "start_ms": 15744,
+      "end_ms": 15914.667
+    }
+  ],
+  "normalized_character_segments": [
+    {
+      "text": "进",
+      "start_ms": 42.667,
+      "end_ms": 128
+    },
+    {
+      "text": "入",
+      "start_ms": 128,
+      "end_ms": 298.667
+    },
+    {
+      "text": "车",
+      "start_ms": 298.667,
+      "end_ms": 469.333
+    },
+    {
+      "text": "间",
+      "start_ms": 469.333,
+      "end_ms": 640
+    },
+    {
+      "text": "前",
+      "start_ms": 640,
+      "end_ms": 768
+    },
+    {
+      "text": "，",
+      "start_ms": 768,
+      "end_ms": 810.667
+    },
+    {
+      "text": "请",
+      "start_ms": 810.667,
+      "end_ms": 1578.667
+    },
+    {
+      "text": "依",
+      "start_ms": 1578.667,
+      "end_ms": 1834.667
+    },
+    {
+      "text": "次",
+      "start_ms": 1834.667,
+      "end_ms": 2005.333
+    },
+    {
+      "text": "确",
+      "start_ms": 2005.333,
+      "end_ms": 2176
+    },
+    {
+      "text": "认",
+      "start_ms": 2176,
+      "end_ms": 2346.667
+    },
+    {
+      "text": "工",
+      "start_ms": 2346.667,
+      "end_ms": 2560
+    },
+    {
+      "text": "作",
+      "start_ms": 2560,
+      "end_ms": 2773.333
+    },
+    {
+      "text": "服",
+      "start_ms": 2773.333,
+      "end_ms": 2944
+    },
+    {
+      "text": "、",
+      "start_ms": 2944,
+      "end_ms": 3029.333
+    },
+    {
+      "text": "安",
+      "start_ms": 3029.333,
+      "end_ms": 3626.667
+    },
+    {
+      "text": "全",
+      "start_ms": 3626.667,
+      "end_ms": 3840
+    },
+    {
+      "text": "鞋",
+      "start_ms": 3840,
+      "end_ms": 4053.333
+    },
+    {
+      "text": "、",
+      "start_ms": 4053.333,
+      "end_ms": 4181.333
+    },
+    {
+      "text": "护",
+      "start_ms": 4181.333,
+      "end_ms": 4821.333
+    },
+    {
+      "text": "目",
+      "start_ms": 4821.333,
+      "end_ms": 4992
+    },
+    {
+      "text": "镜",
+      "start_ms": 4992,
+      "end_ms": 5162.667
+    },
+    {
+      "text": "与",
+      "start_ms": 5162.667,
+      "end_ms": 5376
+    },
+    {
+      "text": "防",
+      "start_ms": 5376,
+      "end_ms": 5845.333
+    },
+    {
+      "text": "护",
+      "start_ms": 5845.333,
+      "end_ms": 6016
+    },
+    {
+      "text": "面",
+      "start_ms": 6016,
+      "end_ms": 6186.667
+    },
+    {
+      "text": "罩",
+      "start_ms": 6186.667,
+      "end_ms": 6357.333
+    },
+    {
+      "text": "，",
+      "start_ms": 6357.333,
+      "end_ms": 6400
+    },
+    {
+      "text": "以",
+      "start_ms": 6400,
+      "end_ms": 6656
+    },
+    {
+      "text": "及",
+      "start_ms": 6656,
+      "end_ms": 7338.667
+    },
+    {
+      "text": "防",
+      "start_ms": 7338.667,
+      "end_ms": 7637.333
+    },
+    {
+      "text": "静",
+      "start_ms": 7637.333,
+      "end_ms": 7936
+    },
+    {
+      "text": "电",
+      "start_ms": 7936,
+      "end_ms": 8149.333
+    },
+    {
+      "text": "装",
+      "start_ms": 8149.333,
+      "end_ms": 8277.333
+    },
+    {
+      "text": "备",
+      "start_ms": 8277.333,
+      "end_ms": 8490.667
+    },
+    {
+      "text": "。",
+      "start_ms": 8490.667,
+      "end_ms": 8576
+    },
+    {
+      "text": "具",
+      "start_ms": 8576,
+      "end_ms": 9173.333
+    },
+    {
+      "text": "体",
+      "start_ms": 9173.333,
+      "end_ms": 9813.333
+    },
+    {
+      "text": "穿",
+      "start_ms": 9813.333,
+      "end_ms": 10026.667
+    },
+    {
+      "text": "戴",
+      "start_ms": 10026.667,
+      "end_ms": 10154.667
+    },
+    {
+      "text": "标",
+      "start_ms": 10154.667,
+      "end_ms": 10282.667
+    },
+    {
+      "text": "准",
+      "start_ms": 10282.667,
+      "end_ms": 10496
+    },
+    {
+      "text": "与",
+      "start_ms": 10496,
+      "end_ms": 10709.333
+    },
+    {
+      "text": "适",
+      "start_ms": 10709.333,
+      "end_ms": 11178.667
+    },
+    {
+      "text": "用",
+      "start_ms": 11178.667,
+      "end_ms": 11349.333
+    },
+    {
+      "text": "范",
+      "start_ms": 11349.333,
+      "end_ms": 11477.333
+    },
+    {
+      "text": "围",
+      "start_ms": 11477.333,
+      "end_ms": 11690.667
+    },
+    {
+      "text": "应",
+      "start_ms": 11690.667,
+      "end_ms": 11904
+    },
+    {
+      "text": "以",
+      "start_ms": 11904,
+      "end_ms": 12629.333
+    },
+    {
+      "text": "本",
+      "start_ms": 12629.333,
+      "end_ms": 12800
+    },
+    {
+      "text": "车",
+      "start_ms": 12800,
+      "end_ms": 12970.667
+    },
+    {
+      "text": "间",
+      "start_ms": 12970.667,
+      "end_ms": 13141.333
+    },
+    {
+      "text": "已",
+      "start_ms": 13141.333,
+      "end_ms": 13397.333
+    },
+    {
+      "text": "经",
+      "start_ms": 13397.333,
+      "end_ms": 13653.333
+    },
+    {
+      "text": "批",
+      "start_ms": 13653.333,
+      "end_ms": 13824
+    },
+    {
+      "text": "准",
+      "start_ms": 13824,
+      "end_ms": 13994.667
+    },
+    {
+      "text": "的",
+      "start_ms": 13994.667,
+      "end_ms": 14037.333
+    },
+    {
+      "text": " P",
+      "start_ms": 14037.333,
+      "end_ms": 14392.889
+    },
+    {
+      "text": "P",
+      "start_ms": 14392.889,
+      "end_ms": 14748.444
+    },
+    {
+      "text": "E",
+      "start_ms": 14748.444,
+      "end_ms": 15104
+    },
+    {
+      "text": " 要",
+      "start_ms": 15104,
+      "end_ms": 15232
+    },
+    {
+      "text": "求",
+      "start_ms": 15232,
+      "end_ms": 15402.667
+    },
+    {
+      "text": "为",
+      "start_ms": 15402.667,
+      "end_ms": 15573.333
+    },
+    {
+      "text": "准",
+      "start_ms": 15573.333,
+      "end_ms": 15744
+    },
+    {
+      "text": "。",
+      "start_ms": 15744,
+      "end_ms": 15914.667
+    }
+  ],
+  "terminal_timing_boundary_ms": 16164,
+  "normalization_status": "approved_for_poc_timeline_use",
+  "human_delta_acceptance": true,
+  "requires_human_av_sync_review": false,
+  "poc_only": false,
+  "production_release_allowed": null,
+  "normalization_qa": {
+    "start_non_negative": true,
+    "end_after_start": true,
+    "monotonic": true,
+    "within_approved_audio_bounds": true,
+    "source_text_identical": true,
+    "sentence_order_unchanged": true,
+    "character_order_unchanged": true,
+    "terminal_boundary_matches_approved_audio": true,
+    "final_sentence_tail_gap_ms": 137.741,
+    "final_character_tail_gap_ms": 249.333,
+    "final_sentence_within_tolerance": true,
+    "final_character_within_tolerance": true
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": "0.1.0",
+  "type": "RemotionCaptionSet",
+  "slide_id": "slide-01-hero",
+  "script_hash": "CFCB2C47DD06ADF2218D10CC068C3CB3CBEE145F0816C67E6699B58DC67C9090",
+  "source": "approved_narration_script_with_normalized_character_timing",
+  "sentence_timing_role": "semantic_boundary_reference",
+  "character_timing_role": "caption_start_end_alignment",
+  "max_lines": 2,
+  "captions": [
+    {
+      "text": "第一次进入生产区域前，",
+      "startMs": 43.704,
+      "endMs": 1704.462,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": "请先建立安全准备意识。",
+      "startMs": 1704.462,
+      "endMs": 4326.711,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": "安全不是进入车间后的附加动作，",
+      "startMs": 4326.711,
+      "endMs": 8260.085,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": "而是从进入前的第一步开始。",
+      "startMs": 8260.085,
+      "endMs": 11843.826,
+      "timestampMs": null,
+      "confidence": null
+    }
+  ],
+  "qa": {
+    "source_text_exact_match": true,
+    "monotonic": true,
+    "within_audio_bounds": true,
+    "confidence_fabricated": false
+  }
+}

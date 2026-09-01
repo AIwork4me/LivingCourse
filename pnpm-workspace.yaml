@@ -1,0 +1,41 @@
+packages:
+  - "packages/*"
+  - "apps/*"
+allowBuilds:
+  esbuild: true
+minimumReleaseAgeExclude:
+  - '@typescript-eslint/eslint-plugin@8.69.0'
+  - '@typescript-eslint/parser@8.69.0'
+  - '@typescript-eslint/project-service@8.69.0'
+  - '@typescript-eslint/scope-manager@8.69.0'
+  - '@typescript-eslint/tsconfig-utils@8.69.0'
+  - '@typescript-eslint/type-utils@8.69.0'
+  - '@typescript-eslint/types@8.69.0'
+  - '@typescript-eslint/typescript-estree@8.69.0'
+  - '@typescript-eslint/utils@8.69.0'
+  - '@typescript-eslint/visitor-keys@8.69.0'
+  - '@remotion/bundler@4.0.519'
+  - '@remotion/canvas@4.0.519'
+  - '@remotion/captions@4.0.519'
+  - '@remotion/compositor-darwin-arm64@4.0.519'
+  - '@remotion/compositor-darwin-x64@4.0.519'
+  - '@remotion/compositor-linux-arm64-gnu@4.0.519'
+  - '@remotion/compositor-linux-arm64-musl@4.0.519'
+  - '@remotion/compositor-linux-x64-gnu@4.0.519'
+  - '@remotion/compositor-linux-x64-musl@4.0.519'
+  - '@remotion/compositor-win32-x64-msvc@4.0.519'
+  - '@remotion/licensing@4.0.519'
+  - '@remotion/media-parser@4.0.519'
+  - '@remotion/media-utils@4.0.519'
+  - '@remotion/media@4.0.519'
+  - '@remotion/player@4.0.519'
+  - '@remotion/renderer@4.0.519'
+  - '@remotion/streaming@4.0.519'
+  - '@remotion/studio-codemods@4.0.519'
+  - '@remotion/studio-protocol@4.0.519'
+  - '@remotion/studio-shared@4.0.519'
+  - '@remotion/studio@4.0.519'
+  - '@remotion/timeline-utils@4.0.519'
+  - '@remotion/web-renderer@4.0.519'
+  - '@remotion/zod-types@4.0.519'
+  - remotion@4.0.519

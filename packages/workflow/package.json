@@ -1,0 +1,15 @@
+{
+  "name": "@livingcourse/workflow",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.ts",
+  "dependencies": {
+    "@livingcourse/compiler": "workspace:*",
+    "@livingcourse/core": "workspace:*",
+    "@livingcourse/generation": "workspace:*",
+    "@livingcourse/providers": "workspace:*",
+    "@livingcourse/renderers": "workspace:*",
+    "yaml": "2.9.0"
+  }
+}

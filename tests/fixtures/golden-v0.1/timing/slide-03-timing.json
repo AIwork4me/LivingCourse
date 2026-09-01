@@ -1,0 +1,600 @@
+{
+  "schema_version": "0.1.0",
+  "type": "NormalizedNarrationTiming",
+  "slide_id": "slide-03-safety-focus",
+  "script_hash": "16AA4BBE0D5E18F0FE288755E4E721ED1966E8020F20FA526D098BC1853EA89B",
+  "approved_audio_sha256": "AE196B2D55CC8330B8F45CC01EE443A394C1FD3B5F17CF71E603499267860DB1",
+  "approved_audio_duration_ms": 25236,
+  "timing_provider": "minimax",
+  "timing_source_model": "speech-2.8-hd",
+  "timing_source_voice": "male-qn-qingse",
+  "timing_source_duration_ms": 25668,
+  "timing_source_api_duration_ms": 25668,
+  "duration_delta_ms": 432,
+  "duration_delta_threshold_ms": 100,
+  "duration_risk": true,
+  "alignment": {
+    "method": "linear_duration_alignment_to_approved_audio",
+    "scale_factor": 0.983169705,
+    "reason": "Timing-only synthesis is never used as course audio; timing is normalized to the immutable approved audio duration."
+  },
+  "sentence_segments": [
+    {
+      "text": "发现设备异常时，应立即停止操作，不要继续操作，也不要自行排除未知故障。后续动作应按照本岗位已经批准的 SOP 和现场规定执行。",
+      "start_ms": 0,
+      "end_ms": 13827.468
+    },
+    {
+      "text": "本页使用模拟设备示意，仅用于验证课程生成流程，正式课程必须替换为现场真实设备和经过确认的操作要求。",
+      "start_ms": 13980.673,
+      "end_ms": 25080.057
+    }
+  ],
+  "character_segments": [
+    {
+      "text": "发",
+      "start_ms": 41.949,
+      "end_ms": 125.846
+    },
+    {
+      "text": "现",
+      "start_ms": 125.846,
+      "end_ms": 293.64
+    },
+    {
+      "text": "设",
+      "start_ms": 293.64,
+      "end_ms": 461.434
+    },
+    {
+      "text": "备",
+      "start_ms": 461.434,
+      "end_ms": 629.229
+    },
+    {
+      "text": "异",
+      "start_ms": 629.229,
+      "end_ms": 755.074
+    },
+    {
+      "text": "常",
+      "start_ms": 755.074,
+      "end_ms": 922.869
+    },
+    {
+      "text": "时",
+      "start_ms": 922.869,
+      "end_ms": 1132.612
+    },
+    {
+      "text": "，",
+      "start_ms": 1132.612,
+      "end_ms": 1174.56
+    },
+    {
+      "text": "应",
+      "start_ms": 1174.56,
+      "end_ms": 1719.892
+    },
+    {
+      "text": "立",
+      "start_ms": 1719.892,
+      "end_ms": 1971.583
+    },
+    {
+      "text": "即",
+      "start_ms": 1971.583,
+      "end_ms": 2181.326
+    },
+    {
+      "text": "停",
+      "start_ms": 2181.326,
+      "end_ms": 2349.12
+    },
+    {
+      "text": "止",
+      "start_ms": 2349.12,
+      "end_ms": 2600.812
+    },
+    {
+      "text": "操",
+      "start_ms": 2600.812,
+      "end_ms": 2768.606
+    },
+    {
+      "text": "作",
+      "start_ms": 2768.606,
+      "end_ms": 2936.4
+    },
+    {
+      "text": "，",
+      "start_ms": 2936.4,
+      "end_ms": 2978.349
+    },
+    {
+      "text": "不",
+      "start_ms": 2978.349,
+      "end_ms": 3313.937
+    },
+    {
+      "text": "要",
+      "start_ms": 3313.937,
+      "end_ms": 3775.372
+    },
+    {
+      "text": "继",
+      "start_ms": 3775.372,
+      "end_ms": 3943.166
+    },
+    {
+      "text": "续",
+      "start_ms": 3943.166,
+      "end_ms": 4110.96
+    },
+    {
+      "text": "操",
+      "start_ms": 4110.96,
+      "end_ms": 4236.806
+    },
+    {
+      "text": "作",
+      "start_ms": 4236.806,
+      "end_ms": 4404.6
+    },
+    {
+      "text": "，",
+      "start_ms": 4404.6,
+      "end_ms": 4446.549
+    },
+    {
+      "text": "也",
+      "start_ms": 4446.549,
+      "end_ms": 4782.137
+    },
+    {
+      "text": "不",
+      "start_ms": 4782.137,
+      "end_ms": 5327.469
+    },
+    {
+      "text": "要",
+      "start_ms": 5327.469,
+      "end_ms": 5453.315
+    },
+    {
+      "text": "自",
+      "start_ms": 5453.315,
+      "end_ms": 5621.109
+    },
+    {
+      "text": "行",
+      "start_ms": 5621.109,
+      "end_ms": 5788.903
+    },
+    {
+      "text": "排",
+      "start_ms": 5788.903,
+      "end_ms": 5956.698
+    },
+    {
+      "text": "除",
+      "start_ms": 5956.698,
+      "end_ms": 6166.44
+    },
+    {
+      "text": "未",
+      "start_ms": 6166.44,
+      "end_ms": 6376.183
+    },
+    {
+      "text": "知",
+      "start_ms": 6376.183,
+      "end_ms": 6627.875
+    },
+    {
+      "text": "故",
+      "start_ms": 6627.875,
+      "end_ms": 6753.72
+    },
+    {
+      "text": "障",
+      "start_ms": 6753.72,
+      "end_ms": 6921.515
+    },
+    {
+      "text": "。",
+      "start_ms": 6921.515,
+      "end_ms": 7005.412
+    },
+    {
+      "text": "后",
+      "start_ms": 7005.412,
+      "end_ms": 7382.949
+    },
+    {
+      "text": "续",
+      "start_ms": 7382.949,
+      "end_ms": 8096.075
+    },
+    {
+      "text": "动",
+      "start_ms": 8096.075,
+      "end_ms": 8263.869
+    },
+    {
+      "text": "作",
+      "start_ms": 8263.869,
+      "end_ms": 8389.715
+    },
+    {
+      "text": "应",
+      "start_ms": 8389.715,
+      "end_ms": 8683.355
+    },
+    {
+      "text": "按",
+      "start_ms": 8683.355,
+      "end_ms": 9144.789
+    },
+    {
+      "text": "照",
+      "start_ms": 9144.789,
+      "end_ms": 9312.583
+    },
+    {
+      "text": "本",
+      "start_ms": 9312.583,
+      "end_ms": 9480.378
+    },
+    {
+      "text": "岗",
+      "start_ms": 9480.378,
+      "end_ms": 9648.172
+    },
+    {
+      "text": "位",
+      "start_ms": 9648.172,
+      "end_ms": 9857.915
+    },
+    {
+      "text": "已",
+      "start_ms": 9857.915,
+      "end_ms": 10025.709
+    },
+    {
+      "text": "经",
+      "start_ms": 10025.709,
+      "end_ms": 10361.298
+    },
+    {
+      "text": "批",
+      "start_ms": 10361.298,
+      "end_ms": 10571.041
+    },
+    {
+      "text": "准",
+      "start_ms": 10571.041,
+      "end_ms": 10738.835
+    },
+    {
+      "text": "的",
+      "start_ms": 10738.835,
+      "end_ms": 10780.784
+    },
+    {
+      "text": " S",
+      "start_ms": 10780.784,
+      "end_ms": 11144.338
+    },
+    {
+      "text": "O",
+      "start_ms": 11144.338,
+      "end_ms": 11507.892
+    },
+    {
+      "text": "P",
+      "start_ms": 11507.892,
+      "end_ms": 11871.446
+    },
+    {
+      "text": " 和",
+      "start_ms": 11871.446,
+      "end_ms": 12123.138
+    },
+    {
+      "text": "现",
+      "start_ms": 12123.138,
+      "end_ms": 12542.624
+    },
+    {
+      "text": "场",
+      "start_ms": 12542.624,
+      "end_ms": 12710.418
+    },
+    {
+      "text": "规",
+      "start_ms": 12710.418,
+      "end_ms": 12920.161
+    },
+    {
+      "text": "定",
+      "start_ms": 12920.161,
+      "end_ms": 13046.007
+    },
+    {
+      "text": "执",
+      "start_ms": 13046.007,
+      "end_ms": 13255.749
+    },
+    {
+      "text": "行",
+      "start_ms": 13255.749,
+      "end_ms": 13465.492
+    },
+    {
+      "text": "。",
+      "start_ms": 13465.492,
+      "end_ms": 13633.287
+    },
+    {
+      "text": "本",
+      "start_ms": 14022.622,
+      "end_ms": 14106.519
+    },
+    {
+      "text": "页",
+      "start_ms": 14106.519,
+      "end_ms": 14274.313
+    },
+    {
+      "text": "使",
+      "start_ms": 14274.313,
+      "end_ms": 14567.953
+    },
+    {
+      "text": "用",
+      "start_ms": 14567.953,
+      "end_ms": 14861.593
+    },
+    {
+      "text": "模",
+      "start_ms": 14861.593,
+      "end_ms": 14987.439
+    },
+    {
+      "text": "拟",
+      "start_ms": 14987.439,
+      "end_ms": 15197.182
+    },
+    {
+      "text": "设",
+      "start_ms": 15197.182,
+      "end_ms": 15364.976
+    },
+    {
+      "text": "备",
+      "start_ms": 15364.976,
+      "end_ms": 15532.77
+    },
+    {
+      "text": "示",
+      "start_ms": 15532.77,
+      "end_ms": 15658.616
+    },
+    {
+      "text": "意",
+      "start_ms": 15658.616,
+      "end_ms": 15826.41
+    },
+    {
+      "text": "，",
+      "start_ms": 15826.41,
+      "end_ms": 15868.359
+    },
+    {
+      "text": "仅",
+      "start_ms": 15868.359,
+      "end_ms": 16707.331
+    },
+    {
+      "text": "用",
+      "start_ms": 16707.331,
+      "end_ms": 16917.073
+    },
+    {
+      "text": "于",
+      "start_ms": 16917.073,
+      "end_ms": 17084.868
+    },
+    {
+      "text": "验",
+      "start_ms": 17084.868,
+      "end_ms": 17252.662
+    },
+    {
+      "text": "证",
+      "start_ms": 17252.662,
+      "end_ms": 17588.251
+    },
+    {
+      "text": "课",
+      "start_ms": 17588.251,
+      "end_ms": 17797.993
+    },
+    {
+      "text": "程",
+      "start_ms": 17797.993,
+      "end_ms": 18007.736
+    },
+    {
+      "text": "生",
+      "start_ms": 18007.736,
+      "end_ms": 18133.582
+    },
+    {
+      "text": "成",
+      "start_ms": 18133.582,
+      "end_ms": 18343.325
+    },
+    {
+      "text": "流",
+      "start_ms": 18343.325,
+      "end_ms": 18469.171
+    },
+    {
+      "text": "程",
+      "start_ms": 18469.171,
+      "end_ms": 18636.965
+    },
+    {
+      "text": "，",
+      "start_ms": 18636.965,
+      "end_ms": 18678.914
+    },
+    {
+      "text": "正",
+      "start_ms": 18678.914,
+      "end_ms": 19350.091
+    },
+    {
+      "text": "式",
+      "start_ms": 19350.091,
+      "end_ms": 19895.422
+    },
+    {
+      "text": "课",
+      "start_ms": 19895.422,
+      "end_ms": 20021.268
+    },
+    {
+      "text": "程",
+      "start_ms": 20021.268,
+      "end_ms": 20147.114
+    },
+    {
+      "text": "必",
+      "start_ms": 20147.114,
+      "end_ms": 20440.754
+    },
+    {
+      "text": "须",
+      "start_ms": 20440.754,
+      "end_ms": 20860.239
+    },
+    {
+      "text": "替",
+      "start_ms": 20860.239,
+      "end_ms": 21069.982
+    },
+    {
+      "text": "换",
+      "start_ms": 21069.982,
+      "end_ms": 21237.777
+    },
+    {
+      "text": "为",
+      "start_ms": 21237.777,
+      "end_ms": 21405.571
+    },
+    {
+      "text": "现",
+      "start_ms": 21405.571,
+      "end_ms": 21699.211
+    },
+    {
+      "text": "场",
+      "start_ms": 21699.211,
+      "end_ms": 21950.902
+    },
+    {
+      "text": "真",
+      "start_ms": 21950.902,
+      "end_ms": 22160.645
+    },
+    {
+      "text": "实",
+      "start_ms": 22160.645,
+      "end_ms": 22328.439
+    },
+    {
+      "text": "设",
+      "start_ms": 22328.439,
+      "end_ms": 22496.234
+    },
+    {
+      "text": "备",
+      "start_ms": 22496.234,
+      "end_ms": 22664.028
+    },
+    {
+      "text": "和",
+      "start_ms": 22664.028,
+      "end_ms": 22831.822
+    },
+    {
+      "text": "经",
+      "start_ms": 22831.822,
+      "end_ms": 23419.102
+    },
+    {
+      "text": "过",
+      "start_ms": 23419.102,
+      "end_ms": 23586.897
+    },
+    {
+      "text": "确",
+      "start_ms": 23586.897,
+      "end_ms": 23754.691
+    },
+    {
+      "text": "认",
+      "start_ms": 23754.691,
+      "end_ms": 23964.434
+    },
+    {
+      "text": "的",
+      "start_ms": 23964.434,
+      "end_ms": 24006.382
+    },
+    {
+      "text": "操",
+      "start_ms": 24006.382,
+      "end_ms": 24258.074
+    },
+    {
+      "text": "作",
+      "start_ms": 24258.074,
+      "end_ms": 24467.817
+    },
+    {
+      "text": "要",
+      "start_ms": 24467.817,
+      "end_ms": 24635.611
+    },
+    {
+      "text": "求",
+      "start_ms": 24635.611,
+      "end_ms": 24803.405
+    },
+    {
+      "text": "。",
+      "start_ms": 24803.405,
+      "end_ms": 24971.2
+    }
+  ],
+  "generation_status": "generated_with_duration_risk",
+  "human_review_status": "approved_for_poc_timeline_use",
+  "human_delta_acceptance": true,
+  "poc_only": true,
+  "production_release_allowed": false,
+  "validation": {
+    "script_hash_matches_approved_audio_metadata": true,
+    "approved_audio_sha256_matches": true,
+    "sentence_text_exact_match": true,
+    "character_text_exact_match": true,
+    "monotonic": true,
+    "bounds_valid": true,
+    "provider_specific_payload_persisted": false,
+    "approved_audio_replaced": false
+  }
+}

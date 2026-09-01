@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "paths": {
+      "@livingcourse/core": ["./packages/core/src/index.ts"],
+      "@livingcourse/compiler": ["./packages/compiler/src/index.ts"],
+      "@livingcourse/generation": ["./packages/generation/src/index.ts"],
+      "@livingcourse/providers": ["./packages/providers/src/index.ts"],
+      "@livingcourse/renderers": ["./packages/renderers/src/index.ts"],
+      "@livingcourse/workflow": ["./packages/workflow/src/index.ts"]
+    }
+  },
+  "include": ["packages/**/*.ts", "packages/**/*.tsx", "apps/**/*.ts", "scripts/**/*.ts", "tests/**/*.ts", "vitest.config.ts", "eslint.config.mjs"],
+  "exclude": ["node_modules", "dist", ".livingcourse"]
+}

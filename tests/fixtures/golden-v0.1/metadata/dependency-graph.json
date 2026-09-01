@@ -1,0 +1,50 @@
+{
+  "schema_version": "0.1.0",
+  "graph_id": "livingcourse-course-artifact-dependencies-v0.1",
+  "scope": "renderer_agnostic_course_authoring_and_review",
+  "nodes": [
+    {"id": "slide-02-item-goggles", "type": "course_concept", "slide_id": "slide-02-step-process"},
+    {"id": "slide-02-native-text", "type": "native_text", "slide_id": "slide-02-step-process"},
+    {"id": "slide-02-speaker-notes", "type": "speaker_notes", "slide_id": "slide-02-step-process"},
+    {"id": "slide-02-narration-script", "type": "narration_script", "slide_id": "slide-02-step-process"},
+    {"id": "slide-02-audio", "type": "audio", "slide_id": "slide-02-step-process"},
+    {"id": "slide-02-timing", "type": "normalized_narration_timing", "slide_id": "slide-02-step-process"},
+    {"id": "slide-02-cues", "type": "narration_cues", "slide_id": "slide-02-step-process"},
+    {"id": "slide-02-captions", "type": "captions", "slide_id": "slide-02-step-process"},
+    {"id": "slide-02-motion-target-reference", "type": "manifest_object_reference", "slide_id": "slide-02-step-process"},
+    {"id": "slide-02-motion-runtime", "type": "renderer_runtime_data", "slide_id": "slide-02-step-process"},
+    {"id": "goggles-and-face-shield-requirement", "type": "visual_requirement", "slide_id": "slide-02-step-process"},
+    {"id": "goggles-and-face-shield-asset", "type": "visual_asset", "slide_id": "slide-02-step-process"},
+    {"id": "slide-02-ppt", "type": "ppt_slide", "slide_id": "slide-02-step-process"},
+    {"id": "slide-02-video-segment", "type": "video_segment", "slide_id": "slide-02-step-process"},
+    {"id": "author-review-mp4", "type": "course_render_execution"}
+  ],
+  "edges": [
+    {"from": "slide-02-item-goggles", "to": "slide-02-native-text", "reason": "课程概念的显示文本发生变化"},
+    {"from": "slide-02-native-text", "to": "slide-02-speaker-notes", "reason": "Speaker Notes 必须完整说出新的课程事实"},
+    {"from": "slide-02-speaker-notes", "to": "slide-02-narration-script", "reason": "Manifest slide.notes 是 narration source of truth"},
+    {"from": "slide-02-narration-script", "to": "slide-02-audio", "reason": "音频必须朗读更新后的 approved script"},
+    {"from": "slide-02-audio", "to": "slide-02-timing", "reason": "timing 必须与新的 audio 和 script hash 匹配"},
+    {"from": "slide-02-timing", "to": "slide-02-cues", "reason": "visual reveal cue 从 normalized character timing 解析"},
+    {"from": "slide-02-timing", "to": "slide-02-captions", "reason": "字幕分段与起止时间来自 normalized timing"},
+    {"from": "slide-02-item-goggles", "to": "slide-02-motion-target-reference", "reason": "visual asset ID 改变后，motion target identifier 必须指向新的受影响资产；motion intent 与 timing 数值不变"},
+    {"from": "slide-02-motion-target-reference", "to": "slide-02-motion-runtime", "reason": "runtime 必须消费可解析的 Manifest object ID"},
+    {"from": "slide-02-cues", "to": "slide-02-motion-runtime", "reason": "Slide 2 synchronized reveal 由 narration cues 驱动"},
+    {"from": "slide-02-captions", "to": "slide-02-motion-runtime", "reason": "Remotion runtime 消费更新后的 captions"},
+    {"from": "slide-02-item-goggles", "to": "goggles-and-face-shield-requirement", "reason": "旧 goggles visual 不能完整表达新增防护面罩概念"},
+    {"from": "goggles-and-face-shield-requirement", "to": "goggles-and-face-shield-asset", "reason": "需要唯一一项新的无文字视觉资产"},
+    {"from": "slide-02-native-text", "to": "slide-02-ppt", "reason": "PPT 必须显示更新后的原生可编辑文字"},
+    {"from": "slide-02-speaker-notes", "to": "slide-02-ppt", "reason": "PPT Speaker Notes 必须与 Manifest notes 一致"},
+    {"from": "goggles-and-face-shield-asset", "to": "slide-02-ppt", "reason": "Slide 2 PPT 的对应 PPE visual 需要替换"},
+    {"from": "goggles-and-face-shield-asset", "to": "slide-02-video-segment", "reason": "Video segment 需要显示新的独立视觉对象"},
+    {"from": "slide-02-motion-runtime", "to": "slide-02-video-segment", "reason": "更新后的音频、cue、caption 与 duration 决定 Slide 2 segment"},
+    {"from": "slide-02-ppt", "to": "slide-02-video-segment", "reason": "Video hero/final composition 应保持 PPT-equivalent hierarchy"},
+    {"from": "slide-02-video-segment", "to": "author-review-mp4", "reason": "当前 Remotion 实现需要全片重新 encode 以交付更新视频", "execution_only": true}
+  ],
+  "invalidation_policy": {
+    "strategy": "transitive_dependency_closure",
+    "same_slide_blanket_invalidation_prohibited": true,
+    "cross_slide_propagation_requires_explicit_edge": true,
+    "render_execution_is_not_content_artifact_regeneration": true
+  }
+}

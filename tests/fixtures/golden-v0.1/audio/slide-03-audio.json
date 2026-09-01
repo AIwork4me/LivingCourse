@@ -1,0 +1,14 @@
+{
+  "slide_id": "slide-03-safety-focus",
+  "voice_profile": "manufacturing_training_default",
+  "script_hash": "16AA4BBE0D5E18F0FE288755E4E721ED1966E8020F20FA526D098BC1853EA89B",
+  "provider_role": "reference_provider",
+  "model_role": "reference_model",
+  "audio_sha256": "AE196B2D55CC8330B8F45CC01EE443A394C1FD3B5F17CF71E603499267860DB1",
+  "ffprobe_duration_ms": 25236,
+  "codec_name": "mp3",
+  "sample_rate": 32000,
+  "channel": 1,
+  "generation_status": "succeeded",
+  "human_review_status": "approved_for_poc_only"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "@livingcourse/cli",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "livingcourse": "./src/index.ts"
+  },
+  "dependencies": {
+    "@livingcourse/compiler": "workspace:*",
+    "@livingcourse/core": "workspace:*",
+    "@livingcourse/workflow": "workspace:*",
+    "commander": "15.0.0"
+  }
+}

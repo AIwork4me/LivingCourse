@@ -1,0 +1,60 @@
+{
+  "manifest_id": "livingcourse-production-entry-safety-001",
+  "schema_version": "0.2.1",
+  "vocabulary_version": "0.2.0",
+  "renderer_id": "livingcourse-remotion-adapter-v0.1.0",
+  "mode": "release_candidate",
+  "status": "blocked",
+  "unsupported_intents": [],
+  "missing_assets": [
+    {
+      "path": "$.slides[2].visual_assets[1].path",
+      "severity": "blocking_for_release",
+      "reason": "Required asset 'slide-03-real-device-photo' is missing.",
+      "recommendation": "Provide the verified asset and provenance before release rendering."
+    }
+  ],
+  "unresolved_anchors": [
+    {
+      "path": "$.slides[2].source_grounding.grounded_region",
+      "severity": "blocking_for_release",
+      "reason": "Grounding anchor 'confirmed-abnormal-or-emergency-stop-area' is unresolved and must not be inferred.",
+      "recommendation": "Obtain authorized human confirmation of the anchor."
+    }
+  ],
+  "layout_overflow": [],
+  "missing_native_text_references": [],
+  "warnings": [],
+  "errors": [
+    {
+      "path": "$.slides[1].source_grounding.required_before_release[0]",
+      "severity": "blocking_for_release",
+      "reason": "Required source 'site-ppe-procedure' is missing.",
+      "recommendation": "Provide and approve the source before release rendering."
+    },
+    {
+      "path": "$.slides[2].poc_visual_strategy",
+      "severity": "blocking_for_release",
+      "reason": "Synthetic PoC content must be replaced before Production Release.",
+      "recommendation": "Provide verified real equipment grounding and approved sources."
+    },
+    {
+      "path": "$.slides[2].source_grounding.required_before_release[0]",
+      "severity": "blocking_for_release",
+      "reason": "Required source 'approved-equipment-photo' is missing.",
+      "recommendation": "Provide and approve the source before release rendering."
+    },
+    {
+      "path": "$.slides[2].source_grounding.required_before_release[1]",
+      "severity": "blocking_for_release",
+      "reason": "Required source 'site-abnormal-operation-sop' is missing.",
+      "recommendation": "Provide and approve the source before release rendering."
+    },
+    {
+      "path": "$.slides[2].source_grounding.required_before_release[2]",
+      "severity": "blocking_for_release",
+      "reason": "Required source 'equipment-operating-manual' is missing.",
+      "recommendation": "Provide and approve the source before release rendering."
+    }
+  ]
+}

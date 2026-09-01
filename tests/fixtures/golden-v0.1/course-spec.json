@@ -1,0 +1,349 @@
+{
+  "courseSpecVersion": "0.2.0",
+  "course": {
+    "id": "livingcourse-production-entry-safety-001",
+    "title": "进入生产车间前",
+    "version": "golden-v0.1-change-001",
+    "locale": "zh-CN",
+    "audience": "第一次进入生产区域的新员工",
+    "purpose": "帮助制造业新员工建立进入车间前的安全准备意识",
+    "aspectRatio": "16:9"
+  },
+  "materials": [
+    {
+      "id": "approved-equipment-photo",
+      "type": "equipment_photo",
+      "path": null,
+      "ref": "required://approved-equipment-photo",
+      "sha256": null,
+      "title": "目标设备实拍照片",
+      "version": "pending",
+      "effectiveDate": null,
+      "authority": "目标现场设备负责人",
+      "sourceClass": "controlled_internal",
+      "availability": "missing"
+    },
+    {
+      "id": "course-brief-step-6a",
+      "type": "synthetic_source",
+      "path": "source/original-course-manifest.json",
+      "ref": "golden-reference://step-6a-approved-course-brief",
+      "sha256": "d84f74258ae12f600888e59d00fb1657b2153d78dfb55a8387fe48b457f6541f",
+      "title": "Golden v0.1 已批准课程简报",
+      "version": "0.1",
+      "effectiveDate": "2026-09-01",
+      "authority": "Golden PoC 人工审核",
+      "sourceClass": "reference",
+      "availability": "available"
+    },
+    {
+      "id": "equipment-operating-manual",
+      "type": "pdf",
+      "path": null,
+      "ref": "required://equipment-operating-manual",
+      "sha256": null,
+      "title": "设备操作手册或作业指导书",
+      "version": "pending",
+      "effectiveDate": null,
+      "authority": "目标现场设备负责人",
+      "sourceClass": "controlled_internal",
+      "availability": "missing"
+    },
+    {
+      "id": "site-abnormal-operation-sop",
+      "type": "sop",
+      "path": null,
+      "ref": "required://site-abnormal-operation-sop",
+      "sha256": null,
+      "title": "目标现场异常停机 SOP",
+      "version": "pending",
+      "effectiveDate": null,
+      "authority": "目标现场安全负责人",
+      "sourceClass": "controlled_internal",
+      "availability": "missing"
+    },
+    {
+      "id": "site-ppe-procedure",
+      "type": "sop",
+      "path": null,
+      "ref": "required://site-ppe-procedure",
+      "sha256": null,
+      "title": "目标车间 PPE 要求",
+      "version": "pending",
+      "effectiveDate": null,
+      "authority": "目标现场安全负责人",
+      "sourceClass": "controlled_internal",
+      "availability": "missing"
+    }
+  ],
+  "slides": [
+    {
+      "id": "slide-01-hero",
+      "order": 1,
+      "type": "hero",
+      "knowledge": {
+        "purpose": "建立课程主题和安全准备意识",
+        "summary": "安全准备从进入生产区域之前开始。",
+        "items": [
+          {
+            "id": "slide-01-safety-awareness",
+            "order": 1,
+            "text": "安全，从第一步开始",
+            "sourceRefs": ["course-brief-step-6a"]
+          }
+        ]
+      },
+      "presentation": {
+        "title": "进入生产车间前",
+        "subtitle": "安全，从第一步开始",
+        "visualIntent": {
+          "summary": "现代电子制造车间与培训引导员，人物位于右侧并给左侧标题留白。",
+          "requirements": [
+            {
+              "id": "slide-01-workshop-visual",
+              "kind": "hero_visual",
+              "subject": "现代电子制造车间与麦麦培训引导员",
+              "assetRef": "visuals/slide-01-visual.png",
+              "sourceClass": "synthetic",
+              "textFree": true,
+              "synthetic": false,
+              "pocOnly": false
+            }
+          ]
+        },
+        "layout": {
+          "kind": "hero",
+          "regions": {
+            "title": { "x": 0.06, "y": 0.18, "width": 0.42, "height": 0.16 },
+            "subtitle": { "x": 0.06, "y": 0.39, "width": 0.4, "height": 0.1 },
+            "visual": { "x": 0, "y": 0, "width": 1, "height": 1 }
+          },
+          "readingOrder": ["slide-01-title", "slide-01-subtitle", "slide-01-workshop-visual"],
+          "safeAreas": [{ "x": 0, "y": 0, "width": 0.5, "height": 1 }]
+        },
+        "motionIntent": [
+          { "id": "slide-01-motion-visual", "order": 1, "targetIds": ["slide-01-workshop-visual"], "action": "slow_zoom", "atMs": 0, "durationMs": 6000, "intensity": "very_subtle" },
+          { "id": "slide-01-motion-title", "order": 2, "targetIds": ["slide-01-title"], "action": "reveal", "atMs": 400 },
+          { "id": "slide-01-motion-subtitle", "order": 3, "targetIds": ["slide-01-subtitle"], "action": "reveal", "atMs": 1100 }
+        ]
+      },
+      "narration": {
+        "script": "第一次进入生产区域前，请先建立安全准备意识。安全不是进入车间后的附加动作，而是从进入前的第一步开始。",
+        "language": "zh-CN",
+        "voiceProfile": "manufacturing-training-default",
+        "audioAssetRef": "audio/slide-01.mp3",
+        "approvedDurationMs": 12132,
+        "cues": []
+      },
+      "grounding": {
+        "sourceRefs": ["course-brief-step-6a"],
+        "sourceClass": "reference",
+        "verified": true,
+        "anchor": null,
+        "replacementRequirement": null,
+        "releaseScope": "author_review"
+      },
+      "governance": {
+        "riskLevel": "illustrative",
+        "reviewStatus": "approved_for_poc_use",
+        "requiredReviewGates": ["visual-review", "production-release"],
+        "releaseBlockers": []
+      }
+    },
+    {
+      "id": "slide-02-step-process",
+      "order": 2,
+      "type": "step_process",
+      "knowledge": {
+        "purpose": "帮助新员工说出并依次确认四项基础安全准备",
+        "summary": "进入车间前，依次确认四项基础 PPE 与安全准备。",
+        "items": [
+          {
+            "id": "slide-02-item-workwear",
+            "order": 1,
+            "text": "工作服",
+            "sourceRefs": ["course-brief-step-6a", "site-ppe-procedure"],
+            "visualRequirementRef": "workwear"
+          },
+          {
+            "id": "slide-02-item-safety-shoes",
+            "order": 2,
+            "text": "安全鞋",
+            "sourceRefs": ["course-brief-step-6a", "site-ppe-procedure"],
+            "visualRequirementRef": "safety-shoes"
+          },
+          {
+            "id": "slide-02-item-goggles",
+            "order": 3,
+            "text": "护目镜与防护面罩",
+            "sourceRefs": ["course-brief-step-6a", "site-ppe-procedure"],
+            "visualRequirementRef": "goggles-face-shield"
+          },
+          {
+            "id": "slide-02-item-esd",
+            "order": 4,
+            "text": "防静电装备",
+            "sourceRefs": ["course-brief-step-6a", "site-ppe-procedure"],
+            "visualRequirementRef": "esd-equipment"
+          }
+        ],
+        "safetyRule": "具体穿戴标准与适用范围以本车间已经批准的 PPE 要求为准。"
+      },
+      "presentation": {
+        "title": "进入车间前，做好四项准备",
+        "visualIntent": {
+          "summary": "四项 PPE 以一对一图文顺序排列，培训引导员位于右侧。",
+          "requirements": [
+            { "id": "esd-equipment", "kind": "concept_visual", "subject": "通用防静电装备组合", "assetRef": "visuals/slide-02-esd-equipment.png", "sourceClass": "synthetic", "textFree": true, "synthetic": false, "pocOnly": false },
+            { "id": "goggles-face-shield", "kind": "concept_visual", "subject": "护目镜与通用透明防护面罩组合", "assetRef": "visuals/slide-02-goggles-face-shield.png", "sourceClass": "synthetic", "textFree": true, "synthetic": false, "pocOnly": false },
+            { "id": "maimai-guide", "kind": "guide_character", "subject": "麦麦制造业培训引导员", "assetRef": "visuals/slide-02-maimai-guide.png", "sourceClass": "synthetic", "textFree": true, "synthetic": false, "pocOnly": false },
+            { "id": "safety-shoes", "kind": "concept_visual", "subject": "无品牌制造业安全鞋", "assetRef": "visuals/slide-02-safety-shoes.png", "sourceClass": "synthetic", "textFree": true, "synthetic": false, "pocOnly": false },
+            { "id": "workwear", "kind": "concept_visual", "subject": "无品牌制造业工作服", "assetRef": "visuals/slide-02-workwear.png", "sourceClass": "synthetic", "textFree": true, "synthetic": false, "pocOnly": false }
+          ]
+        },
+        "layout": {
+          "kind": "step_process",
+          "regions": {
+            "title": { "x": 0.06, "y": 0.08, "width": 0.72, "height": 0.14 },
+            "processBand": { "x": 0.06, "y": 0.28, "width": 0.72, "height": 0.58 },
+            "guide": { "x": 0.8, "y": 0.34, "width": 0.15, "height": 0.46 }
+          },
+          "readingOrder": ["slide-02-title", "maimai-guide", "slide-02-item-workwear", "slide-02-item-safety-shoes", "slide-02-item-goggles", "slide-02-item-esd"],
+          "safeAreas": [{ "x": 0.05, "y": 0.05, "width": 0.74, "height": 0.88 }]
+        },
+        "motionIntent": [
+          { "id": "slide-02-motion-title", "order": 1, "targetIds": ["slide-02-title"], "action": "reveal", "atMs": 400 },
+          { "id": "slide-02-motion-guide", "order": 2, "targetIds": ["maimai-guide"], "action": "reveal", "atMs": 1000 },
+          { "id": "slide-02-motion-workwear", "order": 3, "targetIds": ["workwear", "slide-02-item-workwear"], "action": "synchronized_reveal", "atMs": 1600 },
+          { "id": "slide-02-motion-shoes", "order": 4, "targetIds": ["safety-shoes", "slide-02-item-safety-shoes"], "action": "synchronized_reveal", "atMs": 2500 },
+          { "id": "slide-02-motion-goggles", "order": 5, "targetIds": ["goggles-face-shield", "slide-02-item-goggles"], "action": "synchronized_reveal", "atMs": 3400 },
+          { "id": "slide-02-motion-esd", "order": 6, "targetIds": ["esd-equipment", "slide-02-item-esd"], "action": "synchronized_reveal", "atMs": 4300 }
+        ]
+      },
+      "narration": {
+        "script": "进入车间前，请依次确认工作服、安全鞋、护目镜与防护面罩，以及防静电装备。具体穿戴标准与适用范围应以本车间已经批准的 PPE 要求为准。",
+        "language": "zh-CN",
+        "voiceProfile": "manufacturing-training-default",
+        "audioAssetRef": "audio/slide-02.mp3",
+        "approvedDurationMs": 16164,
+        "cues": [
+          { "id": "cue-workwear", "phrase": "工作服", "targetIds": ["workwear", "slide-02-item-workwear"] },
+          { "id": "cue-safety-shoes", "phrase": "安全鞋", "targetIds": ["safety-shoes", "slide-02-item-safety-shoes"] },
+          { "id": "cue-goggles-face-shield", "phrase": "护目镜与防护面罩", "targetIds": ["goggles-face-shield", "slide-02-item-goggles"] },
+          { "id": "cue-esd", "phrase": "防静电装备", "targetIds": ["esd-equipment", "slide-02-item-esd"] }
+        ]
+      },
+      "grounding": {
+        "sourceRefs": ["course-brief-step-6a", "site-ppe-procedure"],
+        "sourceClass": "controlled_internal",
+        "verified": false,
+        "anchor": null,
+        "replacementRequirement": "提供并批准目标车间 PPE 要求，确认四项准备的适用范围。",
+        "releaseScope": "author_review"
+      },
+      "governance": {
+        "riskLevel": "procedural_general",
+        "reviewStatus": "approved_for_poc_use",
+        "requiredReviewGates": ["site-ppe-review", "production-release"],
+        "releaseBlockers": ["目标车间 PPE 要求尚未提供并验证。"]
+      }
+    },
+    {
+      "id": "slide-03-safety-focus",
+      "order": 3,
+      "type": "safety_focus",
+      "knowledge": {
+        "purpose": "建立异常情况下停止操作并按 SOP 处理的底线意识",
+        "summary": "发现设备异常时，应立即停止操作并按照本岗位已经批准的 SOP 与现场规定处理。",
+        "items": [
+          { "id": "slide-03-action-stop", "order": 1, "text": "停止操作", "sourceRefs": ["course-brief-step-6a", "site-abnormal-operation-sop"] },
+          { "id": "slide-03-action-sop", "order": 2, "text": "按照本岗位 SOP 处理", "sourceRefs": ["course-brief-step-6a", "site-abnormal-operation-sop"] },
+          { "id": "slide-03-action-report", "order": 3, "text": "按现场规定报告", "sourceRefs": ["course-brief-step-6a", "site-abnormal-operation-sop"] }
+        ],
+        "safetyRule": "不要继续操作，不要自行排除未知故障",
+        "disclosure": "模拟培训示意｜正式使用请替换为现场真实设备与已批准 SOP"
+      },
+      "presentation": {
+        "title": "发现异常，立即停机",
+        "visualIntent": {
+          "summary": "用明确标注的模拟设备示意验证流程；生产发布必须替换为真实设备照片。",
+          "requirements": [
+            { "id": "slide-03-real-device-photo", "kind": "equipment_visual", "subject": "经授权的目标设备实拍照片", "assetRef": null, "sourceClass": "controlled_internal", "textFree": true, "synthetic": false, "pocOnly": false },
+            { "id": "slide-03-synthetic-training-machine", "kind": "equipment_visual", "subject": "不对应任何真实型号的模拟培训设备", "assetRef": "visuals/slide-03-synthetic-training-machine.png", "sourceClass": "synthetic", "textFree": true, "synthetic": true, "pocOnly": true }
+          ]
+        },
+        "layout": {
+          "kind": "safety_focus",
+          "regions": {
+            "title": { "x": 0.06, "y": 0.07, "width": 0.86, "height": 0.14 },
+            "visual": { "x": 0.05, "y": 0.24, "width": 0.58, "height": 0.68 },
+            "warning": { "x": 0.67, "y": 0.29, "width": 0.28, "height": 0.25 },
+            "actions": { "x": 0.67, "y": 0.6, "width": 0.28, "height": 0.25 },
+            "disclosure": { "x": 0.67, "y": 0.88, "width": 0.28, "height": 0.07 }
+          },
+          "readingOrder": ["slide-03-title", "slide-03-synthetic-training-machine", "slide-03-abnormal-area-spotlight", "slide-03-key-message", "slide-03-action-stop", "slide-03-action-sop", "slide-03-action-report", "slide-03-simulation-disclosure"],
+          "safeAreas": [{ "x": 0.65, "y": 0.24, "width": 0.32, "height": 0.68 }]
+        },
+        "motionIntent": [
+          { "id": "slide-03-motion-visual", "order": 1, "targetIds": ["slide-03-synthetic-training-machine"], "action": "slow_zoom", "atMs": 0, "durationMs": 8500, "intensity": "very_subtle" },
+          { "id": "slide-03-motion-title", "order": 2, "targetIds": ["slide-03-title"], "action": "reveal", "atMs": 400 },
+          { "id": "slide-03-motion-focus", "order": 3, "targetIds": ["slide-03-abnormal-area-spotlight"], "action": "focus", "atMs": 1400 },
+          { "id": "slide-03-motion-warning", "order": 4, "targetIds": ["slide-03-key-message"], "action": "reveal", "atMs": 2200 },
+          { "id": "slide-03-motion-actions", "order": 5, "targetIds": ["slide-03-action-stop", "slide-03-action-sop", "slide-03-action-report"], "action": "sequential_reveal", "atMs": 3000 }
+        ]
+      },
+      "narration": {
+        "script": "发现设备异常时，应立即停止操作，不要继续操作，也不要自行排除未知故障。后续动作应按照本岗位已经批准的 SOP 和现场规定执行。本页使用模拟设备示意，仅用于验证课程生成流程，正式课程必须替换为现场真实设备和经过确认的操作要求。",
+        "language": "zh-CN",
+        "voiceProfile": "manufacturing-training-default",
+        "audioAssetRef": "audio/slide-03.mp3",
+        "approvedDurationMs": 25236,
+        "cues": []
+      },
+      "grounding": {
+        "sourceRefs": ["approved-equipment-photo", "course-brief-step-6a", "equipment-operating-manual", "site-abnormal-operation-sop"],
+        "sourceClass": "synthetic",
+        "verified": false,
+        "anchor": {
+          "id": "synthetic-training-focus-region",
+          "status": "approved_for_poc_only",
+          "assetRef": "visuals/slide-03-synthetic-training-machine.png",
+          "bounds": { "x": 0.215, "y": 0.27, "width": 0.105, "height": 0.13 },
+          "confirmedBy": "Golden PoC human review"
+        },
+        "replacementRequirement": "提供真实设备照片、目标现场异常 SOP、设备手册，并由授权人员确认真实锚点。",
+        "releaseScope": "poc_only"
+      },
+      "governance": {
+        "riskLevel": "device_specific",
+        "reviewStatus": "approved_for_poc_use",
+        "requiredReviewGates": ["real-device-grounding", "sop-review", "production-release"],
+        "releaseBlockers": [
+          "模拟设备素材仅允许 PoC 与 Author Review。",
+          "真实设备照片尚未提供。",
+          "异常停机 SOP 与设备操作手册尚未提供。",
+          "真实设备异常或急停区域锚点尚未由授权人员确认。"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "lifecycleState": "review_required",
+    "targetReleaseScope": "author_review",
+    "reviewDecisions": [
+      {
+        "artifactId": "livingcourse-production-entry-safety-001",
+        "gateId": "golden-v0.1-author-review",
+        "decision": "approved_for_poc_use",
+        "reviewer": "Golden PoC human review",
+        "reviewedAt": "2026-09-01T00:00:00.000Z",
+        "scope": "author_review",
+        "comments": "Change-001 与 synthetic Slide 3 可用于 Author Review；不得用于生产发布。",
+        "acceptedRisks": [
+          { "code": "LC-RISK-SYNTHETIC-001", "rationale": "仅在明确披露的 PoC / Author Review 范围内使用。" }
+        ]
+      }
+    ],
+    "securityScanRequired": true
+  }
+}

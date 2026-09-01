@@ -1,0 +1,81 @@
+{
+  "schema_version": "0.1.0",
+  "type": "RemotionCaptionSet",
+  "slide_id": "slide-03-safety-focus",
+  "script_hash": "16AA4BBE0D5E18F0FE288755E4E721ED1966E8020F20FA526D098BC1853EA89B",
+  "source": "approved_narration_script_with_normalized_character_timing",
+  "sentence_timing_role": "semantic_boundary_reference",
+  "character_timing_role": "caption_start_end_alignment",
+  "max_lines": 2,
+  "captions": [
+    {
+      "text": "发现设备异常时，",
+      "startMs": 41.949,
+      "endMs": 1174.56,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": "应立即停止操作，",
+      "startMs": 1174.56,
+      "endMs": 2978.349,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": "不要继续操作，也不要自行排除未知故障。",
+      "startMs": 2978.349,
+      "endMs": 7005.412,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": "后续动作应按照本岗位已经批准的 SOP ",
+      "startMs": 7005.412,
+      "endMs": 11997.292,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": "和现场规定执行。",
+      "startMs": 11997.292,
+      "endMs": 13633.287,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": "本页使用模拟设备示意，",
+      "startMs": 14022.622,
+      "endMs": 15868.359,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": "仅用于验证课程生成流程，",
+      "startMs": 15868.359,
+      "endMs": 18678.914,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": "正式课程必须替换为现场真实设备和经过",
+      "startMs": 18678.914,
+      "endMs": 23586.897,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": "确认的操作要求。",
+      "startMs": 23586.897,
+      "endMs": 24971.2,
+      "timestampMs": null,
+      "confidence": null
+    }
+  ],
+  "qa": {
+    "source_text_exact_match": true,
+    "monotonic": true,
+    "within_audio_bounds": true,
+    "confidence_fabricated": false
+  }
+}

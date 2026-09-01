@@ -1,0 +1,14 @@
+{
+  "slide_id": "slide-02-step-process",
+  "voice_profile": "manufacturing_training_default",
+  "script_hash": "3C2315DB53DFEFB13528AEBE96DCA5463045B478A5A4C8398C1801EAC97F0077",
+  "provider_role": "reference_provider",
+  "model_role": "reference_model",
+  "audio_sha256": "2F6A42F30F2EBE742E0B61503B8C636E12D6DC25B232B250547B164697EB4131",
+  "ffprobe_duration_ms": 16164,
+  "codec_name": "mp3",
+  "sample_rate": 32000,
+  "channel": 1,
+  "generation_status": "succeeded",
+  "human_review_status": "approved_for_incremental_author_review_pipeline"
+}

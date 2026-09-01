@@ -1,0 +1,12 @@
+id: livingcourse-default-v1
+version: 1.0.0
+text_color: "#000000"
+background: transparent
+border: none
+colored_block: false
+max_lines: 2
+font_weight: 700
+target_characters:
+  min: 8
+  max: 18
+

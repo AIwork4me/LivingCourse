@@ -1,0 +1,14 @@
+{
+  "id": "change-001",
+  "operations": [
+    {
+      "op": "replace",
+      "path": "/slides/1/knowledge/items/2/text",
+      "old": "护目镜",
+      "new": "护目镜与防护面罩"
+    }
+  ],
+  "reason": "验证 dependency-driven incremental regeneration",
+  "requestedBy": "human_review",
+  "requestedAt": "2026-09-01T00:54:34.748Z"
+}

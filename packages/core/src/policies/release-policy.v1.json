@@ -1,0 +1,9 @@
+{
+  "version": "1.0.0",
+  "syntheticProductionAllowed": false,
+  "riskRequirements": {
+    "illustrative": { "humanReview": true, "grounding": "reviewed" },
+    "procedural_general": { "humanReview": true, "grounding": "verified" },
+    "device_specific": { "humanReview": true, "grounding": "verified_real_device" }
+  }
+}

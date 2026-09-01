@@ -1,0 +1,551 @@
+{
+  "schema_version": "0.1.0",
+  "type": "NormalizedNarrationTiming",
+  "slide_id": "slide-01-hero",
+  "script_hash": "CFCB2C47DD06ADF2218D10CC068C3CB3CBEE145F0816C67E6699B58DC67C9090",
+  "approved_audio_sha256": "092965171AC2ECDCB08F071459A59FAB0535D68568E4DD6A12DB2B94D27F320F",
+  "approved_audio_duration_ms": 12132,
+  "timing_source_duration_ms": 11844,
+  "original_duration_delta_ms": 288,
+  "normalization_scale_factor": 1.024316109,
+  "timing_alignment_method": "duration_normalized_provider_timing",
+  "raw_timing_coordinate_recovery": "inverse_of_step_6e21_approved_alignment",
+  "raw_sentence_segments": [
+    {
+      "text": "第一次进入生产区域前，请先建立安全准备意识。安全不是进入车间后的附加动作，而是从进入前的第一步开始。",
+      "start_ms": 0,
+      "end_ms": 11672.517
+    }
+  ],
+  "normalized_sentence_segments": [
+    {
+      "text": "第一次进入生产区域前，请先建立安全准备意识。安全不是进入车间后的附加动作，而是从进入前的第一步开始。",
+      "start_ms": 0,
+      "end_ms": 11956.347
+    }
+  ],
+  "raw_character_segments": [
+    {
+      "text": "第",
+      "start_ms": 42.667,
+      "end_ms": 170.667
+    },
+    {
+      "text": "一",
+      "start_ms": 170.667,
+      "end_ms": 298.667
+    },
+    {
+      "text": "次",
+      "start_ms": 298.667,
+      "end_ms": 469.334
+    },
+    {
+      "text": "进",
+      "start_ms": 469.334,
+      "end_ms": 640
+    },
+    {
+      "text": "入",
+      "start_ms": 640,
+      "end_ms": 810.667
+    },
+    {
+      "text": "生",
+      "start_ms": 810.667,
+      "end_ms": 938.666
+    },
+    {
+      "text": "产",
+      "start_ms": 938.666,
+      "end_ms": 1109.333
+    },
+    {
+      "text": "区",
+      "start_ms": 1109.333,
+      "end_ms": 1280
+    },
+    {
+      "text": "域",
+      "start_ms": 1280,
+      "end_ms": 1450.666
+    },
+    {
+      "text": "前",
+      "start_ms": 1450.666,
+      "end_ms": 1621.333
+    },
+    {
+      "text": "，",
+      "start_ms": 1621.333,
+      "end_ms": 1664
+    },
+    {
+      "text": "请",
+      "start_ms": 1664,
+      "end_ms": 2346.666
+    },
+    {
+      "text": "先",
+      "start_ms": 2346.666,
+      "end_ms": 2688
+    },
+    {
+      "text": "建",
+      "start_ms": 2688,
+      "end_ms": 2858.666
+    },
+    {
+      "text": "立",
+      "start_ms": 2858.666,
+      "end_ms": 3072
+    },
+    {
+      "text": "安",
+      "start_ms": 3072,
+      "end_ms": 3200
+    },
+    {
+      "text": "全",
+      "start_ms": 3200,
+      "end_ms": 3413.333
+    },
+    {
+      "text": "准",
+      "start_ms": 3413.333,
+      "end_ms": 3626.667
+    },
+    {
+      "text": "备",
+      "start_ms": 3626.667,
+      "end_ms": 3797.334
+    },
+    {
+      "text": "意",
+      "start_ms": 3797.334,
+      "end_ms": 3925.333
+    },
+    {
+      "text": "识",
+      "start_ms": 3925.333,
+      "end_ms": 4138.667
+    },
+    {
+      "text": "。",
+      "start_ms": 4138.667,
+      "end_ms": 4224
+    },
+    {
+      "text": "安",
+      "start_ms": 4224,
+      "end_ms": 5290.667
+    },
+    {
+      "text": "全",
+      "start_ms": 5290.667,
+      "end_ms": 5589.333
+    },
+    {
+      "text": "不",
+      "start_ms": 5589.333,
+      "end_ms": 5888
+    },
+    {
+      "text": "是",
+      "start_ms": 5888,
+      "end_ms": 6442.666
+    },
+    {
+      "text": "进",
+      "start_ms": 6442.666,
+      "end_ms": 6613.333
+    },
+    {
+      "text": "入",
+      "start_ms": 6613.333,
+      "end_ms": 6741.333
+    },
+    {
+      "text": "车",
+      "start_ms": 6741.333,
+      "end_ms": 6869.334
+    },
+    {
+      "text": "间",
+      "start_ms": 6869.334,
+      "end_ms": 7082.667
+    },
+    {
+      "text": "后",
+      "start_ms": 7082.667,
+      "end_ms": 7210.667
+    },
+    {
+      "text": "的",
+      "start_ms": 7210.667,
+      "end_ms": 7253.333
+    },
+    {
+      "text": "附",
+      "start_ms": 7253.333,
+      "end_ms": 7509.333
+    },
+    {
+      "text": "加",
+      "start_ms": 7509.333,
+      "end_ms": 7680
+    },
+    {
+      "text": "动",
+      "start_ms": 7680,
+      "end_ms": 7850.666
+    },
+    {
+      "text": "作",
+      "start_ms": 7850.666,
+      "end_ms": 8021.333
+    },
+    {
+      "text": "，",
+      "start_ms": 8021.333,
+      "end_ms": 8064
+    },
+    {
+      "text": "而",
+      "start_ms": 8064,
+      "end_ms": 8277.333
+    },
+    {
+      "text": "是",
+      "start_ms": 8277.333,
+      "end_ms": 9258.666
+    },
+    {
+      "text": "从",
+      "start_ms": 9258.666,
+      "end_ms": 9514.666
+    },
+    {
+      "text": "进",
+      "start_ms": 9514.666,
+      "end_ms": 9984
+    },
+    {
+      "text": "入",
+      "start_ms": 9984,
+      "end_ms": 10197.334
+    },
+    {
+      "text": "前",
+      "start_ms": 10197.334,
+      "end_ms": 10282.667
+    },
+    {
+      "text": "的",
+      "start_ms": 10282.667,
+      "end_ms": 10325.333
+    },
+    {
+      "text": "第",
+      "start_ms": 10325.333,
+      "end_ms": 10581.333
+    },
+    {
+      "text": "一",
+      "start_ms": 10581.333,
+      "end_ms": 10752
+    },
+    {
+      "text": "步",
+      "start_ms": 10752,
+      "end_ms": 10965.334
+    },
+    {
+      "text": "开",
+      "start_ms": 10965.334,
+      "end_ms": 11136
+    },
+    {
+      "text": "始",
+      "start_ms": 11136,
+      "end_ms": 11349.333
+    },
+    {
+      "text": "。",
+      "start_ms": 11349.333,
+      "end_ms": 11562.667
+    }
+  ],
+  "normalized_character_segments": [
+    {
+      "text": "第",
+      "start_ms": 43.704,
+      "end_ms": 174.817
+    },
+    {
+      "text": "一",
+      "start_ms": 174.817,
+      "end_ms": 305.929
+    },
+    {
+      "text": "次",
+      "start_ms": 305.929,
+      "end_ms": 480.746
+    },
+    {
+      "text": "进",
+      "start_ms": 480.746,
+      "end_ms": 655.562
+    },
+    {
+      "text": "入",
+      "start_ms": 655.562,
+      "end_ms": 830.379
+    },
+    {
+      "text": "生",
+      "start_ms": 830.379,
+      "end_ms": 961.491
+    },
+    {
+      "text": "产",
+      "start_ms": 961.491,
+      "end_ms": 1136.308
+    },
+    {
+      "text": "区",
+      "start_ms": 1136.308,
+      "end_ms": 1311.125
+    },
+    {
+      "text": "域",
+      "start_ms": 1311.125,
+      "end_ms": 1485.941
+    },
+    {
+      "text": "前",
+      "start_ms": 1485.941,
+      "end_ms": 1660.758
+    },
+    {
+      "text": "，",
+      "start_ms": 1660.758,
+      "end_ms": 1704.462
+    },
+    {
+      "text": "请",
+      "start_ms": 1704.462,
+      "end_ms": 2403.728
+    },
+    {
+      "text": "先",
+      "start_ms": 2403.728,
+      "end_ms": 2753.362
+    },
+    {
+      "text": "建",
+      "start_ms": 2753.362,
+      "end_ms": 2928.178
+    },
+    {
+      "text": "立",
+      "start_ms": 2928.178,
+      "end_ms": 3146.699
+    },
+    {
+      "text": "安",
+      "start_ms": 3146.699,
+      "end_ms": 3277.812
+    },
+    {
+      "text": "全",
+      "start_ms": 3277.812,
+      "end_ms": 3496.332
+    },
+    {
+      "text": "准",
+      "start_ms": 3496.332,
+      "end_ms": 3714.853
+    },
+    {
+      "text": "备",
+      "start_ms": 3714.853,
+      "end_ms": 3889.67
+    },
+    {
+      "text": "意",
+      "start_ms": 3889.67,
+      "end_ms": 4020.782
+    },
+    {
+      "text": "识",
+      "start_ms": 4020.782,
+      "end_ms": 4239.303
+    },
+    {
+      "text": "。",
+      "start_ms": 4239.303,
+      "end_ms": 4326.711
+    },
+    {
+      "text": "安",
+      "start_ms": 4326.711,
+      "end_ms": 5419.315
+    },
+    {
+      "text": "全",
+      "start_ms": 5419.315,
+      "end_ms": 5725.244
+    },
+    {
+      "text": "不",
+      "start_ms": 5725.244,
+      "end_ms": 6031.173
+    },
+    {
+      "text": "是",
+      "start_ms": 6031.173,
+      "end_ms": 6599.327
+    },
+    {
+      "text": "进",
+      "start_ms": 6599.327,
+      "end_ms": 6774.144
+    },
+    {
+      "text": "入",
+      "start_ms": 6774.144,
+      "end_ms": 6905.256
+    },
+    {
+      "text": "车",
+      "start_ms": 6905.256,
+      "end_ms": 7036.369
+    },
+    {
+      "text": "间",
+      "start_ms": 7036.369,
+      "end_ms": 7254.89
+    },
+    {
+      "text": "后",
+      "start_ms": 7254.89,
+      "end_ms": 7386.002
+    },
+    {
+      "text": "的",
+      "start_ms": 7386.002,
+      "end_ms": 7429.706
+    },
+    {
+      "text": "附",
+      "start_ms": 7429.706,
+      "end_ms": 7691.931
+    },
+    {
+      "text": "加",
+      "start_ms": 7691.931,
+      "end_ms": 7866.748
+    },
+    {
+      "text": "动",
+      "start_ms": 7866.748,
+      "end_ms": 8041.564
+    },
+    {
+      "text": "作",
+      "start_ms": 8041.564,
+      "end_ms": 8216.381
+    },
+    {
+      "text": "，",
+      "start_ms": 8216.381,
+      "end_ms": 8260.085
+    },
+    {
+      "text": "而",
+      "start_ms": 8260.085,
+      "end_ms": 8478.606
+    },
+    {
+      "text": "是",
+      "start_ms": 8478.606,
+      "end_ms": 9483.801
+    },
+    {
+      "text": "从",
+      "start_ms": 9483.801,
+      "end_ms": 9746.026
+    },
+    {
+      "text": "进",
+      "start_ms": 9746.026,
+      "end_ms": 10226.772
+    },
+    {
+      "text": "入",
+      "start_ms": 10226.772,
+      "end_ms": 10445.293
+    },
+    {
+      "text": "前",
+      "start_ms": 10445.293,
+      "end_ms": 10532.701
+    },
+    {
+      "text": "的",
+      "start_ms": 10532.701,
+      "end_ms": 10576.405
+    },
+    {
+      "text": "第",
+      "start_ms": 10576.405,
+      "end_ms": 10838.63
+    },
+    {
+      "text": "一",
+      "start_ms": 10838.63,
+      "end_ms": 11013.447
+    },
+    {
+      "text": "步",
+      "start_ms": 11013.447,
+      "end_ms": 11231.968
+    },
+    {
+      "text": "开",
+      "start_ms": 11231.968,
+      "end_ms": 11406.784
+    },
+    {
+      "text": "始",
+      "start_ms": 11406.784,
+      "end_ms": 11625.305
+    },
+    {
+      "text": "。",
+      "start_ms": 11625.305,
+      "end_ms": 11843.826
+    }
+  ],
+  "terminal_timing_boundary_ms": 12132,
+  "normalization_status": "approved_for_poc_timeline_use",
+  "human_delta_acceptance": true,
+  "requires_human_av_sync_review": true,
+  "poc_only": false,
+  "production_release_allowed": null,
+  "normalization_qa": {
+    "start_non_negative": true,
+    "end_after_start": true,
+    "monotonic": true,
+    "within_approved_audio_bounds": true,
+    "source_text_identical": true,
+    "sentence_order_unchanged": true,
+    "character_order_unchanged": true,
+    "terminal_boundary_matches_approved_audio": true,
+    "final_sentence_tail_gap_ms": 175.653,
+    "final_character_tail_gap_ms": 288.174,
+    "final_sentence_within_tolerance": true,
+    "final_character_within_tolerance": true
+  }
+}

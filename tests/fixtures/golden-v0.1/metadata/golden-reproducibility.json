@@ -1,0 +1,144 @@
+{
+  "schema_version": "0.1.0",
+  "golden_example_version": "LivingCourse Golden PoC v0.1",
+  "release_scope": "author_review_reference_only",
+  "manifest": {
+    "path": "poc/06-three-slide/course-manifest.json",
+    "sha256": "D84F74258AE12F600888E59D00FB1657B2153D78DFB55A8387FE48B457F6541F"
+  },
+  "vocabularies": {
+    "motion": {
+      "path": "poc/06-three-slide/motion-vocabulary.md",
+      "sha256": "07ECB861FAABBD52104BB796E50BFB6D2B77A91F4793BC0793EE752585BBD136"
+    },
+    "layout": {
+      "path": "poc/06-three-slide/layout-vocabulary.md",
+      "sha256": "2DC07BB12EEAE719901E2A2988D711A17AFDDA9903AECF4A5D46A1FC52623B93"
+    }
+  },
+  "renderer_contract": {
+    "path": "poc/06-three-slide/renderer-contract.md",
+    "sha256": "ED839BF4BA265BEE9C7C95F15A00A0BCE2B7804B34D49B49D0FB33467FFC6F7C"
+  },
+  "visual_assets": {
+    "slide-01-workshop-visual": {
+      "path": "poc/01-visual-plate/visual.png",
+      "sha256": "0C887C28517B92625A45EF6E07444D3EB8ADE1043C1157532A57D48907550322"
+    },
+    "maimai-guide": {
+      "path": "poc/06-three-slide/assets/slide-02/final/maimai-guide.png",
+      "sha256": "495362D7A1616928594BBD84B02DDC30B16EA368C673680F1D1EABCA160455A3"
+    },
+    "workwear": {
+      "path": "poc/06-three-slide/assets/slide-02/final/workwear.png",
+      "sha256": "368417B9B12C998703B45570321B1F2349394E6383B01C72B346DCE1557E88DC"
+    },
+    "safety-shoes": {
+      "path": "poc/06-three-slide/assets/slide-02/final/safety-shoes.png",
+      "sha256": "D219C007F1F8105DF2542660FACB4A6D47B73016B560DAA69122F8E130D3C6FD"
+    },
+    "goggles-face-shield": {
+      "path": "poc/06-three-slide/assets/slide-02/final/goggles-face-shield-v2.png",
+      "sha256": "47BC5E75E985CED3C416135A053048CB8C1A3CEB98E956A71654377BDA6E779C"
+    },
+    "esd-equipment": {
+      "path": "poc/06-three-slide/assets/slide-02/final/esd-equipment.png",
+      "sha256": "642DEC526546AE20AAFA12B45079B0ACCB192DB0DCA8EDAC95453209E0B2C252"
+    },
+    "slide-03-synthetic-training-machine": {
+      "path": "poc/06-three-slide/assets/slide-03/synthetic-training-machine.png",
+      "sha256": "24DE8D608470B45ABB77917320911F6D81E99722C0694F8FD9A6AFD15264508F"
+    }
+  },
+  "approved_audio": {
+    "slide-01": {
+      "path": "poc/06-three-slide/audio/slide-01.mp3",
+      "sha256": "092965171AC2ECDCB08F071459A59FAB0535D68568E4DD6A12DB2B94D27F320F"
+    },
+    "slide-02": {
+      "path": "poc/06-three-slide/audio/slide-02.mp3",
+      "sha256": "2F6A42F30F2EBE742E0B61503B8C636E12D6DC25B232B250547B164697EB4131"
+    },
+    "slide-03": {
+      "path": "poc/06-three-slide/audio/slide-03.mp3",
+      "sha256": "AE196B2D55CC8330B8F45CC01EE443A394C1FD3B5F17CF71E603499267860DB1"
+    }
+  },
+  "timing": {
+    "slide-01": {
+      "path": "poc/06-three-slide/audio/slide-01-timing.json",
+      "sha256": "0CBCA9F62D63E9805BF9813E35EF95EA85B77B4BB074941B34BCB9796EA5B1C2"
+    },
+    "slide-02": {
+      "path": "poc/06-three-slide/audio/slide-02-timing.json",
+      "sha256": "7EA7A9AF700F647A5E2FBDB62FA04B9D6161FB4500A2817B5BFC17CB1942182D"
+    },
+    "slide-03": {
+      "path": "poc/06-three-slide/audio/slide-03-timing.json",
+      "sha256": "CD3CD67EDD212C30F9E84F73E6320F5B2A08BD39BA26C9F88B81A45019D47985"
+    }
+  },
+  "captions": {
+    "slide-01": {
+      "path": "poc/06-three-slide/audio/slide-01-captions.json",
+      "sha256": "8A9F5E055C8D947E973EDE7B3B57DA7BE6701C81CDBDC01EC3669997E1FB59AE"
+    },
+    "slide-02": {
+      "path": "poc/06-three-slide/audio/slide-02-captions.json",
+      "sha256": "1850BB0F9F1C1278CE4FC8C841E1413E2FEF7A8089A422FA6AF834BF47FC0CCD"
+    },
+    "slide-03": {
+      "path": "poc/06-three-slide/audio/slide-03-captions.json",
+      "sha256": "DF57E5E0532572B141930AD8E35FABB75DA260F554E00BBFEFD15D5F53368F9C"
+    }
+  },
+  "renderer_source": {
+    "ppt": {
+      "sha256_tree": "BEA5B7F518600F71A89B184E0870627974E21A25A352E591D025E494597AE03E",
+      "files": [
+        "poc/06-three-slide/ppt/renderer/course-renderer.mjs",
+        "poc/06-three-slide/ppt/renderer/layout-resolver.mjs",
+        "poc/06-three-slide/ppt/renderer/shared.mjs",
+        "poc/06-three-slide/ppt/renderer/layouts/hero.mjs",
+        "poc/06-three-slide/ppt/renderer/layouts/step-process.mjs",
+        "poc/06-three-slide/ppt/renderer/layouts/blocked-placeholder.mjs"
+      ]
+    },
+    "remotion": {
+      "sha256_tree": "3B69A964EAC50FA01A00C665C47AD2B745F0B0DD0EA6B11C82367F2BE566EDAA",
+      "files": [
+        "poc/06-three-slide/remotion/app/src/CourseComposition.tsx",
+        "poc/06-three-slide/remotion/app/src/Root.tsx",
+        "poc/06-three-slide/remotion/app/src/layouts/HeroLayout.tsx",
+        "poc/06-three-slide/remotion/app/src/layouts/StepProcessLayout.tsx",
+        "poc/06-three-slide/remotion/app/src/layouts/SafetyFocusLayout.tsx",
+        "poc/06-three-slide/remotion/app/src/motion/MotionResolver.tsx",
+        "poc/06-three-slide/remotion/app/src/captions/CaptionRenderer.tsx"
+      ]
+    }
+  },
+  "provider_adapter_source": {
+    "sha256_tree": "CEF61115E771E7495F85F00B74B0887FCB1EAC2EC9022C75C02695B4B8612A27",
+    "files": [
+      "poc/06-three-slide/audio/tts/providers/TtsProvider.mjs",
+      "poc/06-three-slide/audio/tts/providers/providerFactory.mjs",
+      "poc/06-three-slide/audio/tts/providers/MiniMaxTtsProvider.mjs",
+      "poc/06-three-slide/audio/tts/providers/MiniMaxPronunciationMapper.mjs"
+    ]
+  },
+  "expected_author_review_output": {
+    "slides": 3,
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "timeline_duration_seconds": 55.5,
+    "encoded_duration_tolerance_seconds": 0.2,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "audio_stream_required": true,
+    "caption_style": "native black text; transparent background; no border; maximum two lines",
+    "release_status": "blocked",
+    "mp4_cross_platform_bit_identical_required": false,
+    "qa_method": "semantic_and_structural"
+  }
+}
