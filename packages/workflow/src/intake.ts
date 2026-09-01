@@ -15,7 +15,7 @@ import {
   type ProviderHealth,
   type SourceMetadata
 } from "@livingcourse/intake";
-import { MineruHttpProvider } from "@livingcourse/providers";
+import { MineruCloudProvider, MineruHttpProvider } from "@livingcourse/providers";
 import type { RawParserArtifact } from "@livingcourse/intake";
 
 interface IntakeCacheEntry {
@@ -39,6 +39,8 @@ export interface IntakeWorkflowOptions {
   cacheRoot?: string;
   profile?: ParseProfile;
   mineruEndpoint?: string;
+  mineruCloudBaseUrl?: string;
+  documentProvider?: "mineru" | "mineru-cloud";
   metadata?: Readonly<Record<string, SourceMetadata>>;
   providers?: readonly DocumentParsingProvider[];
   parsedAt?: string;
@@ -56,6 +58,7 @@ export interface IntakePlanItem {
   cacheFingerprint: string | null;
   action: "REUSE" | "PARSE" | "BLOCKED";
   blocker: string | null;
+  confidentialityWarning: string | null;
 }
 
 export interface IntakePlanResult {
@@ -96,13 +99,34 @@ const atomicJson = async (target: string, value: unknown): Promise<void> => {
 
 const registeredProviders = (options: IntakeWorkflowOptions): DocumentParsingProviderRegistry => {
   const registry = new DocumentParsingProviderRegistry();
-  const providers = options.providers ?? [
-    new DirectTextProvider(),
-    new MineruHttpProvider({ endpoint: options.mineruEndpoint ?? process.env.MINERU_API_URL ?? "http://127.0.0.1:8000" })
-  ];
+  const configuredProvider = options.documentProvider ?? process.env.LIVINGCOURSE_DOCUMENT_PROVIDER ?? "mineru";
+  if (!options.providers && configuredProvider !== "mineru" && configuredProvider !== "mineru-cloud") {
+    throw new Error(`LC-INTAKE-WORKFLOW-004: unsupported document provider '${configuredProvider}'.`);
+  }
+  const documentProvider = configuredProvider === "mineru-cloud"
+    ? new MineruCloudProvider(options.mineruCloudBaseUrl === undefined ? {} : { baseUrl: options.mineruCloudBaseUrl })
+    : new MineruHttpProvider({ endpoint: options.mineruEndpoint ?? process.env.MINERU_API_URL ?? "http://127.0.0.1:8000" });
+  const providers = options.providers ?? [new DirectTextProvider(), documentProvider];
   providers.forEach((provider) => registry.register(provider));
   return registry;
 };
+
+interface CacheIdentity {
+  providerVersion: string;
+  processingMode: ProviderHealth["processingMode"];
+  endpointClassification: ProviderHealth["endpointClassification"];
+}
+
+const cacheIdentityOf = (provider: DocumentParsingProvider): CacheIdentity | null => {
+  const value: unknown = (provider as DocumentParsingProvider & { cacheIdentity?: unknown }).cacheIdentity;
+  if (!value || typeof value !== "object") return null;
+  const identity = value as Partial<CacheIdentity>;
+  if (typeof identity.providerVersion !== "string" || typeof identity.processingMode !== "string" || typeof identity.endpointClassification !== "string") return null;
+  return identity as CacheIdentity;
+};
+
+const confidentialityWarning = (processingMode: ProviderHealth["processingMode"]): string | null =>
+  processingMode === "remote" ? "This parser processes source files on a remote service." : null;
 
 const relativeArtifactName = (name: string): string => name.replace(/\\/gu, "/").split("/").filter((part) => part && part !== "." && part !== "..").join("/");
 
@@ -133,7 +157,27 @@ export const planIntake = async (folder: string, options: IntakeWorkflowOptions 
     try {
       provider = registry.resolve(input);
     } catch (error) {
-      files.push({ input, parser: "none", providerVersion: null, profile, potentialEscalation: "none", processingMode: "local", endpointClassification: "not_applicable", health: "not_available", cacheFingerprint: null, action: "BLOCKED", blocker: (error as Error).message });
+      files.push({ input, parser: "none", providerVersion: null, profile, potentialEscalation: "none", processingMode: "local", endpointClassification: "not_applicable", health: "not_available", cacheFingerprint: null, action: "BLOCKED", blocker: (error as Error).message, confidentialityWarning: null });
+      continue;
+    }
+    const cacheIdentity = cacheIdentityOf(provider);
+    const staticFingerprint = cacheIdentity ? parsingFingerprint({ sourceSha256: input.sha256, providerId: provider.id, providerVersion: cacheIdentity.providerVersion, parseProfile: profile }) : null;
+    const staticHit = staticFingerprint ? cache.entries.find((entry) => entry.fingerprint === staticFingerprint) : undefined;
+    if (cacheIdentity && staticHit) {
+      files.push({
+        input,
+        parser: provider.id,
+        providerVersion: cacheIdentity.providerVersion,
+        profile,
+        potentialEscalation: profile === "high_fidelity" ? "none" : "high_fidelity only on parsing failure",
+        processingMode: cacheIdentity.processingMode,
+        endpointClassification: cacheIdentity.endpointClassification,
+        health: "available",
+        cacheFingerprint: staticFingerprint,
+        action: "REUSE",
+        blocker: null,
+        confidentialityWarning: confidentialityWarning(cacheIdentity.processingMode)
+      });
       continue;
     }
     let health = healthByProvider.get(provider.id);
@@ -155,7 +199,8 @@ export const planIntake = async (folder: string, options: IntakeWorkflowOptions 
       health: health.status,
       cacheFingerprint: fingerprint,
       action: hit ? "REUSE" : blocker ? "BLOCKED" : "PARSE",
-      blocker
+      blocker,
+      confidentialityWarning: confidentialityWarning(health.processingMode)
     });
   }
   return { folder: path.resolve(folder), files, parserCalls: 0, aiCalls: 0, blockers: files.flatMap((file) => file.blocker ? [`${file.input.originalName}: ${file.blocker}`] : []), cacheRoot };

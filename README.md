@@ -23,7 +23,7 @@ Impact
 Only affected assets regenerate
 ```
 
-LivingCourse v0.3 adds provider-based raw-material intake without changing the v0.2.1 compiler boundary. PDF, DOCX, PPTX, PNG/JPEG and Markdown/TXT are discovered and hashed deterministically. Markdown/TXT use the built-in deterministic provider; the default document parser for binary formats is the MinerU HTTP adapter. MinerU responses are normalized to provider-neutral `MaterialIR` before generation can consume them.
+LivingCourse v0.3.1 adds the MinerU Cloud precise-API transport without changing the v0.3 intake or v0.2.1 compiler boundaries. PDF, DOCX, PPTX, XLSX, PNG/JPEG and Markdown/TXT are discovered and hashed deterministically. Markdown/TXT use the built-in deterministic provider; binary formats use the self-hosted MinerU HTTP adapter by default. Both MinerU transports normalize through the same provider-neutral `MaterialIR` adapter before generation can consume them.
 
 Every factual `KnowledgeCandidate` retains evidence down to a stable source block and normalized location. Conflicts, authority gaps and device-grounding gaps remain candidates for a human author; no path sends an unreviewed `CourseSpecCandidate` to the compiler.
 
@@ -50,7 +50,17 @@ pnpm livingcourse build examples/manufacturing-entry-safety/course-spec.json
 
 ### MinerU and privacy
 
-`MINERU_API_URL` configures the default MinerU HTTP provider; otherwise LivingCourse uses `http://127.0.0.1:8000`. A non-local endpoint is used only when explicitly configured. Raw enterprise sources are potentially confidential: provider, processing mode and endpoint classification appear in provenance/review output, while credentials, query strings and full source content are not logged. Parser artifacts and caches live under `.livingcourse/`, which is gitignored. See [Security and privacy](docs/SECURITY-PRIVACY.md) and [third-party notices](THIRD_PARTY_NOTICES.md).
+Self-hosted MinerU remains the default: `MINERU_API_URL` selects its endpoint, otherwise LivingCourse uses `http://127.0.0.1:8000`. MinerU Cloud is opt-in only:
+
+```bash
+LIVINGCOURSE_DOCUMENT_PROVIDER=mineru-cloud
+MINERU_API_TOKEN=...                  # environment only; never put it in a file
+MINERU_CLOUD_BASE_URL=https://mineru.net  # optional
+```
+
+Cloud mode uses MinerU's precise v4 signed-upload flow with `model_version=vlm`; it never uses the lightweight Agent API. Before upload, CLI output says `This parser processes source files on a remote service.` Provenance and the review package identify `mineru-cloud`, `remote`, and `public_remote`. Authorization values and temporary upload/download URLs are neither logged nor stored in MaterialIR, cache metadata, reports, or long-lived provenance. Parser artifacts and caches live under `.livingcourse/`, which is gitignored.
+
+Run the opt-in real smoke test with `pnpm test:mineru-cloud`. Without `MINERU_API_TOKEN`, it reports `REAL MINERU CLOUD SMOKE TEST = NOT EXECUTED`. See [MinerU providers](docs/MINERU-PROVIDERS.md), [Security and privacy](docs/SECURITY-PRIVACY.md), and [third-party notices](THIRD_PARTY_NOTICES.md).
 
 Other commands:
 
@@ -69,7 +79,7 @@ Failures are emitted as structured records with a stable code, what happened, wh
 ```text
 Raw documents
      ↓
-DocumentParsingProvider ← MinerU HTTP / built-in text
+DocumentParsingProvider ← MinerU self-hosted / MinerU Cloud / built-in text
      ↓
 MaterialIR → generation candidates → human review → CourseSpec
                                                    ↓
@@ -88,7 +98,7 @@ MaterialIR → generation candidates → human review → CourseSpec
 - `packages/intake`: discovery, hashing, parsing contract, MaterialIR, normalization and EvidenceRef validation.
 - `packages/compiler`: deterministic passes and PresentationPlan, VideoPlan, BuildPlan.
 - `packages/generation`: knowledge candidates, evidence/conflict checks, grounding policy, review candidate firewall and optional generation capabilities.
-- `packages/providers`: isolated provider adapters, including the default MinerU HTTP adapter.
+- `packages/providers`: isolated provider adapters, including MinerU self-hosted and opt-in MinerU Cloud transports.
 - `packages/renderers`: editable PPTX and Remotion MP4 adapters.
 - `packages/workflow`: doctor, planning, cache, execution, QA, review, release and resume.
 - `apps/cli`: the thin command-line interface.
@@ -105,4 +115,4 @@ pnpm validate:arch
 pnpm validate:security
 ```
 
-Start with [Architecture](docs/ARCHITECTURE.md), [Security and privacy](docs/SECURITY-PRIVACY.md), [CourseSpec](docs/COURSE-SPEC.md), and the [one-pass readiness ledger](docs/ONE-PASS-READINESS.md). v0.3 evidence is recorded in [LIVINGCOURSE-V0.3-REPORT.md](LIVINGCOURSE-V0.3-REPORT.md); the v0.2.1 compiler evidence remains in [LIVINGCOURSE-CORE-V0.2.1-REPORT.md](LIVINGCOURSE-CORE-V0.2.1-REPORT.md).
+Start with [Architecture](docs/ARCHITECTURE.md), [MinerU providers](docs/MINERU-PROVIDERS.md), [Security and privacy](docs/SECURITY-PRIVACY.md), [CourseSpec](docs/COURSE-SPEC.md), and the [one-pass readiness ledger](docs/ONE-PASS-READINESS.md). v0.3.1 evidence is recorded in [LIVINGCOURSE-V0.3.1-MINERU-CLOUD-REPORT.md](LIVINGCOURSE-V0.3.1-MINERU-CLOUD-REPORT.md); the v0.3 and v0.2.1 reports remain available.

@@ -4,6 +4,7 @@ type UnknownRecord = Record<string, unknown>;
 
 export interface MineruNormalizationContext {
   document: DocumentInput;
+  providerId?: string;
   providerVersion: string;
   parseProfile: ParseProfile;
   providerBackend: string;
@@ -106,7 +107,7 @@ const material = (
   units,
   diagnostics,
   provenance: {
-    provider: "mineru",
+    provider: context.providerId ?? "mineru",
     providerVersion: context.providerVersion,
     parseProfile: context.parseProfile,
     providerBackend: context.providerBackend,

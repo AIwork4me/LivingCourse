@@ -1,6 +1,6 @@
 {
   "name": "livingcourse",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "type": "module",
   "description": "Turn enterprise knowledge into maintainable training assets.",
@@ -19,6 +19,7 @@
     "test:m2": "vitest run tests/regression/renderer.test.ts",
     "test:m3": "vitest run tests/regression/change-001.test.ts",
     "test:m4": "vitest run tests/regression/workflow.test.ts",
+    "test:mineru-cloud": "tsx scripts/mineru-cloud-smoke.ts",
     "validate:arch": "tsx scripts/validate-architecture.ts",
     "validate:security": "tsx scripts/security-scan.ts",
     "livingcourse": "tsx apps/cli/src/index.ts"

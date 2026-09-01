@@ -34,7 +34,7 @@ Raw Document
      ↓
 DocumentParsingProvider
      ↓
-MinerU Adapter or built-in text parser
+Shared MinerU Adapter or built-in text parser
      ↓
 MaterialIR
      ↓
@@ -50,6 +50,8 @@ CourseSpec
 ```
 
 Provider-specific structured output is confined to `packages/providers/src/mineru`. `MaterialIR` uses stable block IDs, a single normalized 0–1 coordinate meaning, and parse provenance. A provider replacement changes only provider registration/configuration; downstream contracts consume `MaterialIR`.
+
+MinerU has two transport implementations: the backward-compatible self-hosted provider (`mineru`) and the opt-in precise Cloud provider (`mineru-cloud`). Cloud-specific upload, polling, authentication, and temporary URLs remain inside the Cloud provider. Both implementations call the same v2/legacy normalization functions; no Cloud transport vocabulary crosses into MaterialIR, CourseSpec, compiler IR, or renderers.
 
 ## Compilation boundary
 

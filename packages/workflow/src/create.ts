@@ -60,7 +60,17 @@ export const executeCreate = async (folder: string, options: CreateWorkflowOptio
   await mkdir(outputRoot, { recursive: true });
   const candidatePath = path.join(outputRoot, "course-spec-candidate.json");
   const reviewPackagePath = path.join(outputRoot, "COURSE-REVIEW.md");
+  const parserDisclosure = intake.plan.files
+    .filter((item) => item.parser !== "built-in-text" && item.parser !== "none")
+    .map((item) => ({
+      parser: item.parser === "mineru-cloud" ? "MinerU Cloud" : item.parser === "mineru" ? "MinerU Self-hosted" : item.parser,
+      processing: item.processingMode === "remote" ? "Remote" : "Local"
+    }))
+    .filter((entry, index, entries) => entries.findIndex((candidateEntry) => candidateEntry.parser === entry.parser && candidateEntry.processing === entry.processing) === index)
+    .map((entry) => `- Document parser: ${entry.parser}\n- Processing: ${entry.processing}`)
+    .join("\n");
+  const renderedReview = `${renderCourseReviewPackage(candidate)}${parserDisclosure ? `\n## Document parser disclosure\n\n${parserDisclosure}\n` : ""}`;
   await writeFile(candidatePath, `${JSON.stringify(candidate, null, 2)}\n`, "utf8");
-  await writeFile(reviewPackagePath, renderCourseReviewPackage(candidate), "utf8");
+  await writeFile(reviewPackagePath, renderedReview, "utf8");
   return { intake, candidate, candidatePath, reviewPackagePath, aiCalls: 0, manualPromptCount: 0, manualJsonEditCount: 0 };
 };

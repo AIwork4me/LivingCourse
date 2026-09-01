@@ -3,7 +3,7 @@ import { createRequire } from "node:module";
 import { spawnSync } from "node:child_process";
 import os from "node:os";
 import path from "node:path";
-import { MineruHttpProvider } from "@livingcourse/providers";
+import { MineruCloudProvider, MineruHttpProvider } from "@livingcourse/providers";
 
 export type DoctorStatus = "PASS" | "WARN" | "FAIL";
 export interface DoctorCheck { id: string; label: string; status: DoctorStatus; detail: string }
@@ -44,17 +44,19 @@ export const runDoctor = async (options: { workspaceRoot: string; generationRequ
     status: options.generationRequired ? (providerConfigured ? "PASS" : "FAIL") : (providerConfigured ? "PASS" : "WARN"),
     detail: options.generationRequired ? (providerConfigured ? "Configured for requested generation." : "Generation is planned but no provider config is present.") : "Not required for approved-asset reuse."
   });
-  const mineruEndpoint = process.env.MINERU_API_URL ?? "http://127.0.0.1:8000";
-  const mineru = new MineruHttpProvider({ endpoint: mineruEndpoint, requestTimeoutMs: 2_000 });
+  const cloudSelected = process.env.LIVINGCOURSE_DOCUMENT_PROVIDER === "mineru-cloud";
+  const mineru = cloudSelected
+    ? new MineruCloudProvider({ requestTimeoutMs: 2_000 })
+    : new MineruHttpProvider({ endpoint: process.env.MINERU_API_URL ?? "http://127.0.0.1:8000", requestTimeoutMs: 2_000 });
   const mineruHealth = await mineru.health();
-  const mineruCapabilities = await mineru.capabilities();
+  const mineruCapabilities = mineruHealth.status === "available" ? await mineru.capabilities() : null;
   checks.push({
-    id: "document-parser:mineru",
-    label: "Document Parsing Provider — MinerU",
+    id: cloudSelected ? "document-parser:mineru-cloud" : "document-parser:mineru",
+    label: cloudSelected ? "Document Parsing Provider — MinerU Cloud" : "Document Parsing Provider — MinerU Self-hosted",
     status: mineruHealth.status === "available" ? "PASS" : "WARN",
     detail: mineruHealth.status === "available"
-      ? `Endpoint ${mineru.displayEndpoint}; health available; version ${mineruHealth.version ?? "unknown"}; mode ${mineruHealth.processingMode}; classification ${mineruHealth.endpointClassification}; media ${mineruCapabilities.supportedMediaTypes.join(", ")}.`
-      : `MinerU parser: NOT AVAILABLE. Endpoint ${mineru.displayEndpoint}; mode ${mineruHealth.processingMode}; classification ${mineruHealth.endpointClassification}. Reason: ${mineruHealth.detail}. Action: Start or configure the MinerU API. Environment: MINERU_API_URL=...`
+      ? `Endpoint ${mineru.displayEndpoint}; health available; version ${mineruHealth.version ?? "unknown"}; mode ${mineruHealth.processingMode}; classification ${mineruHealth.endpointClassification}; media ${mineruCapabilities?.supportedMediaTypes.join(", ") ?? "unknown"}.`
+      : `MinerU parser: NOT AVAILABLE. Endpoint ${mineru.displayEndpoint}; mode ${mineruHealth.processingMode}; classification ${mineruHealth.endpointClassification}. Reason: ${mineruHealth.detail}. Action: ${cloudSelected ? "Set MINERU_API_TOKEN and verify MinerU Cloud reachability." : "Start or configure the MinerU API with MINERU_API_URL."}`
   });
   const credentialConfigured = Boolean(process.env.LIVINGCOURSE_PROVIDER_CREDENTIAL);
   checks.push({

@@ -23,7 +23,13 @@ const program = new Command();
 const loadJson = async <T>(target: string): Promise<T> => JSON.parse(await readFile(path.resolve(target), "utf8")) as T;
 const print = (value: unknown): void => console.log(JSON.stringify(value, null, 2));
 
-program.name("livingcourse").description("Turn raw enterprise materials into reviewable, maintainable training assets.").version("0.3.0");
+program.name("livingcourse").description("Turn raw enterprise materials into reviewable, maintainable training assets.").version("0.3.1");
+
+const discloseRemoteParser = (): void => {
+  if (process.env.LIVINGCOURSE_DOCUMENT_PROVIDER === "mineru-cloud") {
+    console.error("This parser processes source files on a remote service.");
+  }
+};
 
 program.command("doctor")
   .option("--generation-required", "Require provider configuration and credentials")
@@ -45,6 +51,7 @@ program.command("intake")
   .argument("<folder>")
   .option("--profile <profile>", "balanced or high_fidelity", "balanced")
   .action(async (folder: string, options: { profile: "balanced" | "high_fidelity" }) => {
+    discloseRemoteParser();
     const result = await executeIntake(folder, { workspaceRoot: process.cwd(), profile: options.profile });
     print({
       materialInventory: result.plan.files.map((item) => ({ file: item.input.originalName, mediaType: item.input.mediaType, sha256: item.input.sha256, parser: item.parser, profile: item.profile, status: item.action, processingMode: item.processingMode, endpointClassification: item.endpointClassification })),
@@ -62,12 +69,13 @@ program.command("create")
   .option("--audience <audience>")
   .option("--purpose <purpose>")
   .action(async (folder: string, options: { dryRun?: boolean; profile: "balanced" | "high_fidelity"; title?: string; audience?: string; purpose?: string }) => {
+    discloseRemoteParser();
     const common = { workspaceRoot: process.cwd(), profile: options.profile, ...(options.title === undefined ? {} : { title: options.title }), ...(options.audience === undefined ? {} : { audience: options.audience }), ...(options.purpose === undefined ? {} : { purpose: options.purpose }) };
     if (options.dryRun) {
       const result = await planCreate(folder, common);
       print({
         FILES: { detected: result.intake.files.length, inventory: result.intake.files.map((item) => ({ file: item.input.originalName, mediaType: item.input.mediaType })) },
-        PARSING: result.intake.files.map((item) => ({ file: item.input.originalName, parser: item.parser, profile: item.profile, potentialEscalation: item.potentialEscalation, plannedAction: item.action })),
+        PARSING: result.intake.files.map((item) => ({ file: item.input.originalName, parser: item.parser, profile: item.profile, potentialEscalation: item.potentialEscalation, processingMode: item.processingMode, endpointClassification: item.endpointClassification, confidentialityWarning: item.confidentialityWarning, plannedAction: item.action })),
         AI_CALL_PLAN: result.aiCallPlan,
         BLOCKERS: result.blockers,
         callsMade: { parser: result.intake.parserCalls, ai: result.intake.aiCalls }
