@@ -6,8 +6,11 @@ import { applyCourseSpecChangeSet, buildDependencyGraph, planImpact } from "@liv
 import { validateCourseSpec, type CourseSpec } from "@livingcourse/core";
 import {
   diffCourseDocuments,
+  executeCreate,
   executeBuild,
+  executeIntake,
   planBuild,
+  planCreate,
   recordReviewDecision,
   runDoctor,
   scanPublicPackage,
@@ -20,7 +23,7 @@ const program = new Command();
 const loadJson = async <T>(target: string): Promise<T> => JSON.parse(await readFile(path.resolve(target), "utf8")) as T;
 const print = (value: unknown): void => console.log(JSON.stringify(value, null, 2));
 
-program.name("livingcourse").description("Compile maintainable training assets from an approved CourseSpec.").version("0.2.0");
+program.name("livingcourse").description("Turn raw enterprise materials into reviewable, maintainable training assets.").version("0.3.0");
 
 program.command("doctor")
   .option("--generation-required", "Require provider configuration and credentials")
@@ -36,6 +39,56 @@ program.command("validate")
     const result = validateCourseSpec(await loadJson<unknown>(coursePath));
     print(result);
     if (!result.valid) process.exitCode = 1;
+  });
+
+program.command("intake")
+  .argument("<folder>")
+  .option("--profile <profile>", "balanced or high_fidelity", "balanced")
+  .action(async (folder: string, options: { profile: "balanced" | "high_fidelity" }) => {
+    const result = await executeIntake(folder, { workspaceRoot: process.cwd(), profile: options.profile });
+    print({
+      materialInventory: result.plan.files.map((item) => ({ file: item.input.originalName, mediaType: item.input.mediaType, sha256: item.input.sha256, parser: item.parser, profile: item.profile, status: item.action, processingMode: item.processingMode, endpointClassification: item.endpointClassification })),
+      parseStatus: { parserCalls: result.parserCalls, materialRegenerations: result.materialRegenerations, reused: result.reused, parsed: result.parsed },
+      materialIr: result.materials,
+      diagnostics: result.diagnostics
+    });
+  });
+
+program.command("create")
+  .argument("<folder>")
+  .option("--dry-run", "Show files, parser plan, AI call plan, and blockers before any parser or AI call")
+  .option("--profile <profile>", "balanced or high_fidelity", "balanced")
+  .option("--title <title>")
+  .option("--audience <audience>")
+  .option("--purpose <purpose>")
+  .action(async (folder: string, options: { dryRun?: boolean; profile: "balanced" | "high_fidelity"; title?: string; audience?: string; purpose?: string }) => {
+    const common = { workspaceRoot: process.cwd(), profile: options.profile, ...(options.title === undefined ? {} : { title: options.title }), ...(options.audience === undefined ? {} : { audience: options.audience }), ...(options.purpose === undefined ? {} : { purpose: options.purpose }) };
+    if (options.dryRun) {
+      const result = await planCreate(folder, common);
+      print({
+        FILES: { detected: result.intake.files.length, inventory: result.intake.files.map((item) => ({ file: item.input.originalName, mediaType: item.input.mediaType })) },
+        PARSING: result.intake.files.map((item) => ({ file: item.input.originalName, parser: item.parser, profile: item.profile, potentialEscalation: item.potentialEscalation, plannedAction: item.action })),
+        AI_CALL_PLAN: result.aiCallPlan,
+        BLOCKERS: result.blockers,
+        callsMade: { parser: result.intake.parserCalls, ai: result.intake.aiCalls }
+      });
+      if (result.blockers.length) process.exitCode = 1;
+      return;
+    }
+    const result = await executeCreate(folder, common);
+    print({
+      status: "AUTHOR_REVIEW_REQUIRED",
+      materialCount: result.intake.materials.length,
+      parserCalls: result.intake.parserCalls,
+      aiCalls: result.aiCalls,
+      manualPromptCount: result.manualPromptCount,
+      manualJsonEditCount: result.manualJsonEditCount,
+      evidenceCoverage: result.candidate.metrics.evidenceCoverage,
+      conflicts: result.candidate.conflicts.length,
+      groundingGaps: result.candidate.groundingGaps.length,
+      candidatePath: result.candidatePath,
+      reviewPackagePath: result.reviewPackagePath
+    });
   });
 
 program.command("build")

@@ -7,6 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@livingcourse/core": `${root}packages/core/src/index.ts`,
+      "@livingcourse/intake": `${root}packages/intake/src/index.ts`,
       "@livingcourse/compiler": `${root}packages/compiler/src/index.ts`,
       "@livingcourse/generation": `${root}packages/generation/src/index.ts`,
       "@livingcourse/providers": `${root}packages/providers/src/index.ts`,

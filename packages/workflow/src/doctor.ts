@@ -3,6 +3,7 @@ import { createRequire } from "node:module";
 import { spawnSync } from "node:child_process";
 import os from "node:os";
 import path from "node:path";
+import { MineruHttpProvider } from "@livingcourse/providers";
 
 export type DoctorStatus = "PASS" | "WARN" | "FAIL";
 export interface DoctorCheck { id: string; label: string; status: DoctorStatus; detail: string }
@@ -42,6 +43,18 @@ export const runDoctor = async (options: { workspaceRoot: string; generationRequ
     label: "Provider configuration",
     status: options.generationRequired ? (providerConfigured ? "PASS" : "FAIL") : (providerConfigured ? "PASS" : "WARN"),
     detail: options.generationRequired ? (providerConfigured ? "Configured for requested generation." : "Generation is planned but no provider config is present.") : "Not required for approved-asset reuse."
+  });
+  const mineruEndpoint = process.env.MINERU_API_URL ?? "http://127.0.0.1:8000";
+  const mineru = new MineruHttpProvider({ endpoint: mineruEndpoint, requestTimeoutMs: 2_000 });
+  const mineruHealth = await mineru.health();
+  const mineruCapabilities = await mineru.capabilities();
+  checks.push({
+    id: "document-parser:mineru",
+    label: "Document Parsing Provider — MinerU",
+    status: mineruHealth.status === "available" ? "PASS" : "WARN",
+    detail: mineruHealth.status === "available"
+      ? `Endpoint ${mineru.displayEndpoint}; health available; version ${mineruHealth.version ?? "unknown"}; mode ${mineruHealth.processingMode}; classification ${mineruHealth.endpointClassification}; media ${mineruCapabilities.supportedMediaTypes.join(", ")}.`
+      : `MinerU parser: NOT AVAILABLE. Endpoint ${mineru.displayEndpoint}; mode ${mineruHealth.processingMode}; classification ${mineruHealth.endpointClassification}. Reason: ${mineruHealth.detail}. Action: Start or configure the MinerU API. Environment: MINERU_API_URL=...`
   });
   const credentialConfigured = Boolean(process.env.LIVINGCOURSE_PROVIDER_CREDENTIAL);
   checks.push({

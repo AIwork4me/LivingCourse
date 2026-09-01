@@ -38,10 +38,19 @@ await scan("packages/core", "core-isolation", [
 ]);
 
 await scan("packages/compiler", "compiler-purity", [
-  /@livingcourse\/(?:providers|renderers|workflow)/u,
+  /@livingcourse\/(?:intake|providers|renderers|workflow)/u,
   /from\s+["'](?:node:)?(?:http|https|net|tls|dns)["']/u,
   /\b(?:fetch|WebSocket|XMLHttpRequest)\s*\(/u,
   /(?:playwright|puppeteer)/iu
+]);
+
+await scan("packages/intake/src", "material-ir-provider-neutral", [
+  /(?:content_list_v2|middle_json|hybrid-engine|\beffort\b)/iu,
+  /@livingcourse\/providers/u
+]);
+
+await scan("packages/generation/src", "generation-material-ir-boundary", [
+  /(?:content_list_v2|middle_json|hybrid-engine|@livingcourse\/providers|\bmineru\b)/iu
 ]);
 
 await scan("packages/compiler/src", "golden-page-id-isolation", [
@@ -61,8 +70,13 @@ const courseContract = [
   await readFile(path.join(root, "packages/core/src/types.ts"), "utf8"),
   await readFile(path.join(root, "packages/core/src/schema/course-spec.schema.json"), "utf8")
 ].join("\n");
-if (/(?:minimax|openai|remotion|react|ffmpeg|pptxgenjs|speech-2\.8|male-qn)/iu.test(courseContract)) {
+if (/(?:mineru|content_list_v2|middle_json|hybrid-engine|\beffort\b|minimax|openai|remotion|react|ffmpeg|pptxgenjs|speech-2\.8|male-qn)/iu.test(courseContract)) {
   findings.push({ rule: "course-spec-provider-neutral", file: "packages/core", detail: "CourseSpec contract contains provider or renderer vocabulary." });
+}
+
+const generationSources = (await Promise.all((await walk(path.join(root, "packages/generation/src"))).map((file) => readFile(file, "utf8")))).join("\n");
+if (!/@livingcourse\/intake/u.test(generationSources) || !/\bMaterialIR\b/u.test(generationSources)) {
+  findings.push({ rule: "generation-consumes-material-ir", file: "packages/generation/src", detail: "Generation must consume the provider-neutral MaterialIR contract." });
 }
 
 const compilerTypes = await readFile(path.join(root, "packages/compiler/src/types.ts"), "utf8");
@@ -71,5 +85,5 @@ if (/(?:minimax|voice_id|audio_setting|subtitle_enable)/iu.test(videoPlanSection
   findings.push({ rule: "video-plan-provider-neutral", file: "packages/compiler/src/types.ts", detail: "VideoPlan contains provider-specific schema." });
 }
 
-console.log(JSON.stringify({ passed: findings.length === 0, rules: 6, findings }, null, 2));
+console.log(JSON.stringify({ passed: findings.length === 0, rules: 10, findings }, null, 2));
 if (findings.length > 0) process.exitCode = 1;

@@ -1,4 +1,5 @@
-import type { CourseSpec, MaterialSpec, PresentationIntent } from "@livingcourse/core";
+import type { CourseSpec, PresentationIntent } from "@livingcourse/core";
+import type { EvidenceRef, MaterialIR } from "@livingcourse/intake";
 
 export interface GenerationProvenance {
   provider: string;
@@ -15,21 +16,42 @@ export interface GeneratedArtifact {
 }
 
 export interface KnowledgeCandidate {
-  facts: Array<{ text: string; sourceRefs: string[]; confidence: number }>;
-  warnings: string[];
+  id: string;
+  claim: string;
+  category: "general" | "safety" | "device_operation";
+  evidenceRefs: EvidenceRef[];
+  confidence: number;
+  authorityAssessment: "recorded" | "authority_gap";
+  conflictStatus: "none" | "candidate_conflict";
+  groundingStatus: "satisfied" | "gap" | "blocked";
+  status: "supported_candidate" | "unsupported_candidate" | "conflicted_candidate";
+  factual: boolean;
+  comparableFact: { key: string; value: string } | null;
 }
 
-export interface CourseCandidate {
-  course: Partial<CourseSpec>;
-  warnings: string[];
+export interface KnowledgeConflict {
+  id: string;
+  comparableFactKey: string;
+  candidateIds: string[];
+  evidenceRefs: EvidenceRef[];
+  authorityStatus: "clear_hierarchy" | "ambiguous";
+  recommendedAction: string;
+  recommendedCandidateId: string | null;
+}
+
+export interface AuthorityGap {
+  id: string;
+  materialId: string;
+  message: string;
+  resolutionAction: string;
 }
 
 export interface KnowledgeUnderstandingCapability {
-  understand(materials: readonly MaterialSpec[]): Promise<KnowledgeCandidate>;
+  understand(materials: readonly MaterialIR[]): Promise<KnowledgeCandidate[]>;
 }
 
 export interface CourseDesignCapability {
-  design(candidate: KnowledgeCandidate): Promise<CourseCandidate>;
+  design(candidates: readonly KnowledgeCandidate[]): Promise<Partial<CourseSpec>>;
 }
 
 export interface VisualGenerationCapability {

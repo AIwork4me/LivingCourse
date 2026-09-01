@@ -1,0 +1,30 @@
+[
+  [
+    {
+      "type": "title",
+      "content": {
+        "title_content": [{ "type": "text", "content": "Synthetic Machine Entry" }],
+        "level": 1
+      },
+      "bbox": [80, 100, 920, 160],
+      "anchor": "synthetic-machine-entry"
+    },
+    {
+      "type": "paragraph",
+      "content": {
+        "paragraph_content": [{ "type": "text", "content": "Use training pressure setting B before the simulated exercise." }]
+      },
+      "bbox": [80, 190, 920, 270]
+    }
+  ],
+  [
+    {
+      "type": "image",
+      "content": {
+        "image_path": "images/synthetic-machine.jpg",
+        "image_caption": [{ "type": "text", "content": "Illustrative machine only; no real-device anchor." }]
+      },
+      "bbox": [120, 180, 880, 800]
+    }
+  ]
+]

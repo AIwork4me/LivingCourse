@@ -105,12 +105,27 @@ importers:
       '@livingcourse/core':
         specifier: workspace:*
         version: link:../core
+      '@livingcourse/intake':
+        specifier: workspace:*
+        version: link:../intake
+
+  packages/intake:
+    dependencies:
+      '@livingcourse/core':
+        specifier: workspace:*
+        version: link:../core
 
   packages/providers:
     dependencies:
       '@livingcourse/generation':
         specifier: workspace:*
         version: link:../generation
+      '@livingcourse/intake':
+        specifier: workspace:*
+        version: link:../intake
+      jszip:
+        specifier: 3.10.1
+        version: 3.10.1
 
   packages/renderers:
     dependencies:
@@ -150,6 +165,9 @@ importers:
       '@livingcourse/generation':
         specifier: workspace:*
         version: link:../generation
+      '@livingcourse/intake':
+        specifier: workspace:*
+        version: link:../intake
       '@livingcourse/providers':
         specifier: workspace:*
         version: link:../providers
