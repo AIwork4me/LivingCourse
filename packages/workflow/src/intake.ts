@@ -8,6 +8,7 @@ import {
   parsingFingerprint,
   validateMaterialIR,
   type DocumentInput,
+  type DocumentParsingCapabilities,
   type DocumentParsingProvider,
   type IntakeDiagnostic,
   type MaterialIR,
@@ -115,6 +116,7 @@ interface CacheIdentity {
   providerVersion: string;
   processingMode: ProviderHealth["processingMode"];
   endpointClassification: ProviderHealth["endpointClassification"];
+  parseProfiles?: readonly ParseProfile[];
 }
 
 const cacheIdentityOf = (provider: DocumentParsingProvider): CacheIdentity | null => {
@@ -151,6 +153,7 @@ export const planIntake = async (folder: string, options: IntakeWorkflowOptions 
   const cache = await readCache(cacheRoot);
   const registry = registeredProviders(options);
   const healthByProvider = new Map<string, ProviderHealth>();
+  const capabilitiesByProvider = new Map<string, DocumentParsingCapabilities>();
   const files: IntakePlanItem[] = [];
   for (const input of inputs) {
     let provider: DocumentParsingProvider;
@@ -161,6 +164,24 @@ export const planIntake = async (folder: string, options: IntakeWorkflowOptions 
       continue;
     }
     const cacheIdentity = cacheIdentityOf(provider);
+    if (cacheIdentity?.parseProfiles && !cacheIdentity.parseProfiles.includes(profile)) {
+      const blocker = `Provider '${provider.id}' does not support parse profile '${profile}'. Supported profiles: ${cacheIdentity.parseProfiles.join(", ")}.`;
+      files.push({
+        input,
+        parser: provider.id,
+        providerVersion: cacheIdentity.providerVersion,
+        profile,
+        potentialEscalation: "none",
+        processingMode: cacheIdentity.processingMode,
+        endpointClassification: cacheIdentity.endpointClassification,
+        health: "not_available",
+        cacheFingerprint: null,
+        action: "BLOCKED",
+        blocker,
+        confidentialityWarning: confidentialityWarning(cacheIdentity.processingMode)
+      });
+      continue;
+    }
     const staticFingerprint = cacheIdentity ? parsingFingerprint({ sourceSha256: input.sha256, providerId: provider.id, providerVersion: cacheIdentity.providerVersion, parseProfile: profile }) : null;
     const staticHit = staticFingerprint ? cache.entries.find((entry) => entry.fingerprint === staticFingerprint) : undefined;
     if (cacheIdentity && staticHit) {
@@ -169,7 +190,7 @@ export const planIntake = async (folder: string, options: IntakeWorkflowOptions 
         parser: provider.id,
         providerVersion: cacheIdentity.providerVersion,
         profile,
-        potentialEscalation: profile === "high_fidelity" ? "none" : "high_fidelity only on parsing failure",
+        potentialEscalation: cacheIdentity.parseProfiles?.includes("high_fidelity") && profile === "balanced" ? "high_fidelity only on parsing failure" : "none",
         processingMode: cacheIdentity.processingMode,
         endpointClassification: cacheIdentity.endpointClassification,
         health: "available",
@@ -185,20 +206,28 @@ export const planIntake = async (folder: string, options: IntakeWorkflowOptions 
       health = await provider.health();
       healthByProvider.set(provider.id, health);
     }
+    let capabilities = capabilitiesByProvider.get(provider.id);
+    if (!capabilities && health.status === "available") {
+      capabilities = await provider.capabilities();
+      capabilitiesByProvider.set(provider.id, capabilities);
+    }
     const fingerprint = health.version ? parsingFingerprint({ sourceSha256: input.sha256, providerId: provider.id, providerVersion: health.version, parseProfile: profile }) : null;
     const hit = fingerprint ? cache.entries.find((entry) => entry.fingerprint === fingerprint) : undefined;
-    const blocker = health.status === "not_available" && !hit ? health.detail : null;
+    const profileBlocker = capabilities && !capabilities.parseProfiles.includes(profile)
+      ? `Provider '${provider.id}' does not support parse profile '${profile}'. Supported profiles: ${capabilities.parseProfiles.join(", ")}.`
+      : null;
+    const blocker = profileBlocker ?? (health.status === "not_available" && !hit ? health.detail : null);
     files.push({
       input,
       parser: provider.id,
       providerVersion: health.version,
       profile,
-      potentialEscalation: provider.id === "built-in-text" || profile === "high_fidelity" ? "none" : "high_fidelity only on parsing failure",
+      potentialEscalation: provider.id !== "built-in-text" && profile === "balanced" && Boolean(capabilities?.parseProfiles.includes("high_fidelity")) ? "high_fidelity only on parsing failure" : "none",
       processingMode: health.processingMode,
       endpointClassification: health.endpointClassification,
       health: health.status,
       cacheFingerprint: fingerprint,
-      action: hit ? "REUSE" : blocker ? "BLOCKED" : "PARSE",
+      action: profileBlocker ? "BLOCKED" : hit ? "REUSE" : blocker ? "BLOCKED" : "PARSE",
       blocker,
       confidentialityWarning: confidentialityWarning(health.processingMode)
     });

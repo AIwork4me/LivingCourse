@@ -25,6 +25,10 @@ The implementation follows the [official MinerU API documentation](https://miner
 
 The provider's `health()` makes a non-destructive authenticated result lookup using an impossible probe ID. It does not call a fictional `/health`, submit a parse task, or claim availability from token presence alone.
 
+MinerU Cloud v0.3.2 truthfully advertises only the `balanced` parse profile. A `high_fidelity` request is blocked before upload or polling because the precise Cloud transport does not currently map that profile to different provider behavior. The self-hosted provider may advertise `high_fidelity` only when its capabilities implement that profile.
+
+The Cloud API may accept formats beyond LivingCourse's verified contracts, but LivingCourse currently documents and tests only PDF, DOCX, PPTX and PNG/JPEG for binary discovery. XLSX is intentionally not advertised until discovery, MaterialIR and Core support are complete.
+
 ## Privacy and cache behavior
 
 Selecting Cloud causes the CLI and dry-run plan to display:

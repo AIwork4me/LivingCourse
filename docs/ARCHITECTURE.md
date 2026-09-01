@@ -21,7 +21,7 @@ The arrows mean “is imported by.” `workflow` composes the pure compiler, loc
 | `core` | CourseSpec, schema, validation, normalization, migration, state, release policy | provider IDs, renderer schema, IO |
 | `intake` | source discovery/hash, DocumentParsingProvider contract, MaterialIR, normalization, EvidenceRef | MinerU schema, provider selection policy, CourseSpec approval |
 | `compiler` | pure passes, IRs, dependency graph, ChangeSet, impact plan | filesystem, network, browser, subprocesses |
-| `generation` | evidence-grounded knowledge candidates, conflict analysis, grounding policy, candidate firewall | raw provider response types, provider credentials, automatic factual approval |
+| `generation` | KnowledgeCandidateDraft and CoursePlanDraft contracts, deterministic evidence/fidelity checks, conflict analysis, grounding policy, candidate firewall | raw provider response types, provider credentials, direct AI EvidenceRefs, automatic factual approval |
 | `providers` | mapping raw parser responses to stable intake contracts | CourseSpec fields or release policy |
 | `renderers` | exact Plan-to-PPTX/MP4 execution and structural inspection | source interpretation or course-specific content |
 | `workflow` | IO, doctor, registry, plan, execute, QA, review, release, resume | hidden facts or prompt-only policy |
@@ -38,9 +38,19 @@ Shared MinerU Adapter or built-in text parser
      ↓
 MaterialIR
      ↓
-KnowledgeCandidate + EvidenceRef
+KnowledgeUnderstandingCapability (probabilistic or literal fallback)
+     ↓
+KnowledgeCandidateDraft + source hints
+     ↓
+Deterministic EvidenceResolver + numeric / negation fidelity
+     ↓
+Validated KnowledgeCandidate + EvidenceRef
      ↓
 Conflict + Grounding analysis
+     ↓
+CourseDesignCapability → candidate-linked CoursePlanDraft
+     ↓
+Deterministic candidate assembly
      ↓
 CourseSpecCandidate
      ↓
@@ -81,9 +91,13 @@ The compiler normalizes and validates the course, resolves grounding and assets,
 
 External facts enter the compiler only through `AssetProbe`, `TimingProbe`, `ReviewDecisionSource`, and injected build fingerprints. Tests provide in-memory implementations; workflow provides filesystem-backed implementations and computes content fingerprints. The dependency graph never reads the filesystem, Git, network, or renderer source itself.
 
+Semantic AI provider/model/prompt metadata is recorded only on `CourseSpecCandidate`. It never enters MaterialIR, CourseSpec, compiler IR, or renderer plans. Knowledge AI cannot emit EvidenceRefs, authority, grounding, approval, or release status. Course Design sees validated candidates and can reference facts only with `candidateIds`; final slide knowledge and narration are composed deterministically from those candidates.
+
+Knowledge understanding is cached per material with MaterialIR hash plus capability provider/model/prompt/profile identity. Course design is cached by the canonical eligible-candidate set and its own capability identity. Therefore a changed source re-runs only the affected material, and course design re-runs only when its factual candidate view changes.
+
 ## Machine enforcement
 
-`pnpm validate:arch` scans ten boundaries:
+`pnpm validate:arch` scans fifteen boundaries:
 
 1. Core cannot depend on providers, renderers or workflow, and cannot contain provider/renderer vocabulary.
 2. Compiler cannot depend on intake, providers, renderers or workflow and cannot call network/browser APIs.
@@ -95,5 +109,10 @@ External facts enter the compiler only through `AssetProbe`, `TimingProbe`, `Rev
 8. Generation cannot import MinerU/provider response types or use MinerU vocabulary.
 9. CourseSpec cannot contain MinerU vocabulary.
 10. Generation must import and consume the provider-neutral `MaterialIR` contract.
+11. Workflow cannot import a concrete LLM SDK.
+12. CourseSpec cannot contain semantic provider, model, or prompt metadata.
+13. `KnowledgeCandidateDraft` can contain source hints but cannot assign EvidenceRefs, grounding, authority, or approval.
+14. `CoursePlanSlideDraft` can introduce factual content only through `candidateIds`.
+15. Candidate generation cannot contain the legacy fixed three-page category/index mapping.
 
-The default behavioral suite complements these static guards with repeated slide types, nonlinear narration timing, semantic patch after reorder, and renderer-fingerprint invalidation. ESLint and TypeScript strict mode add import, unused-symbol and type safety checks. See [Compiler](COMPILER.md) for pass invariants.
+The behavioral suite complements these static guards with evidence miss/staleness, numeric and negation fidelity, duplicate merge, relevance filtering, more-than-three-slide plans, locale propagation, semantic cache reuse, selective recomputation, repeated slide types, nonlinear narration timing, semantic patch after reorder, and renderer-fingerprint invalidation. ESLint and TypeScript strict mode add import, unused-symbol and type safety checks. See [Compiler](COMPILER.md) for pass invariants.

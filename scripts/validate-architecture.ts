@@ -53,6 +53,11 @@ await scan("packages/generation/src", "generation-material-ir-boundary", [
   /(?:content_list_v2|middle_json|hybrid-engine|@livingcourse\/providers|\bmineru\b)/iu
 ]);
 
+await scan("packages/workflow/src", "workflow-no-concrete-llm-sdk", [
+  /from\s+["'](?:openai|@anthropic-ai\/sdk|@google\/generative-ai|ollama)["']/iu,
+  /require\(["'](?:openai|@anthropic-ai\/sdk|@google\/generative-ai|ollama)["']\)/iu
+]);
+
 await scan("packages/compiler/src", "golden-page-id-isolation", [
   /slide-0[123]-/u
 ]);
@@ -73,6 +78,25 @@ const courseContract = [
 if (/(?:mineru|content_list_v2|middle_json|hybrid-engine|\beffort\b|minimax|openai|remotion|react|ffmpeg|pptxgenjs|speech-2\.8|male-qn)/iu.test(courseContract)) {
   findings.push({ rule: "course-spec-provider-neutral", file: "packages/core", detail: "CourseSpec contract contains provider or renderer vocabulary." });
 }
+if (/["']?(?:provider|model|promptTemplateVersion|promptTemplateHash)["']?\s*:/u.test(courseContract)) {
+  findings.push({ rule: "course-spec-no-semantic-provider-metadata", file: "packages/core", detail: "CourseSpec cannot contain semantic provider, model, or prompt fields; those belong only to CourseSpecCandidate." });
+}
+
+const capabilitySource = await readFile(path.join(root, "packages/generation/src/capabilities.ts"), "utf8");
+const knowledgeDraftSection = capabilitySource.slice(capabilitySource.indexOf("export interface KnowledgeCandidateDraft"), capabilitySource.indexOf("export interface KnowledgeFidelityIssue"));
+if (!/sourceHints:\s*KnowledgeSourceHint\[\]/u.test(knowledgeDraftSection) || /evidenceRefs|groundingStatus|authorityAssessment|approved/u.test(knowledgeDraftSection)) {
+  findings.push({ rule: "knowledge-ai-draft-authority-boundary", file: "packages/generation/src/capabilities.ts", detail: "KnowledgeCandidateDraft must expose source hints but cannot assign evidence, grounding, authority, or approval fields." });
+}
+
+const coursePlanSection = capabilitySource.slice(capabilitySource.indexOf("export interface CoursePlanSlideDraft"), capabilitySource.indexOf("export interface CoursePlanDraft"));
+if (!/candidateIds:\s*string\[\]/u.test(coursePlanSection) || /\b(?:knowledge|items|evidenceRefs)\s*:/u.test(coursePlanSection)) {
+  findings.push({ rule: "course-design-candidate-reference-only", file: "packages/generation/src/capabilities.ts", detail: "CourseDesign slides must reference facts only through candidateIds." });
+}
+
+const candidateSource = await readFile(path.join(root, "packages/generation/src/candidate.ts"), "utf8");
+if (/slideTypeAt|general\s*(?:→|->)\s*slide\s*1|safety\s*(?:→|->)\s*slide\s*2|device(?:_operation)?\s*(?:→|->)\s*slide\s*3/iu.test(candidateSource)) {
+  findings.push({ rule: "candidate-no-golden-page-mapping", file: "packages/generation/src/candidate.ts", detail: "Candidate generation cannot hardcode the legacy three-page category or index mapping." });
+}
 
 const generationSources = (await Promise.all((await walk(path.join(root, "packages/generation/src"))).map((file) => readFile(file, "utf8")))).join("\n");
 if (!/@livingcourse\/intake/u.test(generationSources) || !/\bMaterialIR\b/u.test(generationSources)) {
@@ -85,5 +109,5 @@ if (/(?:minimax|voice_id|audio_setting|subtitle_enable)/iu.test(videoPlanSection
   findings.push({ rule: "video-plan-provider-neutral", file: "packages/compiler/src/types.ts", detail: "VideoPlan contains provider-specific schema." });
 }
 
-console.log(JSON.stringify({ passed: findings.length === 0, rules: 10, findings }, null, 2));
+console.log(JSON.stringify({ passed: findings.length === 0, rules: 15, findings }, null, 2));
 if (findings.length > 0) process.exitCode = 1;

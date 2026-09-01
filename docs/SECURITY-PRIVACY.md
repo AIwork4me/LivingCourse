@@ -1,6 +1,6 @@
 # Security and privacy
 
-Raw enterprise material is potentially confidential. LivingCourse v0.3.1 therefore treats document parsing as an explicit processing boundary.
+Raw enterprise material is potentially confidential. LivingCourse v0.3.2 therefore treats document parsing and optional semantic generation as explicit processing boundaries.
 
 ## Defaults
 
@@ -13,6 +13,7 @@ Raw enterprise material is potentially confidential. LivingCourse v0.3.1 therefo
 - Logs and structured failures do not print complete source content.
 - Raw parser responses and MaterialIR caches are stored below `.livingcourse/`, which is gitignored.
 - LivingCourse does not send original material or raw parser responses to telemetry.
+- Generic semantic capabilities receive provider-neutral MaterialIR through an injected transport. Provider/model/prompt identity is auditable on the review candidate, while credentials remain outside MaterialIR, CourseSpec, caches and reports.
 
 ## Raw artifact lifecycle
 

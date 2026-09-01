@@ -1,4 +1,4 @@
-import type { CourseSpec, PresentationIntent } from "@livingcourse/core";
+import type { PresentationIntent, SlideType } from "@livingcourse/core";
 import type { EvidenceRef, MaterialIR } from "@livingcourse/intake";
 
 export interface GenerationProvenance {
@@ -15,18 +15,78 @@ export interface GeneratedArtifact {
   providerMetadata: Record<string, string | number | boolean | null>;
 }
 
+export type KnowledgeCategory = "general" | "safety" | "device_operation" | "quality" | "process" | "policy";
+
+export interface KnowledgeSourceHint {
+  materialId: string;
+  unitId?: string;
+  blockId?: string;
+  quoteOrText?: string;
+}
+
+export interface KnowledgeCandidateDraft {
+  id?: string;
+  claim: string;
+  category: KnowledgeCategory;
+  sourceHints: KnowledgeSourceHint[];
+  confidence: number;
+  rationale?: string;
+}
+
+export interface KnowledgeFidelityIssue {
+  kind: "numeric" | "negation";
+  value: string;
+  message: string;
+}
+
 export interface KnowledgeCandidate {
   id: string;
   claim: string;
-  category: "general" | "safety" | "device_operation";
+  category: KnowledgeCategory;
   evidenceRefs: EvidenceRef[];
   confidence: number;
+  evidenceResolution: "exact_block" | "normalized_text" | "fuzzy_text" | "unresolved";
+  fidelityIssues: KnowledgeFidelityIssue[];
   authorityAssessment: "recorded" | "authority_gap";
   conflictStatus: "none" | "candidate_conflict";
   groundingStatus: "satisfied" | "gap" | "blocked";
-  status: "supported_candidate" | "unsupported_candidate" | "conflicted_candidate";
+  status: "supported_candidate" | "unsupported_candidate" | "conflicted_candidate" | "stale_evidence";
   factual: boolean;
   comparableFact: { key: string; value: string } | null;
+}
+
+export interface SemanticCapabilityIdentity {
+  mode: "semantic_ai" | "literal_deterministic";
+  provider: string;
+  model: string;
+  promptTemplateVersion: string;
+  promptTemplateHash: string;
+  profileVersion: string;
+}
+
+export interface CoursePlanSlideDraft {
+  id?: string;
+  title: string;
+  purpose: string;
+  candidateIds: string[];
+  proposedSlideType: SlideType;
+  narrationDraft?: string;
+  visualIntent?: string;
+}
+
+export interface CoursePlanDraft {
+  title: string;
+  learningObjectives: string[];
+  slides: CoursePlanSlideDraft[];
+}
+
+export interface CourseDesignInput {
+  title: string;
+  audience: string;
+  purpose: string;
+  locale: string;
+  candidates: readonly KnowledgeCandidate[];
+  maxSlides: number;
 }
 
 export interface KnowledgeConflict {
@@ -47,11 +107,13 @@ export interface AuthorityGap {
 }
 
 export interface KnowledgeUnderstandingCapability {
-  understand(materials: readonly MaterialIR[]): Promise<KnowledgeCandidate[]>;
+  readonly identity: SemanticCapabilityIdentity;
+  understand(materials: readonly MaterialIR[]): Promise<KnowledgeCandidateDraft[]>;
 }
 
 export interface CourseDesignCapability {
-  design(candidates: readonly KnowledgeCandidate[]): Promise<Partial<CourseSpec>>;
+  readonly identity: SemanticCapabilityIdentity;
+  design(input: CourseDesignInput): Promise<CoursePlanDraft>;
 }
 
 export interface VisualGenerationCapability {

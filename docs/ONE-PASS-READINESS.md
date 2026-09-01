@@ -1,8 +1,10 @@
 # One-pass readiness
 
-## Current verdict: NOT READY
+## Current verdicts
 
-LivingCourse Core v0.2 is closer than the Golden workflow, but an arbitrary non-technical manufacturing HR user cannot yet provide raw enterprise materials on a clean machine and reliably receive a high-quality, maintainable, production-eligible course with only necessary review.
+- Traceable raw-material intake: **READY** for the verified PDF, DOCX, PPTX, PNG/JPEG and Markdown/TXT scope.
+- Evidence-grounded semantic author review: **READY** for v0.3.2's candidate workflow, with semantic quality still experimental and literal fallback disclosed.
+- Non-technical manufacturing HR one-pass: **NOT READY**.
 
 ## What works now
 
@@ -12,17 +14,21 @@ LivingCourse Core v0.2 is closer than the Golden workflow, but an arbitrary non-
 - Ten approved Golden artifacts are reused; the identical second build performs zero AI calls and zero output rebuilds.
 - Incremental Change-001 affects only the Slide 2 dependency subtree.
 - QA, review package, resume state, secret scan and production release gate are machine-readable.
+- Raw supported materials now produce a traceable `CourseSpecCandidate` and readable review package end to end.
+- Knowledge Understanding and Course Design capabilities run in the main create path; deterministic evidence resolution, numeric/negation fidelity, conflict, authority and grounding checks run afterward.
+- Material-level semantic cache reuse and candidate-set Course Design cache reuse are verified, including zero semantic AI calls on an identical second run.
+- The five-format public-safe semantic fixture produces six candidate-linked slides while filtering irrelevant content and merging exact duplicates.
 
 ## Remaining blockers
 
-- Raw SOP/PDF/DOCX/PPTX/image ingestion does not yet produce a reviewable candidate CourseSpec end to end.
-- A non-technical user still needs help mapping source authority, grounding and anchors.
+- The default CLI has no concrete external semantic LLM integration; it runs literal deterministic extraction unless an embedding application supplies the generic capability transport.
+- A non-technical user still needs a guided interface for authority choices, conflicts, source corrections and grounding uploads; the Markdown review package exposes the decisions but is not yet a complete HR workflow.
 - Site PPE and real-device evidence require guided collection and authorized review.
-- On the validation machine, `doctor` reports FFmpeg and FFprobe missing from `PATH`; Remotion can render with its bundled compositor, but clean-machine diagnostics are not one-pass.
-- The Golden fixture is one course, not evidence of reliable arbitrary-course performance.
+- Clean-machine installation and diagnostics are not part of v0.3.2 and remain unvalidated as a one-pass experience.
+- The Golden and semantic fixtures are regression evidence, not evidence of reliable arbitrary-course performance or a completed HR pilot.
 
 ## Metric
 
 `Non-technical One-Pass Success Rate` is the share of representative manufacturing courses where an HR user supplies materials and required human decisions, then obtains QA-passing Author Review outputs without developer intervention. Production success additionally requires all grounding and release gates.
 
-Readiness can become `READY` only after a representative, predeclared evaluation set consistently meets the threshold, clean-machine doctor passes, and failures give actionable non-technical recovery steps. Technical unit/regression success alone is insufficient.
+Non-technical one-pass readiness can become `READY` only after a representative, predeclared evaluation set consistently meets the threshold, clean-machine validation passes, and real HR users complete authority, conflict, grounding and review decisions without developer intervention. Technical unit/regression success alone is insufficient.

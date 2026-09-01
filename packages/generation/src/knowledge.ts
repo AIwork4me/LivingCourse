@@ -1,44 +1,11 @@
 import { sha256 } from "@livingcourse/core";
-import { evidenceRefForBlock, type MaterialBlock, type MaterialIR } from "@livingcourse/intake";
+import type { MaterialIR } from "@livingcourse/intake";
 import type { AuthorityGap, KnowledgeCandidate, KnowledgeConflict } from "./capabilities.js";
+import { deterministicKnowledgeDrafts, resolveKnowledgeDrafts } from "./semantic.js";
 
-const categoryOf = (claim: string): KnowledgeCandidate["category"] => {
-  if (/\b(machine|equipment|pressure|operation|parameter)\b|设备|机器|压力|参数|操作/iu.test(claim)) return "device_operation";
-  if (/\b(safety|ppe|hazard|emergency)\b|安全|防护|异常|停机/iu.test(claim)) return "safety";
-  return "general";
-};
-
-const comparableFactOf = (claim: string): KnowledgeCandidate["comparableFact"] => {
-  const match = claim.match(/(synthetic training (?:pressure setting|parameter)|training pressure setting|模拟训练(?:压力设定|参数)|某参数)\s*(?:=|:|is)\s*([A-Z0-9._-]+(?:\s*(?:MPa|kPa|bar))?)/iu);
-  if (!match?.[1] || !match[2]) return null;
-  return { key: match[1].toLocaleLowerCase().replace(/\s+/gu, " "), value: match[2].trim().toLocaleUpperCase() };
-};
-
-const eligibleBlock = (block: MaterialBlock): boolean =>
-  !["header", "footer", "footnote", "page_number"].includes(block.type) && block.content.trim().length > 0;
-
+/** Backward-compatible literal fallback. The create workflow now invokes the capability explicitly. */
 export const extractKnowledgeCandidates = (materials: readonly MaterialIR[]): KnowledgeCandidate[] =>
-  [...materials]
-    .sort((left, right) => left.material.id.localeCompare(right.material.id))
-    .flatMap((material) => material.units.flatMap((unit) => unit.blocks
-      .filter(eligibleBlock)
-      .map((block, blockIndex) => {
-        const factual = block.type !== "title";
-        const evidenceRefs = [evidenceRefForBlock(material, block)];
-        return {
-          id: `knowledge-${sha256({ materialId: material.material.id, unit: { kind: unit.kind, index: unit.index, label: unit.label ?? null }, blockIndex, claim: block.content }).slice(0, 24)}`,
-          claim: block.content,
-          category: categoryOf(block.content),
-          evidenceRefs,
-          confidence: 1,
-          authorityAssessment: material.material.sourceClass === "unknown" || !material.material.authority ? "authority_gap" as const : "recorded" as const,
-          conflictStatus: "none" as const,
-          groundingStatus: "satisfied" as const,
-          status: factual && evidenceRefs.length === 0 ? "unsupported_candidate" as const : "supported_candidate" as const,
-          factual,
-          comparableFact: comparableFactOf(block.content)
-        };
-      })));
+  resolveKnowledgeDrafts(deterministicKnowledgeDrafts(materials), materials);
 
 const sourceRank = (sourceClass: MaterialIR["material"]["sourceClass"]): number => ({
   controlled_internal: 5,
@@ -55,7 +22,7 @@ export const detectKnowledgeConflicts = (
   const materialById = new Map(materials.map((material) => [material.material.id, material]));
   const groups = new Map<string, KnowledgeCandidate[]>();
   for (const candidate of candidates) {
-    if (!candidate.comparableFact) continue;
+    if (!candidate.comparableFact || candidate.status === "unsupported_candidate" || candidate.status === "stale_evidence") continue;
     const group = groups.get(candidate.comparableFact.key) ?? [];
     group.push(candidate);
     groups.set(candidate.comparableFact.key, group);

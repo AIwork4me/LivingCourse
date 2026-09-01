@@ -13,7 +13,7 @@ import { normalizeMineruLegacy, normalizeMineruV2 } from "./adapter.js";
 
 export const MINERU_CLOUD_TRANSPORT_VERSION = "precise-api-v4" as const;
 export const MINERU_CLOUD_MODEL_VERSION = "vlm" as const;
-export const MINERU_CLOUD_PROVIDER_VERSION = `${MINERU_CLOUD_TRANSPORT_VERSION}+${MINERU_CLOUD_MODEL_VERSION}+transport-0.3.1`;
+export const MINERU_CLOUD_PROVIDER_VERSION = `${MINERU_CLOUD_TRANSPORT_VERSION}+${MINERU_CLOUD_MODEL_VERSION}+transport-0.3.2`;
 
 type FetchImplementation = (input: string | URL | Request, init?: RequestInit) => Promise<Response>;
 
@@ -39,6 +39,7 @@ interface CloudCacheIdentity {
   providerVersion: string;
   processingMode: "remote";
   endpointClassification: "public_remote";
+  parseProfiles: readonly ["balanced"];
 }
 
 const supportedMediaTypes = [
@@ -96,7 +97,8 @@ export class MineruCloudProvider implements DocumentParsingProvider {
   readonly cacheIdentity: CloudCacheIdentity = {
     providerVersion: MINERU_CLOUD_PROVIDER_VERSION,
     processingMode: "remote",
-    endpointClassification: "public_remote"
+    endpointClassification: "public_remote",
+    parseProfiles: ["balanced"]
   };
   private readonly fetchImplementation: FetchImplementation;
   private readonly requestTimeoutMs: number;
@@ -206,8 +208,7 @@ export class MineruCloudProvider implements DocumentParsingProvider {
   }
 
   async capabilities(): Promise<DocumentParsingCapabilities> {
-    const health = await this.health();
-    return { providerId: this.id, providerVersion: health.version, supportedMediaTypes, parseProfiles: ["balanced", "high_fidelity"] };
+    return { providerId: this.id, providerVersion: MINERU_CLOUD_PROVIDER_VERSION, supportedMediaTypes, parseProfiles: ["balanced"] };
   }
 
   supports(input: DocumentInput): boolean {
@@ -270,6 +271,7 @@ export class MineruCloudProvider implements DocumentParsingProvider {
 
   async parse(request: DocumentParseRequest): Promise<DocumentParseResult> {
     if (!this.supports(request.input)) throw new Error(`LC-MINERU-CLOUD-001: unsupported media type '${request.input.mediaType}'.`);
+    if (request.profile !== "balanced") throw new Error("LC-MINERU-CLOUD-015: high_fidelity is not supported by the MinerU Cloud v0.3.2 transport.");
     if (!this.validBaseUrl()) throw new Error("LC-MINERU-CLOUD-003: MinerU Cloud requires a valid HTTPS base URL.");
     const token = this.token();
     if (!token) throw new Error("LC-MINERU-CLOUD-002: MINERU_API_TOKEN is required.");
