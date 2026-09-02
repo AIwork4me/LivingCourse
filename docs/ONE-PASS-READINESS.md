@@ -3,7 +3,9 @@
 ## Current verdicts
 
 - Traceable raw-material intake: **READY** for the verified PDF, DOCX, PPTX, PNG/JPEG and Markdown/TXT scope.
-- Evidence-grounded semantic author review: **READY** for v0.3.2's candidate workflow, with semantic quality still experimental and literal fallback disclosed.
+- Semantic architecture: **READY** for the v0.3.3 candidate-only capability boundary.
+- Default CLI semantic configuration: **READY** for the single OpenAI-compatible provider and explicit literal fallback.
+- Real semantic end-to-end validation: **NOT VALIDATED** in the recorded v0.3.3 environment because the required real endpoint/model/key were absent.
 - Non-technical manufacturing HR one-pass: **NOT READY**.
 
 ## What works now
@@ -18,13 +20,16 @@
 - Knowledge Understanding and Course Design capabilities run in the main create path; deterministic evidence resolution, numeric/negation fidelity, conflict, authority and grounding checks run afterward.
 - Material-level semantic cache reuse and candidate-set Course Design cache reuse are verified, including zero semantic AI calls on an identical second run.
 - The five-format public-safe semantic fixture produces six candidate-linked slides while filtering irrelevant content and merging exact duplicates.
+- `livingcourse create` automatically resolves the OpenAI-compatible semantic provider from environment variables; no embedding application is required.
+- Dry run reports configuration, provider, model, local/remote processing, reuse and predicted calls while making zero model requests.
+- Transport retry, safe error, base URL, response-shape, cache and secret-persistence behavior is covered by the default offline suite.
 
 ## Remaining blockers
 
-- The default CLI has no concrete external semantic LLM integration; it runs literal deterministic extraction unless an embedding application supplies the generic capability transport.
+- A real semantic endpoint has not yet been run in the recorded v0.3.3 environment, so real-model output quality and provider compatibility are not claimed as validated.
 - A non-technical user still needs a guided interface for authority choices, conflicts, source corrections and grounding uploads; the Markdown review package exposes the decisions but is not yet a complete HR workflow.
 - Site PPE and real-device evidence require guided collection and authorized review.
-- Clean-machine installation and diagnostics are not part of v0.3.2 and remain unvalidated as a one-pass experience.
+- Clean-machine installation and diagnostics remain unvalidated as a one-pass experience.
 - The Golden and semantic fixtures are regression evidence, not evidence of reliable arbitrary-course performance or a completed HR pilot.
 
 ## Metric

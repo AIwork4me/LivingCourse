@@ -14,10 +14,6 @@ import { runAiOutputFirewall, type CandidateValidator } from "./firewall.js";
 export const KNOWLEDGE_UNDERSTANDING_PROMPT_VERSION = "knowledge-understanding-v1";
 export const COURSE_DESIGN_PROMPT_VERSION = "course-design-v1";
 
-export const KNOWLEDGE_UNDERSTANDING_PROMPT = `Return JSON only. Propose training KnowledgeCandidateDraft objects from the supplied MaterialIR. Each draft may contain only claim, category, sourceHints, confidence, and rationale. Never output EvidenceRef, authority, grounding, approval, or release status. Preserve numbers, units, negation, and prohibition exactly. Ignore headers, footers, revision history, copyright, lunch policy, and other irrelevant background. Merge semantic duplicates and retain all supporting source hints.`;
-
-export const COURSE_DESIGN_PROMPT = `Return JSON only. Organize the supplied validated KnowledgeCandidates into a CoursePlanDraft with 1 to 20 slides. Every slide may reference facts only through candidateIds. Use only hero, step_process, or safety_focus. Repetition is allowed. Do not invent factual text, parameters, requirements, prohibitions, evidence, authority, grounding, approval, or release status.`;
-
 export interface StructuredGenerationTransport {
   generate(input: { systemPrompt: string; inputJson: string }): Promise<string>;
 }
@@ -27,7 +23,7 @@ export interface ConfiguredSemanticProviderOptions {
   model: string;
   profileVersion: string;
   transport: StructuredGenerationTransport;
-  promptTemplate?: string;
+  promptTemplate: string;
   promptTemplateVersion?: string;
 }
 
@@ -98,14 +94,13 @@ const coursePlanValidator: CandidateValidator<CoursePlanDraft> = (value) => {
   return errors.length ? { valid: false, errors } : { valid: true, value: { title: value.title, learningObjectives: value.learningObjectives, slides }, errors: [] };
 };
 
-const identityFor = (options: ConfiguredSemanticProviderOptions, defaultPrompt: string, defaultVersion: string): SemanticCapabilityIdentity => {
-  const prompt = options.promptTemplate ?? defaultPrompt;
+const identityFor = (options: ConfiguredSemanticProviderOptions, defaultVersion: string): SemanticCapabilityIdentity => {
   return {
     mode: "semantic_ai",
     provider: options.provider,
     model: options.model,
     promptTemplateVersion: options.promptTemplateVersion ?? defaultVersion,
-    promptTemplateHash: sha256(prompt),
+    promptTemplateHash: sha256(options.promptTemplate),
     profileVersion: options.profileVersion
   };
 };
@@ -116,9 +111,9 @@ export class ConfiguredLLMKnowledgeProvider implements KnowledgeUnderstandingCap
   private readonly transport: StructuredGenerationTransport;
 
   constructor(options: ConfiguredSemanticProviderOptions) {
-    this.prompt = options.promptTemplate ?? KNOWLEDGE_UNDERSTANDING_PROMPT;
+    this.prompt = options.promptTemplate;
     this.transport = options.transport;
-    this.identity = identityFor(options, KNOWLEDGE_UNDERSTANDING_PROMPT, KNOWLEDGE_UNDERSTANDING_PROMPT_VERSION);
+    this.identity = identityFor(options, KNOWLEDGE_UNDERSTANDING_PROMPT_VERSION);
   }
 
   async understand(materials: readonly MaterialIR[]): Promise<KnowledgeCandidateDraft[]> {
@@ -144,9 +139,9 @@ export class ConfiguredLLMCourseDesignProvider implements CourseDesignCapability
   private readonly transport: StructuredGenerationTransport;
 
   constructor(options: ConfiguredSemanticProviderOptions) {
-    this.prompt = options.promptTemplate ?? COURSE_DESIGN_PROMPT;
+    this.prompt = options.promptTemplate;
     this.transport = options.transport;
-    this.identity = identityFor(options, COURSE_DESIGN_PROMPT, COURSE_DESIGN_PROMPT_VERSION);
+    this.identity = identityFor(options, COURSE_DESIGN_PROMPT_VERSION);
   }
 
   async design(input: CourseDesignInput): Promise<CoursePlanDraft> {

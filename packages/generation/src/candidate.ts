@@ -203,7 +203,7 @@ export const buildCourseSpecCandidate = (input: {
   const evidenced = factual.filter((candidate) => candidate.evidenceRefs.length > 0 && candidate.status !== "stale_evidence");
   const draft: CourseSpec = {
     courseSpecVersion: "0.2.0",
-    course: { id: `course-${sha256({ title: input.title, materials: input.materials.map((material) => material.material.sha256) }).slice(0, 20)}`, title: input.title, version: "candidate-v0.3.2", locale, audience: input.audience, purpose: input.purpose, aspectRatio: "16:9" },
+    course: { id: `course-${sha256({ title: input.title, materials: input.materials.map((material) => material.material.sha256) }).slice(0, 20)}`, title: input.title, version: "candidate-v0.3.3", locale, audience: input.audience, purpose: input.purpose, aspectRatio: "16:9" },
     materials: input.materials.map((material) => ({
       id: material.material.id,
       type: materialType(material),

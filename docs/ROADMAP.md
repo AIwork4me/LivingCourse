@@ -6,9 +6,10 @@ LivingCourse remains deliberately small. The next work is prioritized only when 
 
 - Package or guide clean-machine FFmpeg/FFprobe discovery so `doctor` passes without shell expertise.
 - Add a guided replacement flow for site PPE rules, real equipment photos, approved SOP/WI and verified device anchors.
-- Add a supported configuration path for a concrete semantic provider while retaining the provider-neutral capability contract and literal fallback.
+- Execute the opt-in real semantic smoke against an approved endpoint, complete the human semantic course review, and record provider/model-specific compatibility evidence.
 - Validate evidence-grounded authoring across a predeclared set of representative manufacturing courses without adding slide types prematurely.
 - Run a real non-technical manufacturing HR pilot and measure review corrections, authority decisions, grounding completion and recovery steps.
+- Verify the Node 24 CI workflow after the v0.3.3 commit is pushed; the v0.3.2 baseline run exposed and confirmed the previous Node 20/pnpm 11 incompatibility.
 - Consider XLSX only after discovery, MaterialIR normalization, Core material type, evidence locations and regression coverage are complete.
 - Measure first-pass build, review correction count, grounding completion and release-gate success.
 

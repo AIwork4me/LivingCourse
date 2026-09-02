@@ -4,6 +4,7 @@ import { spawnSync } from "node:child_process";
 import os from "node:os";
 import path from "node:path";
 import { MineruCloudProvider, MineruHttpProvider } from "@livingcourse/providers";
+import { resolveSemanticCapabilitiesFromEnv } from "./semantic-provider.js";
 
 export type DoctorStatus = "PASS" | "WARN" | "FAIL";
 export interface DoctorCheck { id: string; label: string; status: DoctorStatus; detail: string }
@@ -18,8 +19,9 @@ const rank = (status: DoctorStatus): number => status === "FAIL" ? 2 : status ==
 
 export const runDoctor = async (options: { workspaceRoot: string; generationRequired?: boolean }): Promise<DoctorReport> => {
   const checks: DoctorCheck[] = [];
-  const nodeMajor = Number(process.versions.node.split(".")[0]);
-  checks.push({ id: "node", label: "Node.js", status: nodeMajor >= 20 ? "PASS" : "FAIL", detail: `Detected ${process.versions.node}; requires >=20.` });
+  const [nodeMajor = 0, nodeMinor = 0] = process.versions.node.split(".").map(Number);
+  const nodeSupported = nodeMajor > 22 || (nodeMajor === 22 && nodeMinor >= 13);
+  checks.push({ id: "node", label: "Node.js", status: nodeSupported ? "PASS" : "FAIL", detail: `Detected ${process.versions.node}; requires >=22.13.` });
   checks.push({ id: "pnpm", label: "pnpm", status: commandAvailable("pnpm") ? "PASS" : "FAIL", detail: commandAvailable("pnpm") ? "Available on PATH." : "Install pnpm and add it to PATH." });
   checks.push({ id: "ffmpeg", label: "FFmpeg", status: commandAvailable("ffmpeg") ? "PASS" : "FAIL", detail: commandAvailable("ffmpeg") ? "Available on PATH." : "Missing from PATH; clean-machine media diagnostics are incomplete." });
   checks.push({ id: "ffprobe", label: "FFprobe", status: commandAvailable("ffprobe") ? "PASS" : "FAIL", detail: commandAvailable("ffprobe") ? "Available on PATH." : "Missing from PATH; external media verification is unavailable." });
@@ -44,6 +46,25 @@ export const runDoctor = async (options: { workspaceRoot: string; generationRequ
     status: options.generationRequired ? (providerConfigured ? "PASS" : "FAIL") : (providerConfigured ? "PASS" : "WARN"),
     detail: options.generationRequired ? (providerConfigured ? "Configured for requested generation." : "Generation is planned but no provider config is present.") : "Not required for approved-asset reuse."
   });
+  try {
+    const semantic = await resolveSemanticCapabilitiesFromEnv();
+    const configured = semantic.disclosure.status === "CONFIGURED";
+    checks.push({
+      id: "semantic-provider",
+      label: "Semantic authoring provider",
+      status: configured ? "PASS" : options.generationRequired ? "FAIL" : "WARN",
+      detail: configured
+        ? `CONFIGURED — provider ${semantic.disclosure.provider}; base URL valid; model ${semantic.disclosure.model}; credential present (value not displayed); processing ${semantic.disclosure.processingMode}; REACHABILITY NOT VERIFIED; no content-generation request was made.`
+        : "NOT CONFIGURED — literal deterministic fallback is available; no semantic model token was consumed."
+    });
+  } catch (error) {
+    checks.push({
+      id: "semantic-provider",
+      label: "Semantic authoring provider",
+      status: "FAIL",
+      detail: (error as Error).message
+    });
+  }
   const cloudSelected = process.env.LIVINGCOURSE_DOCUMENT_PROVIDER === "mineru-cloud";
   const mineru = cloudSelected
     ? new MineruCloudProvider({ requestTimeoutMs: 2_000 })

@@ -44,6 +44,7 @@ export interface CreateWorkflowOptions extends IntakeWorkflowOptions {
   knowledgeUnderstanding?: KnowledgeUnderstandingCapability;
   courseDesign?: CourseDesignCapability;
   maxSlides?: number;
+  semanticProcessing?: { mode: "local" | "remote" | "local_deterministic"; provider: string; model: string | null };
 }
 
 const semanticOptionsFor = (folder: string, options: CreateWorkflowOptions) => {
@@ -117,7 +118,10 @@ export const executeCreate = async (folder: string, options: CreateWorkflowOptio
     .filter((entry, index, entries) => entries.findIndex((candidateEntry) => candidateEntry.parser === entry.parser && candidateEntry.processing === entry.processing) === index)
     .map((entry) => `- Document parser: ${entry.parser}\n- Processing: ${entry.processing}`)
     .join("\n");
-  const renderedReview = `${renderCourseReviewPackage(candidate)}${parserDisclosure ? `\n## Document parser disclosure\n\n${parserDisclosure}\n` : ""}`;
+  const semanticDisclosure = options.semanticProcessing
+    ? `- Semantic provider: ${options.semanticProcessing.provider}\n- Model: ${options.semanticProcessing.model ?? "none"}\n- Processing: ${options.semanticProcessing.mode === "remote" ? "Remote" : "Local"}${options.semanticProcessing.mode === "local_deterministic" ? " deterministic fallback" : ""}`
+    : "- Semantic provider: literal\n- Model: none\n- Processing: Local deterministic fallback";
+  const renderedReview = `${renderCourseReviewPackage(candidate)}${parserDisclosure ? `\n## Document parser disclosure\n\n${parserDisclosure}\n` : ""}\n## Semantic processing disclosure\n\n${semanticDisclosure}\n`;
   await writeFile(candidatePath, `${JSON.stringify(candidate, null, 2)}\n`, "utf8");
   await writeFile(reviewPackagePath, renderedReview, "utf8");
   return {

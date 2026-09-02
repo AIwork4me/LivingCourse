@@ -1,6 +1,6 @@
 # Security and privacy
 
-Raw enterprise material is potentially confidential. LivingCourse v0.3.2 therefore treats document parsing and optional semantic generation as explicit processing boundaries.
+Raw enterprise material is potentially confidential. LivingCourse v0.3.3 therefore treats document parsing and semantic generation as explicit processing boundaries.
 
 ## Defaults
 
@@ -13,7 +13,11 @@ Raw enterprise material is potentially confidential. LivingCourse v0.3.2 therefo
 - Logs and structured failures do not print complete source content.
 - Raw parser responses and MaterialIR caches are stored below `.livingcourse/`, which is gitignored.
 - LivingCourse does not send original material or raw parser responses to telemetry.
-- Generic semantic capabilities receive provider-neutral MaterialIR through an injected transport. Provider/model/prompt identity is auditable on the review candidate, while credentials remain outside MaterialIR, CourseSpec, caches and reports.
+- The OpenAI-compatible transport reads its credential only from `LIVINGCOURSE_SEMANTIC_API_KEY`; there is no credential constructor parameter or CLI flag.
+- Semantic base URLs must be HTTP(S) and cannot include credentials, query strings or fragments. Root and `/v1` forms normalize to a single `/v1/chat/completions` endpoint.
+- Semantic capabilities receive provider-neutral MaterialIR through the configured transport. Provider/model/prompt identity is auditable on the review candidate, while credentials, endpoint URLs, raw prompts and raw responses remain outside MaterialIR, CourseSpec, caches, candidates and reports.
+- Remote semantic execution is disclosed before parsed source content is sent. Dry run reports the local/remote classification and performs zero semantic calls.
+- Transport errors use `LC-SEMANTIC-TRANSPORT-*` messages and exclude upstream response bodies and credential values. Retries are finite and limited to timeout, transient network, 408/409/425/429 and 5xx failures.
 
 ## Raw artifact lifecycle
 
@@ -23,4 +27,4 @@ Do not commit `.livingcourse`, provider credentials, signed URLs or customer doc
 
 ## Remote processing review
 
-Before configuring a remote endpoint, the operator must confirm organizational permission, data location, retention, access control and the provider's current terms. LivingCourse only classifies an endpoint as local, private remote or public remote; that classification is not a legal or compliance determination.
+Before configuring a remote endpoint, the operator must confirm organizational permission, data location, retention, access control and the provider's current terms. LivingCourse classifies loopback semantic endpoints as local and all other semantic endpoints as remote; that classification is not a legal or compliance determination.

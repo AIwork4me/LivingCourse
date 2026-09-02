@@ -1,13 +1,13 @@
 {
   "name": "livingcourse",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "private": true,
   "type": "module",
   "description": "Turn enterprise knowledge into maintainable training assets.",
   "license": "MIT",
   "packageManager": "pnpm@11.19.0",
   "engines": {
-    "node": ">=20"
+    "node": ">=22.13"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json --noEmit",
@@ -20,6 +20,7 @@
     "test:m3": "vitest run tests/regression/change-001.test.ts",
     "test:m4": "vitest run tests/regression/workflow.test.ts",
     "test:mineru-cloud": "tsx scripts/mineru-cloud-smoke.ts",
+    "test:semantic-real": "tsx scripts/semantic-real-smoke.ts",
     "validate:arch": "tsx scripts/validate-architecture.ts",
     "validate:security": "tsx scripts/security-scan.ts",
     "livingcourse": "tsx apps/cli/src/index.ts"

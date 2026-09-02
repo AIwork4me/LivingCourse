@@ -9,6 +9,7 @@ describe("semantic AI authority boundary", () => {
       provider: "generic-test",
       model: "structured-test",
       profileVersion: "1",
+      promptTemplate: "fixture knowledge prompt",
       transport: {
         generate: async () => JSON.stringify([{
           claim: "Wear splash goggles.",
@@ -30,6 +31,7 @@ describe("semantic AI authority boundary", () => {
       provider: "generic-test",
       model: "structured-test",
       profileVersion: "1",
+      promptTemplate: "fixture knowledge prompt",
       transport: { generate: async () => JSON.stringify([{ claim: "Wear splash goggles.", category: "safety", sourceHints: [{ materialId: material.material.id, quoteOrText: "Wear splash goggles." }], confidence: 2 }]) }
     });
 

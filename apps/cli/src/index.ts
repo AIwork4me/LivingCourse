@@ -12,6 +12,7 @@ import {
   planBuild,
   planCreate,
   recordReviewDecision,
+  resolveSemanticCapabilitiesFromEnv,
   runDoctor,
   scanPublicPackage,
   validateProductionRelease,
@@ -23,7 +24,7 @@ const program = new Command();
 const loadJson = async <T>(target: string): Promise<T> => JSON.parse(await readFile(path.resolve(target), "utf8")) as T;
 const print = (value: unknown): void => console.log(JSON.stringify(value, null, 2));
 
-program.name("livingcourse").description("Turn raw enterprise materials into reviewable, maintainable training assets.").version("0.3.2");
+program.name("livingcourse").description("Turn raw enterprise materials into reviewable, maintainable training assets.").version("0.3.3");
 
 const discloseRemoteParser = (): void => {
   if (process.env.LIVINGCOURSE_DOCUMENT_PROVIDER === "mineru-cloud") {
@@ -71,20 +72,46 @@ program.command("create")
   .option("--locale <locale>", "Course and narration locale", "en")
   .action(async (folder: string, options: { dryRun?: boolean; profile: "balanced" | "high_fidelity"; title?: string; audience?: string; purpose?: string; locale: string }) => {
     discloseRemoteParser();
-    const common = { workspaceRoot: process.cwd(), profile: options.profile, locale: options.locale, ...(options.title === undefined ? {} : { title: options.title }), ...(options.audience === undefined ? {} : { audience: options.audience }), ...(options.purpose === undefined ? {} : { purpose: options.purpose }) };
+    const semantic = await resolveSemanticCapabilitiesFromEnv();
+    const common = {
+      workspaceRoot: process.cwd(),
+      profile: options.profile,
+      locale: options.locale,
+      knowledgeUnderstanding: semantic.knowledgeUnderstanding,
+      courseDesign: semantic.courseDesign,
+      semanticProcessing: { mode: semantic.disclosure.processingMode, provider: semantic.disclosure.provider, model: semantic.disclosure.model },
+      ...(options.title === undefined ? {} : { title: options.title }),
+      ...(options.audience === undefined ? {} : { audience: options.audience }),
+      ...(options.purpose === undefined ? {} : { purpose: options.purpose })
+    };
     if (options.dryRun) {
       const result = await planCreate(folder, common);
       print({
         FILES: { detected: result.intake.files.length, inventory: result.intake.files.map((item) => ({ file: item.input.originalName, mediaType: item.input.mediaType })) },
         PARSING: result.intake.files.map((item) => ({ file: item.input.originalName, parser: item.parser, profile: item.profile, potentialEscalation: item.potentialEscalation, processingMode: item.processingMode, endpointClassification: item.endpointClassification, confidentialityWarning: item.confidentialityWarning, plannedAction: item.action })),
-        KNOWLEDGE_UNDERSTANDING: { mode: result.semantic.understandingMode, changedMaterials: result.semantic.changedMaterials, reusedMaterials: result.semantic.reusedMaterials, predictedAiCalls: result.semantic.knowledgeUnderstandingCalls },
-        COURSE_DESIGN: { predictedAiCalls: result.semantic.courseDesignCalls },
+        SEMANTIC_AUTHORING: {
+          status: semantic.disclosure.status,
+          mode: semantic.disclosure.mode,
+          provider: semantic.disclosure.provider,
+          model: semantic.disclosure.model,
+          processingMode: semantic.disclosure.processingMode,
+          fallback: semantic.disclosure.fallback,
+          note: semantic.disclosure.status === "NOT_CONFIGURED" ? "Course creation remains available, but semantic authoring quality is limited." : null,
+          knowledgeUnderstanding: { changedMaterials: result.semantic.changedMaterials, reusedMaterials: result.semantic.reusedMaterials, predictedAiCalls: result.semantic.knowledgeUnderstandingCalls },
+          courseDesign: { predictedAiCalls: result.semantic.courseDesignCalls },
+          totalPredictedAiCalls: result.aiCallPlan.total
+        },
+        KNOWLEDGE_UNDERSTANDING: { status: semantic.disclosure.status, mode: result.semantic.understandingMode, provider: semantic.disclosure.provider, model: semantic.disclosure.model, processingMode: semantic.disclosure.processingMode, fallback: semantic.disclosure.fallback, changedMaterials: result.semantic.changedMaterials, reusedMaterials: result.semantic.reusedMaterials, predictedAiCalls: result.semantic.knowledgeUnderstandingCalls },
+        COURSE_DESIGN: { status: semantic.disclosure.status, mode: semantic.disclosure.mode, provider: semantic.disclosure.provider, model: semantic.disclosure.model, processingMode: semantic.disclosure.processingMode, fallback: semantic.disclosure.fallback, predictedAiCalls: result.semantic.courseDesignCalls },
         AI_CALL_PLAN: result.aiCallPlan,
         BLOCKERS: result.blockers,
-        callsMade: { parser: result.intake.parserCalls, ai: result.intake.aiCalls }
+        callsMade: { parser: result.intake.parserCalls, ai: result.intake.aiCalls, semanticAi: 0, tts: 0, image: 0 }
       });
       if (result.blockers.length) process.exitCode = 1;
       return;
+    }
+    if (semantic.disclosure.processingMode === "remote") {
+      console.error("Semantic authoring will send parsed source content to a remote model endpoint.");
     }
     const result = await executeCreate(folder, common);
     print({
@@ -93,6 +120,7 @@ program.command("create")
       parserCalls: result.intake.parserCalls,
       aiCalls: result.aiCalls,
       semantic: result.semantic,
+      semanticProvider: semantic.disclosure,
       manualPromptCount: result.manualPromptCount,
       manualJsonEditCount: result.manualJsonEditCount,
       evidenceCoverage: result.candidate.metrics.evidenceCoverage,
@@ -171,6 +199,16 @@ review.command("reject")
 
 program.parseAsync().catch((error: unknown) => {
   if (error instanceof WorkflowError) print(error.failure);
-  else if (error instanceof Error) print({ code: "LC-UNKNOWN-001", whatHappened: error.message, why: "Unexpected failure.", canAutoFix: false, userAction: "Inspect the input and retry.", retryRequiresAi: false });
+  else if (error instanceof Error) {
+    const errorCode = "code" in error && typeof error.code === "string" && /^LC-[A-Z0-9-]+$/u.test(error.code) ? error.code : "LC-UNKNOWN-001";
+    print({
+      code: errorCode,
+      whatHappened: error.message.replace(new RegExp(`^${errorCode}:\\s*`, "u"), ""),
+      why: errorCode.startsWith("LC-SEMANTIC-") ? "Semantic provider configuration or transport failed safely." : "Unexpected failure.",
+      canAutoFix: false,
+      userAction: errorCode.startsWith("LC-SEMANTIC-") ? "Check the semantic provider environment and endpoint, then retry." : "Inspect the input and retry.",
+      retryRequiresAi: errorCode.startsWith("LC-SEMANTIC-TRANSPORT-")
+    });
+  }
   process.exitCode = 1;
 });

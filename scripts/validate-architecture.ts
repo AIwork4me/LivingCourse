@@ -71,6 +71,16 @@ await scan("packages/renderers/src", "renderer-course-neutrality", [
   /@livingcourse\/(?:providers|workflow)/u
 ]);
 
+const semanticTransportVocabulary = [
+  /LIVINGCOURSE_SEMANTIC_/u,
+  /openai-compatible/iu,
+  /chat\/completions/iu,
+  /OpenAICompatibleStructuredGenerationTransport/u
+];
+for (const target of ["packages/core/src", "packages/compiler/src", "packages/renderers/src"]) {
+  await scan(target, "semantic-transport-isolation", semanticTransportVocabulary);
+}
+
 const courseContract = [
   await readFile(path.join(root, "packages/core/src/types.ts"), "utf8"),
   await readFile(path.join(root, "packages/core/src/schema/course-spec.schema.json"), "utf8")
@@ -78,8 +88,8 @@ const courseContract = [
 if (/(?:mineru|content_list_v2|middle_json|hybrid-engine|\beffort\b|minimax|openai|remotion|react|ffmpeg|pptxgenjs|speech-2\.8|male-qn)/iu.test(courseContract)) {
   findings.push({ rule: "course-spec-provider-neutral", file: "packages/core", detail: "CourseSpec contract contains provider or renderer vocabulary." });
 }
-if (/["']?(?:provider|model|promptTemplateVersion|promptTemplateHash)["']?\s*:/u.test(courseContract)) {
-  findings.push({ rule: "course-spec-no-semantic-provider-metadata", file: "packages/core", detail: "CourseSpec cannot contain semantic provider, model, or prompt fields; those belong only to CourseSpecCandidate." });
+if (/["']?(?:provider|model|promptTemplateVersion|promptTemplateHash|endpoint|apiKey|baseUrl)["']?\s*:/iu.test(courseContract)) {
+  findings.push({ rule: "course-spec-no-semantic-provider-metadata", file: "packages/core", detail: "CourseSpec cannot contain semantic provider, model, prompt, endpoint, or credential fields; those belong only to workflow or CourseSpecCandidate metadata." });
 }
 
 const capabilitySource = await readFile(path.join(root, "packages/generation/src/capabilities.ts"), "utf8");
@@ -109,5 +119,5 @@ if (/(?:minimax|voice_id|audio_setting|subtitle_enable)/iu.test(videoPlanSection
   findings.push({ rule: "video-plan-provider-neutral", file: "packages/compiler/src/types.ts", detail: "VideoPlan contains provider-specific schema." });
 }
 
-console.log(JSON.stringify({ passed: findings.length === 0, rules: 15, findings }, null, 2));
+console.log(JSON.stringify({ passed: findings.length === 0, rules: 16, findings }, null, 2));
 if (findings.length > 0) process.exitCode = 1;

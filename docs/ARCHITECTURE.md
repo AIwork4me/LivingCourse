@@ -22,7 +22,7 @@ The arrows mean “is imported by.” `workflow` composes the pure compiler, loc
 | `intake` | source discovery/hash, DocumentParsingProvider contract, MaterialIR, normalization, EvidenceRef | MinerU schema, provider selection policy, CourseSpec approval |
 | `compiler` | pure passes, IRs, dependency graph, ChangeSet, impact plan | filesystem, network, browser, subprocesses |
 | `generation` | KnowledgeCandidateDraft and CoursePlanDraft contracts, deterministic evidence/fidelity checks, conflict analysis, grounding policy, candidate firewall | raw provider response types, provider credentials, direct AI EvidenceRefs, automatic factual approval |
-| `providers` | mapping raw parser responses to stable intake contracts | CourseSpec fields or release policy |
+| `providers` | mapping raw parser responses to stable intake contracts; OpenAI-compatible HTTP transport for structured semantic generation | CourseSpec fields, release policy, semantic prompts or credentials |
 | `renderers` | exact Plan-to-PPTX/MP4 execution and structural inspection | source interpretation or course-specific content |
 | `workflow` | IO, doctor, registry, plan, execute, QA, review, release, resume | hidden facts or prompt-only policy |
 | `cli` | argument parsing and structured output | domain logic |
@@ -61,6 +61,8 @@ CourseSpec
 
 Provider-specific structured output is confined to `packages/providers/src/mineru`. `MaterialIR` uses stable block IDs, a single normalized 0–1 coordinate meaning, and parse provenance. A provider replacement changes only provider registration/configuration; downstream contracts consume `MaterialIR`.
 
+The OpenAI-compatible semantic transport is confined to `packages/providers/src/semantic`. Workflow resolves environment configuration, reads the authoritative prompt Markdown files and composes the existing generation capability contracts. One transport is shared by the two capabilities, while their prompt versions and hashes remain distinct. The transport never imports CourseSpec, compiler or renderer code; those layers contain zero semantic endpoint, credential or protocol dependencies.
+
 MinerU has two transport implementations: the backward-compatible self-hosted provider (`mineru`) and the opt-in precise Cloud provider (`mineru-cloud`). Cloud-specific upload, polling, authentication, and temporary URLs remain inside the Cloud provider. Both implementations call the same v2/legacy normalization functions; no Cloud transport vocabulary crosses into MaterialIR, CourseSpec, compiler IR, or renderers.
 
 ## Compilation boundary
@@ -97,7 +99,7 @@ Knowledge understanding is cached per material with MaterialIR hash plus capabil
 
 ## Machine enforcement
 
-`pnpm validate:arch` scans fifteen boundaries:
+`pnpm validate:arch` scans sixteen boundaries:
 
 1. Core cannot depend on providers, renderers or workflow, and cannot contain provider/renderer vocabulary.
 2. Compiler cannot depend on intake, providers, renderers or workflow and cannot call network/browser APIs.
@@ -114,5 +116,6 @@ Knowledge understanding is cached per material with MaterialIR hash plus capabil
 13. `KnowledgeCandidateDraft` can contain source hints but cannot assign EvidenceRefs, grounding, authority, or approval.
 14. `CoursePlanSlideDraft` can introduce factual content only through `candidateIds`.
 15. Candidate generation cannot contain the legacy fixed three-page category/index mapping.
+16. Core, compiler and renderers cannot contain semantic environment variables, OpenAI-compatible protocol vocabulary or the concrete semantic transport.
 
 The behavioral suite complements these static guards with evidence miss/staleness, numeric and negation fidelity, duplicate merge, relevance filtering, more-than-three-slide plans, locale propagation, semantic cache reuse, selective recomputation, repeated slide types, nonlinear narration timing, semantic patch after reorder, and renderer-fingerprint invalidation. ESLint and TypeScript strict mode add import, unused-symbol and type safety checks. See [Compiler](COMPILER.md) for pass invariants.
