@@ -9,7 +9,7 @@ v0.3.3 implements the single OpenAI-compatible structured-generation transport a
 
 The recorded environment did not contain any of the four semantic variables, so `pnpm test:semantic-real` printed `REAL SEMANTIC SMOKE TEST = NOT EXECUTED`. No real external model was called and no `REAL-SEMANTIC-COURSE-REVIEW.md` was fabricated. Real semantic E2E and human course quality are therefore **NOT VALIDATED**, even though the full configured path is covered offline through an actual local HTTP mock transport.
 
-GitHub Actions was genuinely triggered for the baseline main commit as run `33568890562`, but failed during Node setup because the workflow selected Node 20 while pnpm 11.19.0 needs Node 22.13 or newer. v0.3.3 changes CI to Node 24 and the same command set passes locally. Because these changes have not been committed or pushed in this task, the corrected workflow has no remote run yet; GitHub CI is honestly reported as **FAIL / CORRECTION PENDING REMOTE VERIFICATION**.
+GitHub Actions was genuinely triggered for the baseline main commit as run `33568890562`, but failed during Node setup because the workflow selected Node 20 while pnpm 11.19.0 needs Node 22.13 or newer. v0.3.3 changed CI to Node 24. After commit `ea1d1cceba2ef859869c0b1d854b7844a1064f72` was pushed, run `33573587739` completed successfully in 2m3s: frozen install, typecheck, lint, the full test suite, architecture validation and security validation all passed. GitHub CI is therefore **PASS**.
 
 ## Implemented boundary
 
@@ -53,7 +53,7 @@ The API key is read inside the transport only from `process.env.LIVINGCOURSE_SEM
 23. **Does compiler have zero semantic-provider LOC dependency?** Yes. A new architecture rule scans core, compiler and renderers for semantic transport/config/protocol vocabulary; all 16 rules pass.
 24. **Are Golden PPT/MP4 unchanged?** Yes. PPTX `1E9271F5ECBA66FD68B0A4B887CAFE395D7619CE303ED7FC5BB5AEC0B107D1F4`; MP4 `8CF22AA0DBDBC9EE46E424D941BC17E2C6F16D9DEE28A2861F59CA6B10261B57`.
 25. **Is Production Release still fail-closed?** Yes. No release policy was changed and the regression suite passes.
-26. **Is GitHub CI actually passing?** No. The baseline run was actually triggered and failed on Node 20/pnpm 11 incompatibility. The workflow is corrected to Node 24 locally, but requires commit/push before remote PASS can be claimed.
+26. **Is GitHub CI actually passing?** Yes. The baseline failure was traced to Node 20/pnpm 11 incompatibility; the Node 24 correction was pushed and GitHub Actions run `33573587739` passed every workflow step.
 27. **What is real MinerU Cloud smoke status?** `NOT EXECUTED`; `LIVINGCOURSE_MINERU_TOKEN` was absent.
 28. **Can the project enter clean-machine validation?** The codebase is ready to begin that next phase after the v0.3.3 changes are committed and CI plus an approved real semantic endpoint are validated. Clean-machine readiness itself is not claimed.
 
@@ -115,7 +115,7 @@ Second Real Semantic Run AI Calls = 0: NOT EXECUTED
 Incremental Semantic Recompute: PASS offline; real smoke NOT EXECUTED
 Irrelevant-only CourseDesign Reuse: PASS offline; real smoke NOT EXECUTED
 Semantic Security: PASS
-GitHub CI: FAIL (baseline actually failed; corrected workflow not yet pushed)
+GitHub CI: PASS (run 33573587739)
 Core v0.2.1 Regression: PASS
 v0.3 Intake Regression: PASS
 v0.3.1 MinerU Regression: PASS
