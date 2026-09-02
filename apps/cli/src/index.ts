@@ -12,6 +12,7 @@ import {
   planBuild,
   planCreate,
   recordReviewDecision,
+  resolveNarrationProviderFromEnv,
   resolveSemanticCapabilitiesFromEnv,
   runDoctor,
   scanPublicPackage,
@@ -142,7 +143,8 @@ program.command("build")
       print({ runId: plan.runId, REUSE: plan.buildPlan.reuse, REGENERATE: plan.buildPlan.regenerate, REBUILD: plan.buildPlan.rebuild, BLOCKED: plan.buildPlan.blocked, aiCalls: plan.buildPlan.aiCalls, reviewPackage: plan.reviewPackage });
       return;
     }
-    print(await executeBuild(coursePath, common));
+    const narration = resolveNarrationProviderFromEnv();
+    print(await executeBuild(coursePath, { ...common, ...(narration.narration !== null ? { narration: narration.narration } : {}) }));
   });
 
 program.command("diff")

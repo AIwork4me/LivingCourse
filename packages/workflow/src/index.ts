@@ -4,6 +4,7 @@ export * from "./doctor.js";
 export * from "./engine.js";
 export * from "./fingerprints.js";
 export * from "./intake.js";
+export * from "./narration-provider.js";
 export * from "./registry.js";
 export * from "./release.js";
 export * from "./review.js";

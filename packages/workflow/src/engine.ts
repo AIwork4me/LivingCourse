@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
-import { copyFile, mkdir, readFile, stat } from "node:fs/promises";
+import { copyFile, mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import {
   compileCourse,
@@ -12,6 +12,7 @@ import {
 } from "@livingcourse/compiler";
 import { canonicalJson, sha256, validateCourseSpec, type CourseSpec, type ReviewStatus } from "@livingcourse/core";
 import { inspectPptxStructure, inspectRenderedVideo, renderPresentationPlan, renderVideoPlan } from "@livingcourse/renderers";
+import type { TtsCapability } from "@livingcourse/generation";
 import { ArtifactRegistry, fileSha256 } from "./registry.js";
 import { createReviewPackage } from "./review.js";
 import { resolveWorkflowBuildFingerprints } from "./fingerprints.js";
@@ -31,6 +32,13 @@ export interface PlanBuildOptions {
 
 export interface ExecuteBuildOptions extends PlanBuildOptions {
   renderers?: WorkflowRenderers;
+  /**
+   * Optional narration capability (v0.1.1). When present, build items of kind
+   * "audio" whose declared `narration.audioAssetRef` file is missing are
+   * synthesized through it (`voiceProfile` = LivingVoice voice_config_id),
+   * written to the declared path, and the build re-plans deterministically.
+   */
+  narration?: TtsCapability;
 }
 
 const exists = async (target: string): Promise<boolean> => {
@@ -75,6 +83,42 @@ const runIdentity = (course: CourseSpec, buildFingerprints: BuildFingerprints): 
 };
 
 const cloneBuildPlan = (plan: BuildPlan): BuildPlan => structuredClone(plan);
+
+/**
+ * Synthesize missing narration audio through the configured narration
+ * capability. For every regenerate item of kind "audio" the slide's declared
+ * `narration.audioAssetRef` path (relative to the course root) is written
+ * with the produced WAV. Slides whose script, voice config id, or asset path
+ * cannot be resolved are reported and left to the LC-PROVIDER-001 gate.
+ */
+const regenerateNarrationAudio = async (
+  plan: WorkflowPlanResult,
+  narration: TtsCapability
+): Promise<string[]> => {
+  const course = JSON.parse(await readFile(plan.coursePath, "utf8")) as CourseSpec;
+  const audioItems = plan.buildPlan.regenerate.filter((entry) => entry.kind === "audio");
+  const regenerated: string[] = [];
+  for (const item of audioItems) {
+    if (item.slideId === null) continue;
+    const slide = course.slides.find((candidate) => candidate.id === item.slideId);
+    if (slide === undefined) continue;
+    const script = slide.narration.script.trim();
+    const voiceConfigId = slide.narration.voiceProfile.trim();
+    const assetRef = slide.narration.audioAssetRef?.trim() ?? "";
+    if (script.length === 0 || voiceConfigId.length === 0 || assetRef.length === 0) continue;
+    if (await exists(path.resolve(plan.courseRoot, assetRef))) continue;
+    const artifact = await narration.synthesize({
+      text: script,
+      language: slide.narration.language,
+      voiceProfile: voiceConfigId
+    });
+    const target = path.resolve(plan.courseRoot, assetRef);
+    await mkdir(path.dirname(target), { recursive: true });
+    await writeFile(target, artifact.bytes);
+    regenerated.push(item.id);
+  }
+  return regenerated.sort();
+};
 
 export const planBuild = async (coursePath: string, options: PlanBuildOptions = {}): Promise<WorkflowPlanResult> => {
   const resolvedCoursePath = path.resolve(coursePath);
@@ -265,7 +309,7 @@ const registerDeterministicOutput = async (
 };
 
 export const executeBuild = async (coursePath: string, options: ExecuteBuildOptions = {}): Promise<WorkflowExecutionResult> => {
-  const plan = await planBuild(coursePath, options);
+  let plan = await planBuild(coursePath, options);
   const workspaceRoot = path.resolve(options.workspaceRoot ?? plan.courseRoot);
   const registry = new ArtifactRegistry(path.join(workspaceRoot, ".livingcourse"));
   await registry.load();
@@ -291,6 +335,25 @@ export const executeBuild = async (coursePath: string, options: ExecuteBuildOpti
       qa: previous.qa ?? null,
       reviewPackage: plan.reviewPackage
     };
+  }
+  let ttsCalls = 0;
+  let regeneratedAudioIds: string[] = [];
+  if (plan.buildPlan.regenerate.length > 0) {
+    // Narration regeneration (v0.1.1): when a narration capability is
+    // configured, missing audio files declared by approved slides are
+    // synthesized through the pinned voice config, then the build re-plans
+    // deterministically. Without the capability the build still fails with
+    // LC-PROVIDER-001 — generation is never silently skipped.
+    const audioItems = plan.buildPlan.regenerate.filter((entry) => entry.kind === "audio");
+    if (options.narration !== undefined && audioItems.length > 0) {
+      regeneratedAudioIds = await regenerateNarrationAudio(plan, options.narration);
+      ttsCalls = regeneratedAudioIds.length;
+      if (ttsCalls > 0) {
+        // The course file itself is unchanged, so runId/inputHash stay the
+        // same; only probes now see the synthesized files.
+        plan = await planBuild(coursePath, options);
+      }
+    }
   }
   if (plan.buildPlan.regenerate.length > 0) throw new WorkflowError({
     code: "LC-PROVIDER-001",
@@ -344,9 +407,9 @@ export const executeBuild = async (coursePath: string, options: ExecuteBuildOpti
       runId: plan.runId,
       status: "complete",
       buildPlan: plan.buildPlan,
-      aiCalls: { llm: 0, image: 0, tts: 0 },
+      aiCalls: { llm: 0, image: 0, tts: ttsCalls },
       reused,
-      regenerated: [],
+      regenerated: regeneratedAudioIds,
       rebuilt,
       outputs: structuredClone(state.outputs),
       resumed,
